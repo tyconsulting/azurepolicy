@@ -1,4 +1,6 @@
 {
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "restrict-public-ips",
     "properties": {
         "displayName": "Restrict Public IP",
         "description": "This policy restrict Public IP resource from being associated to a NIC",

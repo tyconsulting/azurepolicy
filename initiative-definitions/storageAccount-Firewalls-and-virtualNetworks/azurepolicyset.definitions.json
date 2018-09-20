@@ -1,0 +1,13 @@
+[
+	{
+		"policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/restrict-public-storageaccounts"
+	},
+	{
+		"policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/restrict-public-storageAccount-firewall-rules",
+		"parameters": {
+			"allowedAddressRanges": {
+				"value": "[parameters('allowedAddressRanges')]"
+			}
+		}
+	}
+]

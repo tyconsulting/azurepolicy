@@ -1,0 +1,40 @@
+{
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "restrict-public-storageAccount-firewall-rules",  
+  "properties": {
+    "displayName": "Restrict Storage Accounts firewall rules",
+    "description": "This policy restrict IP ranges used in Storage Accounts firewall rules",
+    "parameters": {
+        "allowedAddressRanges": {
+            "type": "array",
+            "metadata": {
+                "description": "The list of allowed IP address ranges (Allowed internet address ranges can be provided using CIDR notation in the form 16.17.18.0/24 or as individual IP addresses like 16.17.18.19)",
+                "displayName": "Address Range"
+            }
+        }
+    },
+    "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "field": "Microsoft.Storage/storageAccounts/networkAcls.ipRules[*].value",
+              "notEquals": ""
+            },
+            {
+              "not":{
+                  "field": "Microsoft.Storage/storageAccounts/networkAcls.ipRules[*].value",
+                  "in": "[parameters('allowedAddressRanges')]"
+              }
+            }
+          ]
+        },
+        "then": {
+          "effect": "deny"
+        }
+      }
+    }
+}

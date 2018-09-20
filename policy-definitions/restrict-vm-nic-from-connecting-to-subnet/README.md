@@ -18,7 +18,7 @@ $assignment
 
 ````cli
 
-az policy definition create --name 'restrict-vm-nic-from-connecting-to-subnet' --display-name 'Restrict subnet for VM network interfaces' --description 'Restrict VM network interfaces from using a particular subnet' --rules 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-ips/azurepolicy.rules.json' --params 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-vm-nic-from-connecting-to-subnet/azurepolicy.parameters.json' --mode All
+az policy definition create --name 'restrict-vm-nic-from-connecting-to-subnet' --display-name 'Restrict subnet for VM network interfaces' --description 'Restrict VM network interfaces from using a particular subnet' --rules 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-vm-nic-from-connecting-to-subnet/azurepolicy.rules.json' --params 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-vm-nic-from-connecting-to-subnet/azurepolicy.parameters.json' --mode All
 
 az policy assignment create --name <assignmentname> --scope <scope> --policy "restrict-vm-nic-from-connecting-to-subnet" 
 
