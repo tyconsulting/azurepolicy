@@ -1,6 +1,6 @@
 [
 	{
-		"policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/restrict-public-storageaccounts"
+		"policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/restrict-public-storageAccounts"
 	},
 	{
 		"policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/restrict-public-storageAccount-firewall-rules",
