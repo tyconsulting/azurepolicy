@@ -4,6 +4,9 @@
   "properties": {
     "displayName": "Restrict Storage Accounts firewall rules",
     "description": "This policy restrict IP ranges used in Storage Accounts firewall rules",
+    "metadata": {
+      "category": "Storage"
+    },
     "parameters": {
         "allowedAddressRanges": {
             "type": "array",

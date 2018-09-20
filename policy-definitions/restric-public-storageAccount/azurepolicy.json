@@ -4,6 +4,9 @@
   "properties": {
     "displayName": "Restrict Public Storage Accounts",
     "description": "This policy restrict creation of storage accounts that are not connected to a VNet Service Endpoint.",
+    "metadata": {
+      "category": "Storage"
+    },
     "parameters": {},
     "policyRule": {
       "if": {

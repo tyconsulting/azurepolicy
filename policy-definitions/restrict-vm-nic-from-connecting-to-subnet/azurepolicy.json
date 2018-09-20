@@ -2,6 +2,9 @@
     "properties": {
         "displayName": "Restrict subnet for VM network interfaces",
         "description": "This policy restrict VM network interfaces from using a particular subnet",
+        "metadata": {
+            "category": "Network"
+          },
         "parameters": {
             "subnetId": {
                 "type": "string",
