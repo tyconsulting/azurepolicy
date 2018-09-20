@@ -8,7 +8,7 @@ This policy restrict creation of storage accounts that are not connected to a VN
 ## Try with PowerShell
 
 ````powershell
-$definition = New-AzureRmPolicyDefinition -Name "restrict-public-storageAccount" -DisplayName "Restrict Storage Accounts firewall rules" -description "This policy restrict creation of storage accounts that are not connected to a VNet Service Endpoint" -Policy 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.rules.json' -Parameter 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.parameters.json' -Mode All
+$definition = New-AzureRmPolicyDefinition -Name "restrict-public-storageAccounts" -DisplayName "Restrict Public Storage Accounts" -description "This policy restrict creation of storage accounts that are not connected to a VNet Service Endpoint" -Policy 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.rules.json' -Parameter 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.parameters.json' -Mode All -Metadata '{ "category": "Storage"}'
 $definition
 $assignment = New-AzureRMPolicyAssignment -Name <assignmentname> -Scope <scope> -PolicyDefinition $definition
 $assignment 
@@ -18,8 +18,8 @@ $assignment
 
 ````cli
 
-az policy definition create --name 'restrict-public-storageAccount' --display-name 'Restrict Storage Accounts firewall rules' --description 'This policy restrict creation of storage accounts that are not connected to a VNet Service Endpoint' --rules 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.rules.json' --params 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.parameters.json' --mode All
+az policy definition create --name 'restrict-public-storageAccounts' --display-name 'Restrict Public Storage Accounts' --description 'This policy restrict creation of storage accounts that are not connected to a VNet Service Endpoint' --rules 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.rules.json' --params 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-public-storageAccount/azurepolicy.parameters.json' --mode All
 
-az policy assignment create --name <assignmentname> --scope <scope> --policy "restrict-public-storageAccount" 
+az policy assignment create --name <assignmentname> --scope <scope> --policy "restrict-public-storageAccounts" 
 
 ````

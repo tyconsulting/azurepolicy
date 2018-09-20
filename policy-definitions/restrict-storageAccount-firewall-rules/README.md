@@ -8,7 +8,7 @@ This policy restrict IP ranges used in Storage Accounts firewall rules. When a S
 ## Try with PowerShell
 
 ````powershell
-$definition = New-AzureRmPolicyDefinition -Name "restrict-storageAccount-firewall-rules" -DisplayName "Restrict Storage Accounts firewall rules" -description "This policy restrict IP ranges used in Storage Accounts firewall rules" -Policy 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-storageAccount-firewall-rules/azurepolicy.rules.json' -Parameter 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-storageAccount-firewall-rules/azurepolicy.parameters.json' -Mode All
+$definition = New-AzureRmPolicyDefinition -Name "restrict-storageAccount-firewall-rules" -DisplayName "Restrict Storage Accounts firewall rules" -description "This policy restrict IP ranges used in Storage Accounts firewall rules" -Policy 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-storageAccount-firewall-rules/azurepolicy.rules.json' -Parameter 'https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/policy-definitions/restrict-storageAccount-firewall-rules/azurepolicy.parameters.json' -Mode All -Metadata '{ "category": "Storage"}'
 $definition
 $assignment = New-AzureRMPolicyAssignment -Name <assignmentname> -Scope <scope> -PolicyDefinition $definition
 $assignment 
