@@ -39,7 +39,7 @@ A policy for each resource type listed below is included as part of the ARM temp
 | Network Security Group          | Microsoft.Network/networkSecurityGroups  |
 | PostgreSQL DB                   | Microsoft.DBforPostgreSQL/servers        |
 | Power BI Embedded               | Microsoft.PowerBIDedicated/capacities    |
-| Public ip                       | Apply diagnostic settings for Public IPs |
+| Public ip                       | Microsoft.Network/publicIPAddresse |
 | Recovery Vault                  | Microsoft.RecoveryServices/vaults        |
 | Redis Cache                     | Microsoft.Cache/redis                    |
 | Relay                           | Microsoft.Relay/namespaces               |
