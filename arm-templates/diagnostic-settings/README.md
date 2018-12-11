@@ -1,7 +1,7 @@
 # Introduction 
 This ARM template deploys number of Azure Policy definitions to configure applicable Azure resources to forward diagnostic logs to Azure Log Analytics. It also contains an Azure Policy Initiative that contains all policies defined in the template.
 
-More information can be found from Tao's blog [https://blog.tyang.org](https://blog.tyang.org)
+More information can be found from Tao's blog [https://blog.tyang.org/2018/11/19/configuring-azure-resources-diagnostic-log-settings-using-azure-policy/](https://blog.tyang.org/2018/11/19/configuring-azure-resources-diagnostic-log-settings-using-azure-policy/)
 
 # Policy list
 A policy for each resource type listed below is included as part of the ARM template:
@@ -39,7 +39,7 @@ A policy for each resource type listed below is included as part of the ARM temp
 | Network Security Group          | Microsoft.Network/networkSecurityGroups  |
 | PostgreSQL DB                   | Microsoft.DBforPostgreSQL/servers        |
 | Power BI Embedded               | Microsoft.PowerBIDedicated/capacities    |
-| Public ip                       | Microsoft.Network/publicIPAddresse |
+| Public ip                       | Microsoft.Network/publicIPAddresses |
 | Recovery Vault                  | Microsoft.RecoveryServices/vaults        |
 | Redis Cache                     | Microsoft.Cache/redis                    |
 | Relay                           | Microsoft.Relay/namespaces               |
