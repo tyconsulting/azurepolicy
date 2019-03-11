@@ -4,7 +4,7 @@
 AUTHOR:  Tao Yang 
 DATE:    08/03/2019
 Version: 1.0
-Comment: builk deploy Azure policy and initiative definitions to a management group or a subscription
+Comment: builk deploy Azure policy definitions to a management group or a subscription
 =======================================================================================================
 #>
 [CmdLetBinding()]
