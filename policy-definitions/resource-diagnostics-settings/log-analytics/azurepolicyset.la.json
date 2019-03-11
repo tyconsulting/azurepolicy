@@ -1,0 +1,64 @@
+{
+    "properties": {
+        "displayName": "Apply diagnostic settings for applicable resources",
+        "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
+        "metadata": {
+            "category": "Monitoring"
+        },
+        "parameters": {
+            "logAnalytics": {
+                "type": "string",
+                "metadata": {
+                "displayName": "Log Analyitcs workspace",
+                "description": "Select the Log Analytics workspace from dropdown list",
+                "strongType": "omsWorkspace"
+                }
+            }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('nicDiagPolicyName'))]",
+                "parameters": {
+                  "logAnalytics": {
+                    "value": "[parameters('logAnalytics')]"
+                  }
+                }
+              },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0e14a6-b0a6-4fab-991a-187a4f81c498",
+                "parameters": {
+                    "tagName": {
+                        "value": "costCenter"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('costCenterValue')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e30110a-5ceb-460c-a204-c1c3969c6d62",
+                "parameters": {
+                    "tagName": {
+                        "value": "productName"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('productNameValue')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0e14a6-b0a6-4fab-991a-187a4f81c498",
+                "parameters": {
+                    "tagName": {
+                        "value": "productName"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('productNameValue')]"
+                    }
+                }
+            }
+        ]
+    },
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "resource-diagnostic-settings-policySet"
+}
