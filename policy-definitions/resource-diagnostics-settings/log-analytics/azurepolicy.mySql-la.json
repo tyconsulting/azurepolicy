@@ -7,16 +7,16 @@
           "category": "Monitoring"
         },
 		"mode": "all",
-        "parameters": {
-            "logAnalytics": {
-                "type": "string",
-                "metadata": {
-                  "displayName": "Log Analyitcs workspace",
-                  "description": "Select the Log Analytics workspace from dropdown list",
-                  "strongType": "omsWorkspace"
-                }
-              }
-        },
+    "parameters": {
+        "logAnalytics": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Log Analyitcs workspace",
+              "description": "Select the Log Analytics workspace from dropdown list",
+              "strongType": "omsWorkspace"
+            }
+          }
+    },
 		"policyRule": {
           "if": {
             "field": "type",
@@ -52,11 +52,11 @@
                       {
                         "type": "Microsoft.DBforMySQL/servers/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[variables('resourceDiagName')]",
-                        "location": "[variables('location')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
+                        "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
-                          "workspaceId": "[variables('logAnalytics')]",
+                          "workspaceId": "[parameters('logAnalytics')]",
                           "metrics": [
                             {
                               "category": "AllMetrics",

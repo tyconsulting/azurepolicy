@@ -6,7 +6,7 @@
         "metadata": {
           "category": "Monitoring"
         },
-		"mode": "all",
+		    "mode": "all",
         "parameters": {
             "logAnalytics": {
                 "type": "string",
@@ -16,7 +16,7 @@
                   "strongType": "omsWorkspace"
                 }
               }
-        },
+    },
 		"policyRule": {
           "if": {
             "field": "type",
@@ -52,11 +52,11 @@
                       {
                         "type": "Microsoft.SignalRService/SignalR/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[variables('resourceDiagName')]",
-                        "location": "[variables('location')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
+                        "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
-                          "workspaceId": "[variables('logAnalytics')]",
+                          "workspaceId": "[parameters('logAnalytics')]",
                           "metrics": [
                             {
                               "category": "AllMetrics",
