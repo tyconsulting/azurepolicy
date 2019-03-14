@@ -127,7 +127,7 @@
                       "value": "[field('location')]"
                     },
                     "resourceName": {
-                      "value": "[field('name')]"
+                      "value": "[field('fullName')]"
                     }
                   }
                 }

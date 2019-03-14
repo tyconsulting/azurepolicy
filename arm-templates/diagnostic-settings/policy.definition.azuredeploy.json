@@ -30,6 +30,7 @@
     "serviceBusDiagPolicyName": "serviceBus-diagnostic-settings-policyDef",
     "sqlDBsDiagPolicyName": "sqlDBs-diagnostic-settings-policyDef",
     "sqlElasticPoolsDiagPolicyName": "sqlElasticPools-diagnostic-settings-policyDef",
+	"sqlMIDiagPolicyName": "sql-mi-diagnostic-settings-policyDef",
     "apiMgmtDiagPolicyName": "apiMgmt-diagnostic-settings-policyDef",
     "appGwDiagPolicyName": "appGw-diagnostic-settings-policyDef",
     "batchDiagPolicyName": "batch-diagnostic-settings-policyDef",
@@ -50,6 +51,7 @@
     "vnetGWDiagPolicyName": "vnetGW-diagnostic-settings-policyDef",
     "aksDiagPolicyName": "aks-diagnostic-settings-policyDef",
     "websiteDiagPolicyName": "website-diagnostic-settings-policyDef",
+	"webServerFarmDiagPolicyName": "webServerFarm-diagnostic-settings-policyDef",
     "analysisServiceDiagPolicyName": "analysisService-diagnostic-settings-policyDef",
     "eventGridTopicDiagPolicyName": "eventGridTopic-diagnostic-settings-policyDef",
     "eventGridSubDiagPolicyName": "eventGridSub-diagnostic-settings-policyDef",
@@ -4976,12 +4978,208 @@
         }
       }
     },
+	{
+      "type": "Microsoft.Authorization/policyDefinitions",
+      "name": "[variables('webServerFarmDiagPolicyName')]",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+        "[variables('trafficManagerDiagPolicyName')]"
+      ],
+      "properties": {
+        "displayName": "Apply diagnostic settings for Azure App Service Plans",
+        "description": "[variables('policyDescription')]",
+        "metadata": {
+          "category": "Monitoring"
+        },
+        "mode": "all",
+        "parameters": {
+          "logAnalytics": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Log Analyitcs workspace",
+              "description": "Select the Log Analytics workspace from dropdown list",
+              "strongType": "omsWorkspace"
+            }
+          }
+        },
+        "policyRule": {
+          "if": {
+            "field": "type",
+            "equals": "Microsoft.Web/serverfarms"
+          },
+          "then": {
+            "effect": "deployIfNotExists",
+            "details": {
+              "type": "Microsoft.Insights/diagnosticSettings",
+              "name": "setByPolicy",
+              "roleDefinitionIds": [
+                "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+              ],
+              "deployment": {
+                "properties": {
+                  "mode": "incremental",
+                  "template": {
+                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                      "resourceName": {
+                        "type": "string"
+                      },
+                      "logAnalytics": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": "string"
+                      }
+                    },
+                    "variables": {},
+                    "resources": [
+                      {
+                        "type": "Microsoft.Web/serverfarms/providers/diagnosticSettings",
+                        "apiVersion": "2017-05-01-preview",
+                        "name": "[variables('resourceDiagName')]",
+                        "location": "[variables('location')]",
+                        "dependsOn": [],
+                        "properties": {
+                          "workspaceId": "[variables('logAnalytics')]",
+                          "metrics": [
+                            {
+                              "category": "AllMetrics",
+                              "enabled": true,
+                              "retentionPolicy": {
+                                "days": 0,
+                                "enabled": false
+                              },
+                              "timeGrain": null
+                            }
+                          ],
+                          "logs": []
+                        }
+                      }
+                    ],
+                    "outputs": {}
+                  },
+                  "parameters": {
+                    "logAnalytics": {
+                      "value": "[variables('logAnalytics')]"
+                    },
+                    "location": {
+                      "value": "[variables('locationField')]"
+                    },
+                    "resourceName": {
+                      "value": "[variables('resourceNameField')]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+	{
+      "type": "Microsoft.Authorization/policyDefinitions",
+      "name": "[variables('sqlMIDiagPolicyName')]",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+        "[variables('webServerFarmDiagPolicyName')]"
+      ],
+      "properties": {
+        "displayName": "Apply diagnostic settings for SQL Managed Instances",
+        "description": "[variables('policyDescription')]",
+        "metadata": {
+          "category": "Monitoring"
+        },
+        "mode": "all",
+        "parameters": {
+          "logAnalytics": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Log Analyitcs workspace",
+              "description": "Select the Log Analytics workspace from dropdown list",
+              "strongType": "omsWorkspace"
+            }
+          }
+        },
+        "policyRule": {
+          "if": {
+            "field": "type",
+            "equals": "Microsoft.Sql/managedInstances"
+          },
+          "then": {
+            "effect": "deployIfNotExists",
+            "details": {
+              "type": "Microsoft.Insights/diagnosticSettings",
+              "name": "setByPolicy",
+              "roleDefinitionIds": [
+                "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+              ],
+              "deployment": {
+                "properties": {
+                  "mode": "incremental",
+                  "template": {
+                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                      "resourceName": {
+                        "type": "string"
+                      },
+                      "logAnalytics": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": "string"
+                      }
+                    },
+                    "variables": {},
+                    "resources": [
+                      {
+                        "type": "Microsoft.Sql/managedInstances/providers/diagnosticSettings",
+                        "apiVersion": "2017-05-01-preview",
+                        "name": "[variables('resourceDiagName')]",
+                        "location": "[variables('location')]",
+                        "dependsOn": [],
+                        "properties": {
+                          "workspaceId": "[variables('logAnalytics')]",
+                          "logs": [
+                                {
+                                  "category": "ResourceUsageStats",
+                                  "enabled": true
+                                },
+                                {
+                                  "category": "SQLSecurityAuditEvents",
+                                  "enabled": true
+                                }
+                              ]
+                        }
+                      }
+                    ],
+                    "outputs": {}
+                  },
+                  "parameters": {
+                    "logAnalytics": {
+                      "value": "[variables('logAnalytics')]"
+                    },
+                    "location": {
+                      "value": "[variables('locationField')]"
+                    },
+                    "resourceName": {
+                      "value": "[variables('resourceNameField')]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     {
       "type": "Microsoft.Authorization/policyDefinitions",
       "name": "[variables('timeSeriesInsightsDiagPolicyName')]",
       "apiVersion": "2018-05-01",
       "dependsOn": [
-        "[variables('trafficManagerDiagPolicyName')]"
+        "[variables('sqlMIDiagPolicyName')]"
       ],
       "properties": {
         "displayName": "Apply diagnostic settings for Time Series Insights",
@@ -5461,6 +5659,22 @@
           },
           {
             "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('trafficManagerDiagPolicyName'))]",
+            "parameters": {
+              "logAnalytics": {
+                "value": "[variables('logAnalytics')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('webServerFarmDiagPolicyName'))]",
+            "parameters": {
+              "logAnalytics": {
+                "value": "[variables('logAnalytics')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('sqlMIDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"

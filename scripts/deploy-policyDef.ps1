@@ -9,13 +9,23 @@ Comment: builk deploy Azure policy definitions to a management group or a subscr
 #>
 [CmdLetBinding()]
 Param (
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployToSub', HelpMessage = 'Specify the file paths for the policy or initiative definition files.')]
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployToMG', HelpMessage = 'Specify the file paths for the policy or initiative definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployFilesToSub', HelpMessage = 'Specify the file paths for the policy or initiative definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployFilesToMG', HelpMessage = 'Specify the file paths for the policy or initiative definition files.')]
   [ValidateScript({test-path $_})][String[]]$definitionFile,
 
-  [Parameter(Mandatory = $true, ParameterSetName = 'deployToSub')][ValidateScript({try {[guid]::parse($_)} catch {$false}})][String]$subscriptionId,
-  [Parameter(Mandatory = $true, ParameterSetName = 'deployToMG')][ValidateNotNullOrEmpty()][String]$managementGroupName
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Specify the directory path that contains the policy or initiative definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Specify the directory path that contains the policy or initiative definition files.')]
+  [ValidateScript({test-path $_ -PathType 'Container'})][String[]]$FolderPath,
+
+  [Parameter(Mandatory = $true, ParameterSetName = 'deployFilesToSub')]
+  [Parameter(Mandatory = $true, ParameterSetName = 'deployDirToSub')]
+  [ValidateScript({try {[guid]::parse($_)} catch {$false}})][String]$subscriptionId,
+
+  [Parameter(Mandatory = $true, ParameterSetName = 'deployFilesToMG')]
+  [Parameter(Mandatory = $true, ParameterSetName = 'deployDirToMG')]
+  [ValidateNotNullOrEmpty()][String]$managementGroupName
 )
+
 #region functions
 Function Process-AzureSignIn
 {
@@ -41,7 +51,7 @@ Function DeployPolicyDefinition
     $policyDisplayName = $Definition.properties.displayName
     $policyDescription = $Definition.properties.description
     $policyParameters = $Definition.properties.parameters | convertTo-Json
-    $PolicyRule = $Definition.properties.policyRule | convertTo-Json -Depth 10
+    $PolicyRule = $Definition.properties.policyRule | convertTo-Json -Depth 15
     $policyMetaData = $Definition.properties.metadata | convertTo-Json
     $deployParams = @{
       Name = $policyName
@@ -83,6 +93,12 @@ Try {
     Process-AzureSignIn
 }
 #Read all definitions
+If ($PSCmdlet.ParameterSetName -eq 'deployDirToMG' -or $PSCmdlet.ParameterSetName -eq 'deployDirToSub')
+{
+  Write-Verbose "A folder path is used. Retrieving all JSON files in the folder."
+  $definitionFile = (Get-ChildItem -Path $FolderPath -File -Filter '*.json').FullName
+  Write-Verbose "Number of JSON files located in folder '$FolderPath': $($definitionFile.count)."
+}
 $Definitions = @()
 Foreach ($file in $definitionFile)
 {
@@ -106,7 +122,7 @@ Foreach ($objDef in $Definitions)
   $params = @{
     Definition = $objDef
   }
-  If ($PSCmdlet.ParameterSetName -eq 'deployToSub')
+  If ($PSCmdlet.ParameterSetName -eq 'deployDirToSub' -or $PSCmdlet.ParameterSetName -eq 'deployFilesToSub')
   {
     Write-Verbose "Deploying policy '$($objDef.name)' to subscription '$subscriptionId'"
     $params.Add('subscriptionId', $subscriptionId)

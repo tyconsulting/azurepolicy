@@ -1,7 +1,7 @@
 {
     "name": "sql-mi-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SQL Managed Instance",
+        "displayName": "Apply diagnostic settings for SQL Managed Instances",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
@@ -50,7 +50,7 @@
                         "variables": {},
                         "resources": [
                           {
-                            "type": "Microsoft.Network/networkInterfaces/providers/diagnosticSettings",
+                            "type": "Microsoft.Sql/managedInstances/providers/diagnosticSettings",
                             "apiVersion": "2017-05-01-preview",
                             "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
                             "location": "[parameters('location')]",

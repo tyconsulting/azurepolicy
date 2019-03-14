@@ -1,7 +1,7 @@
 {
-    "name": "cdnEndpoints-workflow-diagnostic-settings-policyDef",
+    "name": "webServerFarm-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for CDN Endpoints",
+        "displayName": "Apply diagnostic settings for Azure App Service Plans",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
@@ -20,7 +20,7 @@
 		"policyRule": {
           "if": {
             "field": "type",
-            "equals": "Microsoft.Cdn/profiles/endpoints"
+            "equals": "Microsoft.Web/serverfarms"
           },
           "then": {
             "effect": "deployIfNotExists",
@@ -50,20 +50,25 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
+                        "type": "Microsoft.Web/serverfarms/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
                           "workspaceId": "[parameters('logAnalytics')]",
-                          "metrics": [],
-                          "logs": [
+                          "metrics": [
                             {
-                              "category": "CoreAnalytics",
-                              "enabled": true
+                              "category": "AllMetrics",
+                              "enabled": true,
+                              "retentionPolicy": {
+                                "days": 0,
+                                "enabled": false
+                              },
+                              "timeGrain": null
                             }
-                          ]
+                          ],
+                          "logs": []
                         }
                       }
                     ],
@@ -77,7 +82,7 @@
                       "value": "[field('location')]"
                     },
                     "resourceName": {
-                      "value": "[field('fullName')]"
+                      "value": "[field('name')]"
                     }
                   }
                 }
