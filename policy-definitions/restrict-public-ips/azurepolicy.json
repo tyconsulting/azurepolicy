@@ -10,17 +10,27 @@
         "parameters": {},
         "policyRule": {
             "if": {
-                "allOf": [
-                    {
-                        "field": "type",
-                        "equals": "Microsoft.Network/networkInterfaces"
-                    },
-                    {
-                        "field": "Microsoft.Network/networkInterfaces/ipconfigurations[*].publicIpAddress.id",
-                        "exists": true
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/networkInterfaces"
+              },
+              {
+                "anyof": [
+                  {
+                    "field": "Microsoft.Network/networkInterfaces/ipconfigurations[*].publicIpAddress.id",
+                    "exists": true
+                  },
+                  {
+                    "not": {
+                      "field": "Microsoft.Network/networkInterfaces/ipconfigurations[*].publicIpAddress.id",
+                      "exists": false
                     }
+                  }
                 ]
-            },
+              }
+            ]
+          },
             "then": {
                 "effect": "deny"
             }
