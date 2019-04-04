@@ -1,12 +1,12 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "cdnEndpoints-workflow-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for CDN Endpoints - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
         },
-		    "mode": "all",
+		"mode": "all",
         "parameters": {
           "resourceLocation": {
             "type": "string",
@@ -36,7 +36,7 @@
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.Cdn/profiles/endpoints"
               },
               {
                 "field": "location",
@@ -75,28 +75,18 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
                           "eventHubName": "[parameters('eventHubName')]",
                           "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                          "metrics": [
-                            {
-                              "category": "AllMetrics",
-                              "enabled": true,
-                              "retentionPolicy": {
-                                "days": 0,
-                                "enabled": false
-                              },
-                              "timeGrain": null
-                            }
-                          ],
+                          "metrics": [],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "CoreAnalytics",
                               "enabled": true
                             }
                           ]
@@ -116,7 +106,7 @@
                       "value": "[field('location')]"
                     },
                     "resourceName": {
-                      "value": "[field('name')]"
+                      "value": "[field('fullName')]"
                     }
                   }
                 }

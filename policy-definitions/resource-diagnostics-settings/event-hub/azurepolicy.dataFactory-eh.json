@@ -1,12 +1,12 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "dataFactory-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Data Factory - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
         },
-		    "mode": "all",
+		"mode": "all",
         "parameters": {
           "resourceLocation": {
             "type": "string",
@@ -36,7 +36,7 @@
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.DataFactory/factories"
               },
               {
                 "field": "location",
@@ -75,9 +75,9 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.DataFactory/factories/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
@@ -96,7 +96,15 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "ActivityRuns",
+                              "enabled": true
+                            },
+                            {
+                              "category": "PipelineRuns",
+                              "enabled": true
+                            },
+                            {
+                              "category": "TriggerRuns",
                               "enabled": true
                             }
                           ]

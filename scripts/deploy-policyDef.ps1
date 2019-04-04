@@ -61,10 +61,13 @@ Function DeployPolicyDefinition
       Policy = $PolicyRule
       Metadata = $policyMetaData
     }
-    If ($PSCmdlet.ParameterSetName -eq 'deloyToSub')
+    Write-Verbose "  - 'DeployPolicyDefinition' function parameter set name: '$($PSCmdlet.ParameterSetName)'"
+    If ($PSCmdlet.ParameterSetName -eq 'deployToSub')
     {
+      Write-Verbose "  - Adding SubscriptionId to the input parameters for New-AzPolicyDefinition cmdlet"
       $deployParams.Add('SubscriptionId', $subscriptionId)
     } else {
+      Write-Verbose "  - Adding ManagementGroupName to the input parameters for New-AzPolicyDefinition cmdlet"
       $deployParams.Add('ManagementGroupName', $managementGroupName)
     }
     $deployResult = New-AzPolicyDefinition @deployParams

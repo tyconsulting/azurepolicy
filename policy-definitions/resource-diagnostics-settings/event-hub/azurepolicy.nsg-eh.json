@@ -1,48 +1,26 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "nsg-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
-        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
+        "displayName": "Apply diagnostic settings for Network Security Groups - Event Hub",
+        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
         },
 		    "mode": "all",
         "parameters": {
-          "resourceLocation": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Resource Location",
-              "description": "Resource Location must be the same as the Event Hub",
-              "strongType": "location"
-            }
-          }, 
-          "eventHubName": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Event Hub Name",
-              "description": "Specify the name of the Event Hub"
-            }
-          },
-          "eventHubAuthorizationRuleId": {
+            "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                  "displayName": "Event Hub Authorization Rule Id",
-                  "description": "Specify Event Hub Authorization Rule Id"
+                  "displayName": "Log Analyitcs workspace",
+                  "description": "Select the Log Analytics workspace from dropdown list",
+                  "strongType": "omsWorkspace"
                 }
-          }
+              }
         },
 		"policyRule": {
           "if": {
-            "allOf":[
-              {
-                "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
-              },
-              {
-                "field": "location",
-                "equals": "[parameters('resourceLocation')]"
-              }
-            ]
+            "field": "type",
+            "equals": "Microsoft.Network/networkSecurityGroups"
           },
           "then": {
             "effect": "deployIfNotExists",
@@ -75,28 +53,22 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.Network/networkSecurityGroups/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
                           "eventHubName": "[parameters('eventHubName')]",
                           "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                          "metrics": [
-                            {
-                              "category": "AllMetrics",
-                              "enabled": true,
-                              "retentionPolicy": {
-                                "days": 0,
-                                "enabled": false
-                              },
-                              "timeGrain": null
-                            }
-                          ],
+                          "metrics": [],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "NetworkSecurityGroupEvent",
+                              "enabled": true
+                            },
+                            {
+                              "category": "NetworkSecurityGroupRuleCounter",
                               "enabled": true
                             }
                           ]

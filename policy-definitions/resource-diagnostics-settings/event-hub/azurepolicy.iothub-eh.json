@@ -1,42 +1,28 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "iotHub-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for IoT Hubs - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
         },
 		    "mode": "all",
         "parameters": {
-          "resourceLocation": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Resource Location",
-              "description": "Resource Location must be the same as the Event Hub",
-              "strongType": "location"
-            }
-          }, 
-          "eventHubName": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Event Hub Name",
-              "description": "Specify the name of the Event Hub"
-            }
-          },
-          "eventHubAuthorizationRuleId": {
+            "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                  "displayName": "Event Hub Authorization Rule Id",
-                  "description": "Specify Event Hub Authorization Rule Id"
+                  "displayName": "Log Analyitcs workspace",
+                  "description": "Select the Log Analytics workspace from dropdown list",
+                  "strongType": "omsWorkspace"
                 }
-          }
+              }
         },
 		"policyRule": {
           "if": {
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.Devices/IotHubs"
               },
               {
                 "field": "location",
@@ -75,9 +61,9 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.Devices/IotHubs/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
@@ -96,7 +82,55 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "Connections",
+                              "enabled": true
+                            },
+                            {
+                              "category": "DeviceTelemetry",
+                              "enabled": true
+                            },
+                            {
+                              "category": "C2DCommands",
+                              "enabled": true
+                            },
+                            {
+                              "category": "DeviceIdentityOperations",
+                              "enabled": true
+                            },
+                            {
+                              "category": "FileUploadOperations",
+                              "enabled": true
+                            },
+                            {
+                              "category": "Routes",
+                              "enabled": true
+                            },
+                            {
+                              "category": "D2CTwinOperations",
+                              "enabled": true
+                            },
+                            {
+                              "category": "C2DTwinOperations",
+                              "enabled": true
+                            },
+                            {
+                              "category": "TwinQueries",
+                              "enabled": true
+                            },
+                            {
+                              "category": "JobsOperations",
+                              "enabled": true
+                            },
+                            {
+                              "category": "DirectMethods",
+                              "enabled": true
+                            },
+                            {
+                              "category": "E2EDiagnostics",
+                              "enabled": true
+                            },
+                            {
+                              "category": "Configurations",
                               "enabled": true
                             }
                           ]

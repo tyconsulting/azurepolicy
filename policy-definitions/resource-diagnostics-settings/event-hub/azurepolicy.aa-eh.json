@@ -1,7 +1,7 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "aa-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Azure Automation Accounts - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
@@ -31,12 +31,12 @@
                 }
           }
         },
-		"policyRule": {
+        "policyRule": {
           "if": {
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.Automation/automationAccounts"
               },
               {
                 "field": "location",
@@ -48,7 +48,7 @@
             "effect": "deployIfNotExists",
             "details": {
               "type": "Microsoft.Insights/diagnosticSettings",
-              "name": "setByPolicyEvthub",
+              "name": "setByPolicyEvtHub",
               "roleDefinitionIds": [
                 "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
               ],
@@ -75,7 +75,7 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.Automation/automationAccounts/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
                         "location": "[parameters('location')]",
@@ -86,17 +86,25 @@
                           "metrics": [
                             {
                               "category": "AllMetrics",
+                              "timeGrain": null,
                               "enabled": true,
                               "retentionPolicy": {
-                                "days": 0,
-                                "enabled": false
-                              },
-                              "timeGrain": null
+                                "enabled": false,
+                                "days": 0
+                              }
                             }
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "JobLogs",
+                              "enabled": true
+                            },
+                            {
+                              "category": "JobStreams",
+                              "enabled": true
+                            },
+                            {
+                              "category": "DscNodeStatus",
                               "enabled": true
                             }
                           ]
@@ -123,6 +131,6 @@
               }
             }
           }
+        }
       }
-    }
 }

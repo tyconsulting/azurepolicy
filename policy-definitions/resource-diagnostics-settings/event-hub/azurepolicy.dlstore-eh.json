@@ -1,7 +1,7 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "dlstore-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Data Lake Storage - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
@@ -36,7 +36,7 @@
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.DataLakeStore/accounts"
               },
               {
                 "field": "location",
@@ -75,9 +75,9 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.DataLakeStore/accounts/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
@@ -96,7 +96,11 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "Audit",
+                              "enabled": true
+                            },
+                            {
+                              "category": "Requests",
                               "enabled": true
                             }
                           ]

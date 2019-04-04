@@ -1,12 +1,12 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "aks-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Azure Kubernetes Service - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
         },
-		    "mode": "all",
+		"mode": "all",
         "parameters": {
           "resourceLocation": {
             "type": "string",
@@ -36,7 +36,7 @@
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.ContainerService/managedClusters"
               },
               {
                 "field": "location",
@@ -75,9 +75,9 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.ContainerService/managedClusters/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
@@ -96,7 +96,23 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "guard",
+                              "enabled": true
+                            },
+                            {
+                              "category": "kube-apiserver",
+                              "enabled": true
+                            },
+                            {
+                              "category": "kube-controller-manager",
+                              "enabled": true
+                            },
+                            {
+                              "category": "kube-scheduler",
+                              "enabled": true
+                            },
+                            {
+                              "category": "cluster-autoscaler",
                               "enabled": true
                             }
                           ]

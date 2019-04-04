@@ -1,7 +1,7 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "recoveryVault-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Recovery Vaults - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
@@ -31,12 +31,12 @@
                 }
           }
         },
-		"policyRule": {
+      "policyRule": {
           "if": {
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.RecoveryServices/vaults"
               },
               {
                 "field": "location",
@@ -75,28 +75,46 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
                           "eventHubName": "[parameters('eventHubName')]",
                           "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                          "metrics": [
-                            {
-                              "category": "AllMetrics",
-                              "enabled": true,
-                              "retentionPolicy": {
-                                "days": 0,
-                                "enabled": false
-                              },
-                              "timeGrain": null
-                            }
-                          ],
+                          "metrics": [],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "AzureBackupReport",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryJobs",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryEvents",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryReplicatedItems",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryReplicationStats",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryRecoveryPoints",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryReplicationDataUploadRate",
+                              "enabled": true
+                            },
+                            {
+                              "category": "AzureSiteRecoveryProtectedDiskDataChurn",
                               "enabled": true
                             }
                           ]
@@ -123,6 +141,6 @@
               }
             }
           }
-      }
+        }
     }
 }

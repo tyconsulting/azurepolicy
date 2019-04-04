@@ -1,7 +1,7 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "cognitive-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Cognitive Services - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
@@ -36,7 +36,7 @@
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.CognitiveServices/accounts"
               },
               {
                 "field": "location",
@@ -75,7 +75,7 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.CognitiveServices/accounts/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
                         "location": "[parameters('location')]",
@@ -96,7 +96,11 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "Audit",
+                              "enabled": true
+                            },
+                            {
+                              "category": "RequestResponse",
                               "enabled": true
                             }
                           ]

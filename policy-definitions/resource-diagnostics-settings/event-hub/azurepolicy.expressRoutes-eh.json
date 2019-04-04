@@ -1,42 +1,42 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "expressRoutes-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Express Routes Circuits - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
         },
-		    "mode": "all",
-        "parameters": {
-          "resourceLocation": {
+		"mode": "all",
+    "parameters": {
+      "resourceLocation": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Resource Location",
+          "description": "Resource Location must be the same as the Event Hub",
+          "strongType": "location"
+        }
+      }, 
+      "eventHubName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Event Hub Name",
+          "description": "Specify the name of the Event Hub"
+        }
+      },
+      "eventHubAuthorizationRuleId": {
             "type": "string",
             "metadata": {
-              "displayName": "Resource Location",
-              "description": "Resource Location must be the same as the Event Hub",
-              "strongType": "location"
+              "displayName": "Event Hub Authorization Rule Id",
+              "description": "Specify Event Hub Authorization Rule Id"
             }
-          }, 
-          "eventHubName": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Event Hub Name",
-              "description": "Specify the name of the Event Hub"
-            }
-          },
-          "eventHubAuthorizationRuleId": {
-                "type": "string",
-                "metadata": {
-                  "displayName": "Event Hub Authorization Rule Id",
-                  "description": "Specify Event Hub Authorization Rule Id"
-                }
-          }
-        },
+      }
+    },
 		"policyRule": {
           "if": {
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.Network/expressRouteCircuits"
               },
               {
                 "field": "location",
@@ -75,9 +75,9 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.Network/expressRouteCircuits/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
@@ -96,7 +96,7 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "PeeringRouteLog",
                               "enabled": true
                             }
                           ]

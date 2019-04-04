@@ -1,12 +1,12 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "cosmosDBs-workflow-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Cosmos DB - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
           "category": "Monitoring"
         },
-		    "mode": "all",
+		"mode": "all",
         "parameters": {
           "resourceLocation": {
             "type": "string",
@@ -36,7 +36,7 @@
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.DocumentDB/databaseAccounts"
               },
               {
                 "field": "location",
@@ -75,17 +75,16 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.DocumentDB/databaseAccounts/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
-                          "eventHubName": "[parameters('eventHubName')]",
-                          "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
+                          "workspaceId": "[parameters('logAnalytics')]",
                           "metrics": [
                             {
-                              "category": "AllMetrics",
+                              "category": "Requests",
                               "enabled": true,
                               "retentionPolicy": {
                                 "days": 0,
@@ -96,7 +95,15 @@
                           ],
                           "logs": [
                             {
-                              "category": "AuditEvent",
+                              "category": "DataPlaneRequests",
+                              "enabled": true
+                            },
+                            {
+                              "category": "MongoRequests",
+                              "enabled": true
+                            },
+                            {
+                              "category": "QueryRuntimeStatistics",
                               "enabled": true
                             }
                           ]

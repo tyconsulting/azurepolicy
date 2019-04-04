@@ -20,7 +20,7 @@
         "policyRule": {
           "if": {
             "field": "type",
-            "equals": "Microsoft.Network/publicIPAddresses"
+            "equals": "Microsoft.Automation/automationAccounts"
           },
           "then": {
             "effect": "deployIfNotExists",
@@ -50,7 +50,7 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.Network/publicIPAddresses/providers/diagnosticSettings",
+                        "type": "Microsoft.Automation/automationAccounts/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
                         "location": "[parameters('location')]",
@@ -70,15 +70,15 @@
                           ],
                           "logs": [
                             {
-                              "category": "DDoSProtectionNotifications",
+                              "category": "JobLogs",
                               "enabled": true
                             },
                             {
-                              "category": "DDoSMitigationFlowLogs",
+                              "category": "JobStreams",
                               "enabled": true
                             },
                             {
-                              "category": "DDoSMitigationReports",
+                              "category": "DscNodeStatus",
                               "enabled": true
                             }
                           ]

@@ -1,42 +1,42 @@
 {
-    "name": "kv-diagnostic-settings-eh-policyDef",
+    "name": "sqlElasticPools-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults - Event Hub",
-        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
+        "displayName": "Apply diagnostic settings for SQL Elastic Pools",
+        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
-        },
-		    "mode": "all",
-        "parameters": {
-          "resourceLocation": {
+    },
+		"mode": "all",
+    "parameters": {
+      "resourceLocation": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Resource Location",
+          "description": "Resource Location must be the same as the Event Hub",
+          "strongType": "location"
+        }
+      }, 
+      "eventHubName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Event Hub Name",
+          "description": "Specify the name of the Event Hub"
+        }
+      },
+      "eventHubAuthorizationRuleId": {
             "type": "string",
             "metadata": {
-              "displayName": "Resource Location",
-              "description": "Resource Location must be the same as the Event Hub",
-              "strongType": "location"
+              "displayName": "Event Hub Authorization Rule Id",
+              "description": "Specify Event Hub Authorization Rule Id"
             }
-          }, 
-          "eventHubName": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Event Hub Name",
-              "description": "Specify the name of the Event Hub"
-            }
-          },
-          "eventHubAuthorizationRuleId": {
-                "type": "string",
-                "metadata": {
-                  "displayName": "Event Hub Authorization Rule Id",
-                  "description": "Specify Event Hub Authorization Rule Id"
-                }
-          }
-        },
+      }
+    },
 		"policyRule": {
           "if": {
             "allOf":[
               {
                 "field": "type",
-                "equals": "Microsoft.KeyVault/vaults"
+                "equals": "Microsoft.Sql/servers/elasticPools"
               },
               {
                 "field": "location",
@@ -75,9 +75,9 @@
                     "variables": {},
                     "resources": [
                       {
-                        "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                        "type": "Microsoft.Sql/servers/elasticPools/providers/diagnosticSettings",
                         "apiVersion": "2017-05-01-preview",
-                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
                         "location": "[parameters('location')]",
                         "dependsOn": [],
                         "properties": {
@@ -94,12 +94,7 @@
                               "timeGrain": null
                             }
                           ],
-                          "logs": [
-                            {
-                              "category": "AuditEvent",
-                              "enabled": true
-                            }
-                          ]
+                          "logs": []
                         }
                       }
                     ],
@@ -116,7 +111,7 @@
                       "value": "[field('location')]"
                     },
                     "resourceName": {
-                      "value": "[field('name')]"
+                      "value": "[field('fullName')]"
                     }
                   }
                 }
