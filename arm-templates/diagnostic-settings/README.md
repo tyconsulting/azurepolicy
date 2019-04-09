@@ -12,6 +12,7 @@ A policy for each resource type listed below is included as part of the ARM temp
 | Analysis Services               | Microsoft.AnalysisServices/servers       |
 | API Management                  | Microsoft.ApiManagement/service          |
 | Application Gateway             | Microsoft.Network/applicationGateways    |
+| App Service Plan                | Microsoft.Web/serverfarms                |
 | Automation account              | Microsoft.Automation/automationAccounts  |
 | Azure Container Instance        | Microsoft.ContainerInstance/containerGroups |
 | Azure Container Registry        | Microsoft.ContainerRegistry/registrie    |
@@ -48,6 +49,7 @@ A policy for each resource type listed below is included as part of the ARM temp
 | SignalR                         | Microsoft.SignalRService/SignalR         |
 | SQL DBs                         | Microsoft.Sql/servers/databases          |
 | SQL Elastic Pools               | Microsoft.Sql/servers/elasticPools       |
+| SQL Managed Instances           | Microsoft.Sql/managedInstances  |
 | Stream Analytics                | Microsoft.StreamAnalytics/streamingjobs  |
 | Time Series Insights            | Microsoft.TimeSeriesInsights/environments |
 | Traffic Manager                 | Microsoft.Network/trafficManagerProfiles |
@@ -56,3 +58,8 @@ A policy for each resource type listed below is included as part of the ARM temp
 | Virtual Network                 | Microsoft.Network/virtualNetworks        |
 | Virtual Network Gateway         | Microsoft.Network/virtualNetworkGateways |
 | Websites                        | Microsoft.Web/sites                      |
+
+## Deploying via PowerShell
+````powershell
+New-AzDeployment -Name "diagPolicies" --location australiasoutheast -TemplateFile .\policy.definition.azuredeploy.json -verbose
+````
