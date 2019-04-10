@@ -1,7 +1,7 @@
 {
     "name": "signalR-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SignalR",
+        "displayName": "Apply diagnostic settings for SignalR - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

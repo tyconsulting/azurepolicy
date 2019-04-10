@@ -1,7 +1,7 @@
 {
     "name": "mySQL-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for MySQL Databases",
+        "displayName": "Apply diagnostic settings for MySQL Databases - Log Analytics - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

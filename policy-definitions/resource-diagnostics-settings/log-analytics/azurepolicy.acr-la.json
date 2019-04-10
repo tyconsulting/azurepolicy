@@ -1,7 +1,7 @@
 {
     "name": "acr-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure Container Registries",
+        "displayName": "Apply diagnostic settings for Azure Container Registries - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

@@ -1,7 +1,7 @@
 {
     "name": "apiMgmt-workflow-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for API Management services",
+        "displayName": "Apply diagnostic settings for API Management services - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

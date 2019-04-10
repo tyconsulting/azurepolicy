@@ -1,7 +1,7 @@
 {
     "name": "timeSeriesInsights-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Time Series Insights",
+        "displayName": "Apply diagnostic settings for Time Series Insights - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

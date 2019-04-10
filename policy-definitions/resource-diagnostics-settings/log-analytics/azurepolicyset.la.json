@@ -1,6 +1,6 @@
 {
     "properties": {
-        "displayName": "Apply diagnostic settings for applicable resources",
+        "displayName": "Apply diagnostic settings for applicable resources - Log Analytics",
         "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
         "metadata": {
             "category": "Monitoring"

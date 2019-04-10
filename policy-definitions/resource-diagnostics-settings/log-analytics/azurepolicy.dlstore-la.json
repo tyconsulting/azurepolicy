@@ -1,7 +1,7 @@
 {
     "name": "dlstore-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Data Lake Storage",
+        "displayName": "Apply diagnostic settings for Data Lake Storage - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
