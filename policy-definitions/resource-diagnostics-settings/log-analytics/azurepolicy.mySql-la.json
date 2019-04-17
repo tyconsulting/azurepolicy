@@ -1,7 +1,7 @@
 {
     "name": "mySQL-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for MySQL Databases - Log Analytics",
+        "displayName": "Apply diagnostic settings for MySQL Databases - Log Analytics - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
@@ -26,7 +26,7 @@
             "effect": "deployIfNotExists",
             "details": {
               "type": "Microsoft.Insights/diagnosticSettings",
-              "name": "setByPolicy",
+              "name": "setByPolicyLogAnalytics",
               "roleDefinitionIds": [
                 "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
               ],

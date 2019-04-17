@@ -1610,7 +1610,7 @@
         "[variables('recoveryVaultDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Search Services",
+        "displayName": "Apply diagnostic settings for Search Services - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1714,7 +1714,7 @@
         "[variables('searchServicesDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Service Bus namespaces",
+        "displayName": "Apply diagnostic settings for Service Bus namespaces - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1818,7 +1818,7 @@
         "[variables('serviceBusDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for SQL Databases",
+        "displayName": "Apply diagnostic settings for SQL Databases - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1962,7 +1962,7 @@
         "[variables('sqlDBsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for SQL Elastic Pools",
+        "displayName": "Apply diagnostic settings for SQL Elastic Pools - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2061,7 +2061,7 @@
         "[variables('sqlElasticPoolsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for API Management services",
+        "displayName": "Apply diagnostic settings for API Management services - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2183,7 +2183,7 @@
         "[variables('apiMgmtDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Application Gateways",
+        "displayName": "Apply diagnostic settings for Application Gateways - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2295,7 +2295,7 @@
         "[variables('appGwDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Batch accounts",
+        "displayName": "Apply diagnostic settings for Azure Batch accounts - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2399,7 +2399,7 @@
         "[variables('batchDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for MySQL Databases",
+        "displayName": "Apply diagnostic settings for MySQL Databases - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2503,7 +2503,7 @@
         "[variables('mySQLDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for PostgreSQL Databases",
+        "displayName": "Apply diagnostic settings for PostgreSQL Databases - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2607,7 +2607,7 @@
         "[variables('postgreSQLDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for CDN Endpoints",
+        "displayName": "Apply diagnostic settings for CDN Endpoints - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2701,7 +2701,7 @@
         "[variables('cdnEndpointsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Cosmos DB",
+        "displayName": "Apply diagnostic settings for Cosmos DB - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2813,7 +2813,7 @@
         "[variables('cosmosDBsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Data Factory",
+        "displayName": "Apply diagnostic settings for Data Factory - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -2925,7 +2925,7 @@
         "[variables('dataFactoryDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Firewalls",
+        "displayName": "Apply diagnostic settings for Azure Firewalls - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3033,7 +3033,7 @@
         "[variables('firewallDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Power BI Embedded",
+        "displayName": "Apply diagnostic settings for Power BI Embedded - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3137,7 +3137,7 @@
         "[variables('powerBIEmbeddedDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Stream Analytics",
+        "displayName": "Apply diagnostic settings for Stream Analytics - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3245,7 +3245,7 @@
         "[variables('streamAnalyticsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Express Routes Circuits",
+        "displayName": "Apply diagnostic settings for Express Routes Circuits - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3349,7 +3349,7 @@
         "[variables('expressRoutesDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Container Instances",
+        "displayName": "Apply diagnostic settings for Azure Container Instances - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3448,7 +3448,7 @@
         "[variables('aciDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Container Registries",
+        "displayName": "Apply diagnostic settings for Azure Container Registries - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3547,7 +3547,7 @@
         "[variables('acrDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Networks",
+        "displayName": "Apply diagnostic settings for Virtual Networks - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3641,7 +3641,7 @@
         "[variables('vnetDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Machines",
+        "displayName": "Apply diagnostic settings for Virtual Machines - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3739,7 +3739,7 @@
         "[variables('vmDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Machine Scale Sets",
+        "displayName": "Apply diagnostic settings for Virtual Machine Scale Sets - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3837,7 +3837,7 @@
         "[variables('vmssDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Network Gateways",
+        "displayName": "Apply diagnostic settings for Virtual Network Gateways - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -3961,7 +3961,7 @@
         "[variables('vnetGWDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Kubernetes Service",
+        "displayName": "Apply diagnostic settings for Azure Kubernetes Service - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4180,7 +4180,7 @@
         "[variables('websiteDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Analysis Services",
+        "displayName": "Apply diagnostic settings for Azure Analysis Services - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4288,7 +4288,7 @@
         "[variables('analysisServiceDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Event Grid Topics",
+        "displayName": "Apply diagnostic settings for Event Grid Topics - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4387,7 +4387,7 @@
         "[variables('eventGridTopicDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Event Grid Subscriptions",
+        "displayName": "Apply diagnostic settings for Event Grid Subscriptions - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4486,7 +4486,7 @@
         "[variables('eventGridSubDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for HDInsight",
+        "displayName": "Apply diagnostic settings for HDInsight - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4585,7 +4585,7 @@
         "[variables('hdInsightDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Redis Cache",
+        "displayName": "Apply diagnostic settings for Redis Cache - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4684,7 +4684,7 @@
         "[variables('redisCacheDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Relay",
+        "displayName": "Apply diagnostic settings for Azure Relay - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4783,7 +4783,7 @@
         "[variables('relayDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for SignalR",
+        "displayName": "Apply diagnostic settings for SignalR - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4882,7 +4882,7 @@
         "[variables('signalRDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Traffic Manager",
+        "displayName": "Apply diagnostic settings for Azure Traffic Manager - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -4986,7 +4986,7 @@
         "[variables('trafficManagerDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure App Service Plans",
+        "displayName": "Apply diagnostic settings for Azure App Service Plans - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -5085,7 +5085,7 @@
         "[variables('webServerFarmDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for SQL Managed Instances",
+        "displayName": "Apply diagnostic settings for SQL Managed Instances - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -5182,7 +5182,7 @@
         "[variables('sqlMIDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Time Series Insights",
+        "displayName": "Apply diagnostic settings for Time Series Insights - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -5281,7 +5281,7 @@
         "[variables('timeSeriesInsightsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for applicable resources",
+        "displayName": "Apply diagnostic settings for applicable resources - Log Analytics",
         "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
         "metadata": {
           "category": "Monitoring"
