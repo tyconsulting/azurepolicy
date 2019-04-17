@@ -70,7 +70,7 @@
       "apiVersion": "2018-05-01",
       "dependsOn": [],
       "properties": {
-        "displayName": "Apply diagnostic settings for Network Interfaces",
+        "displayName": "Apply diagnostic settings for Network Interfaces - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -168,7 +168,7 @@
         "[variables('nicDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Azure Automation Accounts",
+        "displayName": "Apply diagnostic settings for Azure Automation Accounts - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -280,7 +280,7 @@
         "[variables('aaDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Public IPs",
+        "displayName": "Apply diagnostic settings for Public IPs - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -392,7 +392,7 @@
         "[variables('pipDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Load Balancers",
+        "displayName": "Apply diagnostic settings for Load Balancers - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -500,7 +500,7 @@
         "[variables('lbDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Network Security Groups",
+        "displayName": "Apply diagnostic settings for Network Security Groups - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -598,7 +598,7 @@
         "[variables('nsgDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Key Vaults",
+        "displayName": "Apply diagnostic settings for Key Vaults - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -702,7 +702,7 @@
         "[variables('kvDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Cognitive Services",
+        "displayName": "Apply diagnostic settings for Cognitive Services - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -810,7 +810,7 @@
         "[variables('cognitiveDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Data Lake Analytics",
+        "displayName": "Apply diagnostic settings for Data Lake Analytics - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -918,7 +918,7 @@
         "[variables('dataLakeAnalyticsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Data Lake Storage",
+        "displayName": "Apply diagnostic settings for Data Lake Storage - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1026,7 +1026,7 @@
         "[variables('dataLakeStoreDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Event Hub Namespaces",
+        "displayName": "Apply diagnostic settings for Event Hub Namespaces - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1138,7 +1138,7 @@
         "[variables('eventHubDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for IoT Hubs",
+        "displayName": "Apply diagnostic settings for IoT Hubs - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1290,7 +1290,7 @@
         "[variables('iotHubDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Logic Apps workflows",
+        "displayName": "Apply diagnostic settings for Logic Apps workflows - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1394,7 +1394,7 @@
         "[variables('logicAppsWorkflowDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Logic Apps Integration Accounts",
+        "displayName": "Apply diagnostic settings for Logic Apps Integration Accounts - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"
@@ -1488,7 +1488,7 @@
         "[variables('logicAppsIntegrationAccountsDiagPolicyName')]"
       ],
       "properties": {
-        "displayName": "Apply diagnostic settings for Recovery Vaults",
+        "displayName": "Apply diagnostic settings for Recovery Vaults - Log Analytics",
         "description": "[variables('policyDescription')]",
         "metadata": {
           "category": "Monitoring"

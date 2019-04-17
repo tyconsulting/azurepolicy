@@ -1,7 +1,7 @@
 {
     "name": "searchServices-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Search Services",
+        "displayName": "Apply diagnostic settings for Search Services - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

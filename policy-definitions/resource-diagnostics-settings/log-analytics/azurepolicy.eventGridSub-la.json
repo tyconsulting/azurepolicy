@@ -1,7 +1,7 @@
 {
     "name": "eventGridSub-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Event Grid Subscriptions",
+        "displayName": "Apply diagnostic settings for Event Grid Subscriptions - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"

@@ -1,7 +1,7 @@
 {
     "name": "recoveryVault-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Recovery Vaults",
+        "displayName": "Apply diagnostic settings for Recovery Vaults - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
           "category": "Monitoring"
