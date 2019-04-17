@@ -1,0 +1,192 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "ResourcePartialName": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 15,
+        "metadata": {
+          "description": "The partial name of various resources defined in this template."
+        },
+        "defaultValue": "DiagTest"
+      },
+      "resourceIteration": {
+        "type": "string",
+        "metadata": {
+          "description": "Enter the Iteration of resources. Names of some resources such as Key Vaults and storage accounts need to be unique. Test resources that were recently deleted can not be resused for sometime"
+        },
+        "defaultValue": "0"
+      },
+      "keyVaultLocation": {
+        "type": "string",
+        "metadata": {
+          "description": "Enter the location for the Key Vault."
+        },
+        "allowedValues": [
+          "Australia Southeast",
+          "Australia East",
+          "East US"
+        ],
+        "defaultValue": "Australia Southeast"
+      },
+      "diagLogAnalyticsWorkspaceName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name for the Log Analytics workspace to which Key Vault metrics and diagnostic logs will be sent to."
+        }
+      },
+      "diagLogAnalyticsResourceGroup": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 90,
+        "metadata": {
+          "description": "The resource group for the Log Analytics workspace to which Key Vault metrics and diagnostic logs wil lbe sent to."
+        },
+        "defaultValue": "rg-ss-oms"
+      },
+      "diagLogAnalyticsWorkspaceSubId": {
+        "type": "string",
+        "maxLength": 36,
+        "defaultValue": "",
+        "metadata": {
+          "description": "The Azure subscription ID for the Log Analytics workspace to which Key Vault metrics and diagnostic logs will be sent to."
+        }
+      },
+      "diagEventHubName": {
+        "type": "string",
+        "minLength": 6,
+        "maxLength": 50,
+        "metadata": {
+          "description": "Name for the Event Hub to which Key Vault metrics and diagnostic logs will be sent to."
+        }
+      },
+      "diagEventHubAuthorizationRuleId": {
+        "type": "string",
+        "minLength": 1,
+        "metadata": {
+          "description": "The Authorization Rule Id for the Event Hub to which Key Vault metrics and diagnostic logs will be sent to."
+        }
+      }
+    },
+    "variables": {
+      "diagWorkspaceSubId": "[if(less(length(parameters('diagLogAnalyticsWorkspaceSubId')), 36), subscription().subscriptionId, parameters('diagLogAnalyticsWorkspaceSubId'))]",
+      "diagWorkspaceResourceId": "[ToLower(resourceId(variables('diagWorkspaceSubId'), parameters('diagLogAnalyticsResourceGroup'), 'Microsoft.OperationalInsights/workspaces', parameters('diagLogAnalyticsWorkspaceName')))]",
+      "keyVaultSettings": [
+        {
+          "name": "[concat('kv-', parameters('ResourcePartialName'), '-', 'noDiag-', parameters('resourceIteration'))]",
+          "location": "[parameters('keyVaultLocation')]",
+          "diagName": "noDiag",
+          "diagConfig":{}
+        },
+        {
+          "name": "[concat('kv-', parameters('ResourcePartialName'), '-', 'DiagLA-', parameters('resourceIteration'))]",
+          "location": "[parameters('keyVaultLocation')]",
+          "diagName": "diagLA",
+          "diagConfig": {
+            "workspaceId": "[variables('diagWorkspaceResourceId')]",
+            "metrics": [
+              {
+                "category": "AllMetrics",
+                "enabled": true,
+                "retentionPolicy": {
+                  "days": 0,
+                  "enabled": false
+                },
+                "timeGrain": null
+              }
+            ],
+            "logs": [
+              {
+                "category": "AuditEvent",
+                "enabled": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "[concat('kv-', parameters('ResourcePartialName'), '-', 'DiagEH-', parameters('resourceIteration'))]",
+          "location": "[parameters('keyVaultLocation')]",
+          "diagName": "diagEH",
+          "diagConfig": {
+            "eventHubName": "[parameters('diagEventHubName')]",
+            "eventHubAuthorizationRuleId": "[parameters('diagEventHubAuthorizationRuleId')]",
+            "metrics": [
+              {
+                "category": "AllMetrics",
+                "enabled": true,
+                "retentionPolicy": {
+                  "days": 0,
+                  "enabled": false
+                },
+                "timeGrain": null
+              }
+            ],
+            "logs": [
+              {
+                "category": "AuditEvent",
+                "enabled": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "[concat('kv-', parameters('ResourcePartialName'), '-', 'multiDiag-', parameters('resourceIteration'))]",
+          "location": "[parameters('keyVaultLocation')]",
+          "diagName": "mutiDiag",
+          "diagConfig": {
+            "workspaceId": "[variables('diagWorkspaceResourceId')]",
+            "eventHubName": "[parameters('diagEventHubName')]",
+            "eventHubAuthorizationRuleId": "[parameters('diagEventHubAuthorizationRuleId')]",
+            "metrics": [],
+            "logs": [
+              {
+                "category": "AuditEvent",
+                "enabled": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "resources": [
+      {
+        "name": "[variables('keyVaultSettings')[copyIndex()].name]",
+        "copy": {
+          "name": "kvLoop",
+          "count": "[length(variables('keyVaultSettings'))]"
+        },
+        "type": "Microsoft.KeyVault/vaults",
+        "apiVersion": "2015-06-01",
+        "dependsOn": [],
+        "location": "[variables('keyVaultSettings')[copyIndex()].location]",
+        "tags": {},
+        "properties": {
+          "sku": {
+            "family": "A",
+            "name": "standard"
+          },
+          "tenantId": "[subscription().tenantId]",
+          "accessPolicies": [],
+          "enabledForDeployment": false,
+          "enabledForTemplateDeployment": false,
+          "enableSoftDelete": true
+        },
+        "resources": [
+          {
+            "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+            "name": "[concat(variables('keyVaultSettings')[copyIndex()].name, '/Microsoft.Insights/', variables('keyVaultSettings')[copyIndex()].diagName)]",
+            "condition": "[not(equals(variables('keyVaultSettings')[copyIndex()].diagName, 'noDiag'))]",
+            "location": "[variables('keyVaultSettings')[copyIndex()].location]",
+            "dependsOn": [
+              "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings')[copyIndex()].name)]"
+            ],
+            "apiVersion": "2017-05-01-preview",
+            "properties": "[variables('keyVaultSettings')[copyIndex()].diagConfig]"
+          }
+        ]
+      }
+    ],
+    "outputs": {}
+  }
+  
