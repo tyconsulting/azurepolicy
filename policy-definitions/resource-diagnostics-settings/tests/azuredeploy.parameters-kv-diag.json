@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceIteration" :{
+            "value": "23"
+        },
+        "keyVaultLocation": {
+            "value": "Australia Southeast"
+        },
+        "diagLogAnalyticsWorkspaceName": {
+            "value": "TYANG-OpInsights"
+        },
+        "diagLogAnalyticsResourceGroup": {
+            "value": "tyang-oms"
+        },
+        "diagEventHubName": {
+            "value": "resourcediag"
+        },
+        "diagEventHubAuthorizationRuleId": {
+            "value": "/subscriptions/a443bc8a-7305-4bb5-b895-80ee1e0698a6/resourceGroups/rg-diagStore/providers/Microsoft.EventHub/namespaces/taoAzureDiag-AusSE/AuthorizationRules/RootManageSharedAccessKey"
+        }
+    }
+}

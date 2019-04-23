@@ -8,16 +8,16 @@
       },
       "mode": "all",
       "parameters": {
-          "logAnalytics": {
-              "type": "string",
-              "metadata": {
-                "displayName": "Log Analyitcs workspace",
-                "description": "Select the Log Analytics workspace from dropdown list",
-                "strongType": "omsWorkspace"
-              }
-            }
+        "logAnalytics": {
+          "type": "string",
+          "metadata": {
+            "displayName": "Log Analyitcs workspace",
+            "description": "Select the Log Analytics workspace from dropdown list",
+            "strongType": "omsWorkspace"
+          }
+        }
       },
-  "policyRule": {
+      "policyRule": {
         "if": {
           "field": "type",
           "equals": "Microsoft.KeyVault/vaults"
@@ -32,11 +32,11 @@
             "existenceCondition": {
               "allOf": [
                 {
-                  "field": "Microsoft.Insights/diagnosticSettings/logs[*].enabled",
+                  "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
                   "equals": "True"
                 },
                 {
-                  "field": "Microsoft.Insights/diagnosticSettings/metrics[*].enabled",
+                  "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                   "equals": "True"
                 },
                 {

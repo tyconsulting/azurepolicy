@@ -1,36 +1,36 @@
 {
-    "name": "logicApps-workflow-diagnostic-settings-eh-policyDef",
-    "properties": {
-        "displayName": "Apply diagnostic settings for Logic Apps workflows - Event Hub",
-        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
-        "metadata": {
-          "category": "Monitoring"
-        },
-		    "mode": "all",
-        "parameters": {
-          "resourceLocation": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Resource Location",
-              "description": "Resource Location must be the same as the Event Hub",
-              "strongType": "location"
-            }
-          }, 
-          "eventHubName": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Event Hub Name",
-              "description": "Specify the name of the Event Hub"
-            }
-          },
-          "eventHubAuthorizationRuleId": {
-                "type": "string",
-                "metadata": {
-                  "displayName": "Event Hub Authorization Rule Id",
-                  "description": "Specify Event Hub Authorization Rule Id"
-                }
+  "name": "logicApps-workflow-diagnostic-settings-eh-policyDef",
+  "properties": {
+      "displayName": "Apply diagnostic settings for Logic Apps workflows - Event Hub",
+      "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
+      "metadata": {
+        "category": "Monitoring"
+      },
+      "mode": "all",
+      "parameters": {
+        "resourceLocation": {
+          "type": "string",
+          "metadata": {
+            "displayName": "Resource Location",
+            "description": "Resource Location must be the same as the Event Hub",
+            "strongType": "location"
+          }
+        }, 
+        "eventHubName": {
+          "type": "string",
+          "metadata": {
+            "displayName": "Event Hub Name",
+            "description": "Specify the name of the Event Hub"
           }
         },
+        "eventHubAuthorizationRuleId": {
+          "type": "string",
+          "metadata": {
+            "displayName": "Event Hub Authorization Rule Id",
+            "description": "Specify Event Hub Authorization Rule Id"
+          }
+        }
+      },
       "policyRule": {
         "if": {
           "allOf":[
@@ -48,10 +48,29 @@
           "effect": "deployIfNotExists",
           "details": {
             "type": "Microsoft.Insights/diagnosticSettings",
-            "name": "setByPolicyEvtHub",
             "roleDefinitionIds": [
               "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
             ],
+            "existenceCondition": {
+              "allOf": [
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                  "equals": "True"
+                },
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                  "equals": "True"
+                },
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
+                  "matchInsensitively": "[parameters('eventHubAuthorizationRuleId')]"
+                },
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/eventHubName",
+                  "matchInsensitively": "[parameters('eventHubName')]"
+                }
+              ]
+            },
             "deployment": {
               "properties": {
                 "mode": "incremental",
@@ -77,7 +96,7 @@
                     {
                       "type": "Microsoft.Logic/workflows/providers/diagnosticSettings",
                       "apiVersion": "2017-05-01-preview",
-                      "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvthub')]",
+                      "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
                       "location": "[parameters('location')]",
                       "dependsOn": [],
                       "properties": {
@@ -123,6 +142,6 @@
             }
           }
         }
-        }
-    }
+      }
+  }
 }
