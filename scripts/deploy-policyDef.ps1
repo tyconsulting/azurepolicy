@@ -1,7 +1,7 @@
 #Requires -Modules 'az.resources'
 <#
 =======================================================================================================
-AUTHOR:  Tao Yang 
+AUTHOR:  Tao Yang
 DATE:    08/03/2019
 Version: 1.0
 Comment: builk deploy Azure policy definitions to a management group or a subscription
@@ -9,12 +9,12 @@ Comment: builk deploy Azure policy definitions to a management group or a subscr
 #>
 [CmdLetBinding()]
 Param (
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployFilesToSub', HelpMessage = 'Specify the file paths for the policy or initiative definition files.')]
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployFilesToMG', HelpMessage = 'Specify the file paths for the policy or initiative definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployFilesToSub', HelpMessage = 'Specify the file paths for the policy definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployFilesToMG', HelpMessage = 'Specify the file paths for the policy definition files.')]
   [ValidateScript({test-path $_})][String[]]$definitionFile,
 
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Specify the directory path that contains the policy or initiative definition files.')]
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Specify the directory path that contains the policy or initiative definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
   [ValidateScript({test-path $_ -PathType 'Container'})][String[]]$FolderPath,
 
   [Parameter(Mandatory = $true, ParameterSetName = 'deployFilesToSub')]
@@ -27,9 +27,9 @@ Param (
 )
 
 #region functions
-Function Process-AzureSignIn
+Function ProcessAzureSignIn
 {
-    $signin = Connect-AzAccount
+    $null = Connect-AzAccount
     $context = Get-AzContext -ErrorAction Stop
     $Script:currentTenantId = $context.Tenant.Id
     $Script:currentSubId = $context.Subscription.Id
@@ -89,11 +89,11 @@ Try {
       #sign out first
       Disconnect-AzAccount -AzureContext $context
       #sign in
-      Process-AzureSignIn
+      ProcessAzureSignIn
     }
 } Catch {
     #sign in
-    Process-AzureSignIn
+    ProcessAzureSignIn
 }
 #Read all definitions
 If ($PSCmdlet.ParameterSetName -eq 'deployDirToMG' -or $PSCmdlet.ParameterSetName -eq 'deployDirToSub')
@@ -107,7 +107,7 @@ Foreach ($file in $definitionFile)
 {
   Write-Verbose "Processing '$file'..."
   $objDef = Get-Content -path $file | Convertfrom-Json
-  If ($objDef.psobject.Properties.policyDefition)
+  If ($objDef.properties.policyDefinitions)
   {
     Write-Verbose "'$file' is a policy initiative definition. policy initiatives are not supported by this script."
   } elseif ($objDef.properties.policyRule) {

@@ -36,11 +36,11 @@
                 "allOf": [
                     {
                         "field": "type",
-                        "equals": "Microsoft.KeyVault/vaults"
+                        "equals": "Microsoft.TimeSeriesInsights/environments"
                     },
                     {
                         "field": "location",
-                        "equals": "Microsoft.TimeSeriesInsights/environments"
+                        "equals": "[parameters('resourceLocation')]"
                     }
                 ]
             },

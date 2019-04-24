@@ -33,8 +33,16 @@
         },
         "policyRule": {
             "if": {
-                "field": "type",
-                "equals": "Microsoft.Network/virtualNetworks"
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Network/virtualNetworks"
+                    },
+                    {
+                        "field": "location",
+                        "equals": "[parameters('resourceLocation')]"
+                    }
+                ]
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -89,7 +97,8 @@
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
-                                            "workspaceId": "[parameters('logAnalytics')]",
+                                            "eventHubName": "[parameters('eventHubName')]",
+                                            "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
                                             "metrics": [],
                                             "logs": [
                                                 {
@@ -103,8 +112,11 @@
                                 "outputs": {}
                             },
                             "parameters": {
-                                "logAnalytics": {
-                                    "value": "[parameters('logAnalytics')]"
+                                "eventHubName": {
+                                    "value": "[parameters('eventHubName')]"
+                                },
+                                "eventHubAuthorizationRuleId": {
+                                    "value": "[parameters('eventHubAuthorizationRuleId')]"
                                 },
                                 "location": {
                                     "value": "[field('location')]"

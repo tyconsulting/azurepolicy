@@ -1,5 +1,5 @@
 {
-    "name": "apiMgmt-workflow-diagnostic-settings-eh-policyDef",
+    "name": "apiMgmt-diagnostic-settings-eh-policyDef",
     "properties": {
         "displayName": "Apply diagnostic settings for API Management services - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",

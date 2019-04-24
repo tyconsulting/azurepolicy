@@ -1,8 +1,8 @@
 {
-    "name": "sqlElasticPools-diagnostic-settings-policyDef",
+    "name": "sqlElasticPools-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SQL Elastic Pools",
-        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+        "displayName": "Apply diagnostic settings for SQL Elastic Pools - Event Hub",
+        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
         },

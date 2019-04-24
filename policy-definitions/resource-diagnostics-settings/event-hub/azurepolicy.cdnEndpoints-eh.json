@@ -1,5 +1,5 @@
 {
-    "name": "cdnEndpoints-workflow-diagnostic-settings-eh-policyDef",
+    "name": "cdnEndpoints-diagnostic-settings-eh-policyDef",
     "properties": {
         "displayName": "Apply diagnostic settings for CDN Endpoints - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",

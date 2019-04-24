@@ -1,5 +1,5 @@
 {
-    "name": "cosmosDBs-workflow-diagnostic-settings-policyDef",
+    "name": "cosmosDBs-diagnostic-settings-policyDef",
     "properties": {
         "displayName": "Apply diagnostic settings for Cosmos DB - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",

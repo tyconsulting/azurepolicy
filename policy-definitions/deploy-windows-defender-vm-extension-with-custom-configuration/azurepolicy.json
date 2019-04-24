@@ -1,0 +1,378 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "deploy-IaaSAntimalware-vm-extension-with-custom-configuration",
+    "properties": {
+        "displayName": "Deploy Microsoft IaaSAntimalware extension with custom configurations",
+        "description": "This policy This policy deploys a Microsoft IaaSAntimalware extension with custom configuraions when a VM is not configured with the antimalware extension.",
+        "metadata": {
+            "category": "Compute"
+        },
+        "parameters": {
+            "RealtimeProtectionEnabled": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Enable Real-Time Protection",
+                    "description": "Indicates whether or not real time protection is enabled (default is true)"
+                },
+                "allowedValues": [
+                    "True",
+                    "False"
+                ],
+                "defaultValue": "True"
+            },
+            "ExclusionsPaths": {
+                "type": "string",
+                "defaultValue": "",
+                "metadata": {
+                    "displayName": "Excluded files and locations",
+                    "description": "Semicolon delimited list of file paths or locations to exclude from scanning. We recommend avoiding the use of wildcard characters. For example: c:\\excluded-path-1;c:\\excluded-path-2"
+                }
+            },
+            "ExclusionsExtensions": {
+                "type": "string",
+                "defaultValue": "",
+                "metadata": {
+                    "displayName": "Excluded files extensions",
+                    "description": "Semicolon delimited list of file extensions to exclude from scanning. We recommend avoiding the use of wildcard characters. For example: .ext1;.ext2"
+                }
+            },
+            "ExclusionsProcesses": {
+                "type": "string",
+                "defaultValue": "",
+                "metadata": {
+                    "displayName": "Excluded processes",
+                    "description": "Semicolon delimited list of process names to exclude from scanning. No wildcard characters are permitted. For example: excludedproc1.exe;excludedproc2.exe"
+                }
+            },
+            "ScheduledScanSettingsIsEnabled": {
+                "type": "string",
+                "defaultValue": "False",
+                "metadata": {
+                    "displayName": "Run a scheduled scan",
+                    "description": "Indicates whether or not custom scheduled scan settings are enabled (default is false)"
+                },
+                "allowedValues": [
+                    "True",
+                    "False"
+                ]
+            },
+            "ScheduledScanSettingsScanType": {
+                "type": "string",
+                "defaultValue": "Quick",
+                "metadata": {
+                    "displayName": "Scan type",
+                    "description": "Indicates whether scheduled scan setting type is set to Quick or Full (default is Quick when scheduled scan is enabled)"
+                },
+                "allowedValues": [
+                    "Quick",
+                    "Full"
+                ]
+            },
+            "ScheduledScanSettingsDay": {
+                "type": "string",
+                "defaultValue": "7",
+                "metadata": {
+                    "displayName": "Scan day",
+                    "description": "Day of the week for scheduled scan (1-Sunday, 2-Monday, ..., 7-Saturday)"
+                },
+                "allowedValues": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7"
+                ]
+            },
+            "ScheduledScanSettingsTime": {
+                "type": "string",
+                "defaultValue": "120",
+                "metadata": {
+                    "displayName": "Scan time",
+                    "description": "When to perform the scheduled scan, measured in minutes from midnight (0-1440). For example: 0 = 12AM, 60 = 1AM, 120 = 2AM."
+                }
+            },
+            "listOfImageIdToInclude": {
+              "type": "Array",
+              "metadata": {
+                "displayName": "Optional: List of VM images that have supported Windows OS to add to scope",
+                "description": "Example values: '/subscriptions/<subscriptionId>/resourceGroups/YourResourceGroup/providers/Microsoft.Compute/images/ContosoStdImage'"
+              },
+              "defaultValue": []
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Compute/virtualMachines"
+                    },
+                    {
+                        "anyOf": [
+                            {
+                                "field": "Microsoft.Compute/imageId",
+                                "in": "[parameters('listOfImageIdToInclude')]"
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsServer"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "WindowsServer"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsServer"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "WindowsServerSemiAnnual"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsServerHPCPack"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "WindowsServerHPCPack"
+                                    }
+                                ]
+                            },
+                            {
+                                "field": "Microsoft.Compute/imagePublisher",
+                                "equals": "MicrosoftSQLServer"
+                            },
+                            {
+                                "field": "Microsoft.Compute/imagePublisher",
+                                "equals": "MicrosoftRServer"
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftVisualStudio"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "in": [
+                                            "VisualStudio",
+                                            "Windows"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftDynamicsAX"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "Dynamics"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageSKU",
+                                        "equals": "Pre-Req-AX7-Onebox-U8"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "microsoft-ads"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "windows-data-science-vm"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsDesktop"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "Windows-10"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "deployIfNotExists",
+                "details": {
+                    "type": "Microsoft.Compute/virtualMachines/extensions",
+                    "existenceCondition": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Compute/virtualMachines/extensions/type",
+                                "equals": "IaaSAntimalware"
+                            },
+                            {
+                                "field": "Microsoft.Compute/virtualMachines/extensions/publisher",
+                                "equals": "Microsoft.Azure.Security"
+                            }
+                        ]
+                    },
+                    "roleDefinitionIds": [
+                        "/providers/microsoft.authorization/roleDefinitions/9980e02c-c2be-4d73-94e8-173b1dc7cf3c"
+                    ],
+                    "deployment": {
+                        "properties": {
+                            "mode": "incremental",
+                            "template": {
+                                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                "contentVersion": "1.0.0.0",
+                                "parameters": {
+                                    "vmName": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "ExclusionsPaths": {
+                                        "type": "string",
+                                        "defaultValue": "",
+                                        "metadata": {
+                                            "description": "Semicolon delimited list of file paths or locations to exclude from scanning"
+                                        }
+                                    },
+                                    "ExclusionsExtensions": {
+                                        "type": "string",
+                                        "defaultValue": "",
+                                        "metadata": {
+                                            "description": "Semicolon delimited list of file extensions to exclude from scanning"
+                                        }
+                                    },
+                                    "ExclusionsProcesses": {
+                                        "type": "string",
+                                        "defaultValue": "",
+                                        "metadata": {
+                                            "description": "Semicolon delimited list of process names to exclude from scanning"
+                                        }
+                                    },
+                                    "RealtimeProtectionEnabled": {
+                                        "type": "string",
+                                        "defaultValue": "true",
+                                        "metadata": {
+                                            "description": "Indicates whether or not real time protection is enabled (default is true)"
+                                        }
+                                    },
+                                    "ScheduledScanSettingsIsEnabled": {
+                                        "type": "string",
+                                        "defaultValue": "false",
+                                        "metadata": {
+                                            "description": "Indicates whether or not custom scheduled scan settings are enabled (default is false)"
+                                        }
+                                    },
+                                    "ScheduledScanSettingsScanType": {
+                                        "type": "string",
+                                        "defaultValue": "Quick",
+                                        "metadata": {
+                                            "description": "Indicates whether scheduled scan setting type is set to Quick or Full (default is Quick)"
+                                        }
+                                    },
+                                    "ScheduledScanSettingsDay": {
+                                        "type": "string",
+                                        "defaultValue": "7",
+                                        "metadata": {
+                                            "description": "Day of the week for scheduled scan (1-Sunday, 2-Monday, ..., 7-Saturday)"
+                                        }
+                                    },
+                                    "ScheduledScanSettingsTime": {
+                                        "type": "string",
+                                        "defaultValue": "120",
+                                        "metadata": {
+                                            "description": "When to perform the scheduled scan, measured in minutes from midnight (0-1440). For example: 0 = 12AM, 60 = 1AM, 120 = 2AM."
+                                        }
+                                    }
+                                },
+                                "resources": [
+                                    {
+                                        "name": "[concat(parameters('vmName'),'/IaaSAntimalware')]",
+                                        "type": "Microsoft.Compute/virtualMachines/extensions",
+                                        "location": "[parameters('location')]",
+                                        "apiVersion": "2017-12-01",
+                                        "properties": {
+                                            "publisher": "Microsoft.Azure.Security",
+                                            "type": "IaaSAntimalware",
+                                            "typeHandlerVersion": "1.3",
+                                            "autoUpgradeMinorVersion": true,
+                                            "settings": {
+                                                "AntimalwareEnabled": true,
+                                                "RealtimeProtectionEnabled": "[parameters('RealtimeProtectionEnabled')]",
+                                                "ScheduledScanSettings": {
+                                                    "isEnabled": "[parameters('ScheduledScanSettingsIsEnabled')]",
+                                                    "day": "[parameters('ScheduledScanSettingsDay')]",
+                                                    "time": "[parameters('ScheduledScanSettingsTime')]",
+                                                    "scanType": "[parameters('ScheduledScanSettingsScanType')]"
+                                                },
+                                                "Exclusions": {
+                                                    "Extensions": "[parameters('ExclusionsExtensions')]",
+                                                    "Paths": "[parameters('ExclusionsPaths')]",
+                                                    "Processes": "[parameters('ExclusionsProcesses')]"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "parameters": {
+                                "vmName": {
+                                    "value": "[field('name')]"
+                                },
+                                "location": {
+                                    "value": "[field('location')]"
+                                },
+                                "RealtimeProtectionEnabled": {
+                                    "value": "[parameters('RealtimeProtectionEnabled')]"
+                                },
+                                "ExclusionsPaths": {
+                                    "value": "[parameters('ExclusionsPaths')]"
+                                },
+                                "ExclusionsExtensions": {
+                                    "value": "[parameters('ExclusionsExtensions')]"
+                                },
+                                "ExclusionsProcesses": {
+                                    "value": "[parameters('ExclusionsProcesses')]"
+                                },
+                                "ScheduledScanSettingsIsEnabled": {
+                                    "value": "[parameters('ScheduledScanSettingsIsEnabled')]"
+                                },
+                                "ScheduledScanSettingsScanType": {
+                                    "value": "[parameters('ScheduledScanSettingsScanType')]"
+                                },
+                                "ScheduledScanSettingsDay": {
+                                    "value": "[parameters('ScheduledScanSettingsDay')]"
+                                },
+                                "ScheduledScanSettingsTime": {
+                                    "value": "[parameters('ScheduledScanSettingsTime')]"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
