@@ -11,12 +11,12 @@ Syntax: .\deploy-policySetDef.ps1 -definitionFile c:\temp\azurepolicyset.json -P
 #>
 [CmdLetBinding()]
 Param (
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployToSub', HelpMessage = 'Specify the file paths for the policy initiative  definition files.')]
-  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployToMG', HelpMessage = 'Specify the file paths for the policy initiative definition files.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployToSub', HelpMessage = 'Specify the file path for the policy initiative definition file.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployToMG', HelpMessage = 'Specify the file path for the policy initiative definition file.')]
   [ValidateScript({test-path $_})][String]$definitionFile,
 
-  [Parameter(Mandatory = $false, ValueFromPipeline = $true, ParameterSetName = 'deployToSub', HelpMessage = 'Specify the file paths for the policy initiative  definition files.')]
-  [Parameter(Mandatory = $false, ValueFromPipeline = $true, ParameterSetName = 'deployToMG', HelpMessage = 'Specify the file paths for the policy initiative definition files.')]
+  [Parameter(Mandatory = $false, ValueFromPipeline = $true, ParameterSetName = 'deployToSub', HelpMessage = 'Specify hashtable that contains policy definition locations that the script will find and replace from the policy set definition.')]
+  [Parameter(Mandatory = $false, ValueFromPipeline = $true, ParameterSetName = 'deployToMG', HelpMessage = 'Specify hashtable that contains policy definition locations that the script will find and replace from the policy set definition.')]
   [hashtable]$PolicyLocations,
 
   [Parameter(Mandatory = $true, ParameterSetName = 'deployToSub')]

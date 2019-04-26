@@ -1,11 +1,11 @@
 #Requires -Modules 'az.resources'
 <#
-=======================================================================================================
+=======================================================================================
 AUTHOR:  Tao Yang
 DATE:    08/03/2019
 Version: 1.0
 Comment: builk deploy Azure policy definitions to a management group or a subscription
-=======================================================================================================
+=======================================================================================
 #>
 [CmdLetBinding()]
 Param (
@@ -15,7 +15,7 @@ Param (
 
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
-  [ValidateScript({test-path $_ -PathType 'Container'})][String[]]$folderPath,
+  [ValidateScript({test-path $_ -PathType 'Container'})][String]$folderPath,
 
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Get policy definition files from the $folderPath and its subfolders.')]
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Get policy definition files from the $folderPath and its subfolders.')]

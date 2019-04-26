@@ -307,6 +307,7 @@
                                         }
                                     }
                                 },
+                                "variables": {},
                                 "resources": [
                                     {
                                         "name": "[concat(parameters('vmName'),'/IaaSAntimalware')]",
@@ -335,7 +336,8 @@
                                             }
                                         }
                                     }
-                                ]
+                                ],
+                                "outputs": {}
                             },
                             "parameters": {
                                 "vmName": {
