@@ -1,3 +1,3 @@
-# Restrict Associating Public IP to NIC
+# Enforce Hybrid Use Benefit for Windows Servers
 
-This policy restrict public IP from being associated to a Network Interface (NIC).
+This policy will automatically configure hybrid use benefit for Windows Servers.
