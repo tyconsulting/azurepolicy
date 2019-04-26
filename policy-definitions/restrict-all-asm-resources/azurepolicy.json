@@ -1,0 +1,21 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "restrict-all-asm-resources-policyDef",
+    "properties": {
+        "displayName": "Restrict All ASM Resources",
+        "description": "This policy enables you to restrict ALL Azure Service Manager (ASM, aka Classic) resources.",
+        "metadata": {
+            "category": "General"
+          },
+        "parameters": {},
+        "policyRule": {
+          "if": {
+            "field": "type",
+            "like": "Microsoft.Classic*"
+          },
+          "then": {
+            "effect": "Deny"
+          }
+        }
+    }
+}

@@ -17,6 +17,10 @@ Param (
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
   [ValidateScript({test-path $_ -PathType 'Container'})][String[]]$folderPath,
 
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Get policy definition files from the $folderPath and its subfolders.')]
+  [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Get policy definition files from the $folderPath and its subfolders.')]
+  [Switch]$Recurse,
+
   [Parameter(Mandatory = $true, ParameterSetName = 'deployFilesToSub')]
   [Parameter(Mandatory = $true, ParameterSetName = 'deployDirToSub')]
   [ValidateScript({try {[guid]::parse($_)} catch {$false}})][String]$subscriptionId,
@@ -130,9 +134,17 @@ Try
 #Read all definitions
 If ($PSCmdlet.ParameterSetName -eq 'deployDirToMG' -or $PSCmdlet.ParameterSetName -eq 'deployDirToSub')
 {
-  Write-Verbose "A folder path is used. Retrieving all JSON files in the folder."
-  $definitionFile = (Get-ChildItem -Path $folderPath -File -Filter '*.json').FullName
-  Write-Verbose "Number of JSON files located in folder '$folderPath': $($definitionFile.count)."
+  If ($Recurse)
+  {
+    Write-Verbose "A folder path with -Recurse switch is used. Retrieving all JSON files in the folder and its sub folders."
+    $definitionFile = (Get-ChildItem -Path $folderPath -File -Filter '*.json' -Recurse).FullName
+    Write-Verbose "Number of JSON files located in folder '$folderPath': $($definitionFile.count)."
+  } else {
+    Write-Verbose "A folder path is used. Retrieving all JSON files in the folder."
+    $definitionFile = (Get-ChildItem -Path $folderPath -File -Filter '*.json').FullName
+    Write-Verbose "Number of JSON files located in folder '$folderPath': $($definitionFile.count)."
+  }
+
 }
 $Definitions = @()
 Foreach ($file in $definitionFile)

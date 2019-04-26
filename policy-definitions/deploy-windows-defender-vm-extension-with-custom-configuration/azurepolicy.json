@@ -1,6 +1,6 @@
 {
     "type": "Microsoft.Authorization/policyDefinitions",
-    "name": "deploy-IaaSAntimalware-vm-extension-with-custom-configuration-policyDef",
+    "name": "deploy-IaaSAntimalware-vm-extension-custom-config-policyDef",
     "properties": {
         "displayName": "Deploy Microsoft IaaSAntimalware extension with custom configurations",
         "description": "This policy This policy deploys a Microsoft IaaSAntimalware extension with custom configuraions when a VM is not configured with the antimalware extension.",
