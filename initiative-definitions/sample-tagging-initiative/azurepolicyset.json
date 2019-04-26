@@ -1,7 +1,9 @@
 {
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "sample-tagging-policySetDef",
     "properties": {
         "displayName": "Sample Tags Policy Initiative",
-        "description": "Specify cost Center tag and app name tag",
+        "description": "This policy applies and enforces the cost Center app name tag values",
         "metadata": {
             "category": "General"
         },
@@ -109,7 +111,5 @@
                 }
             }
         ]
-    },
-    "type": "Microsoft.Authorization/policySetDefinitions",
-    "name": "resourceGroupTagPolicy"
+    }
 }

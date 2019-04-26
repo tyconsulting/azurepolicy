@@ -1,0 +1,33 @@
+{
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "storage-account-network-restriction-policySetDef",
+    "properties": {
+        "displayName": "Storage Accounts Network Restriction Initiative",
+        "description": "This initiative contains the custom policy definitions that restrict public-facing storage accounts and restrict storage account firewall rules",
+        "metadata": {
+            "category": "Storage"
+        },
+        "parameters": {
+            "allowedAddressRanges": {
+                "type": "array",
+                "metadata": {
+                    "description": "The list of allowed IP address ranges (Allowed internet address ranges can be provided using CIDR notation in the form 16.17.18.0/24 or as individual IP addresses like 16.17.18.19)",
+                    "displayName": "Address Range"
+                }
+            }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/restrict-public-storageAccounts-policyDef"
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/restrict-storageAccount-firewall-rules-policyDef",
+                "parameters": {
+                    "allowedAddressRanges": {
+                        "value": "[parameters('allowedAddressRanges')]"
+                    }
+                }
+            }
+        ]
+    }
+}
