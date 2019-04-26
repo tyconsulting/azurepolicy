@@ -1,0 +1,142 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "enforce-win-server-hybrid-use-benefit-policyDef",
+    "properties": {
+        "displayName": "Enforce Hybrid Use Benefit for Windows Servers",
+        "description": "This policy will automatically configure hybrid use benefit for Windows Servers.",
+        "metadata": {
+          "category": "Compute"
+      },
+        "parameters": {
+            "listOfImageIdToInclude": {
+                "type": "Array",
+                "metadata": {
+                    "displayName": "Optional: List of VM images that have supported Windows OS to add to scope",
+                    "description": "Example values: '/subscriptions/<subscriptionId>/resourceGroups/YourResourceGroup/providers/Microsoft.Compute/images/ContosoStdImage'"
+                },
+                "defaultValue": []
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "in": [
+                            "Microsoft.Compute/virtualMachines",
+                            "Microsoft.Compute/VirtualMachineScaleSets"
+                        ]
+                    },
+                    {
+                        "anyOf": [
+                            {
+                                "field": "Microsoft.Compute/imageId",
+                                "in": "[parameters('listOfImageIdToInclude')]"
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsServer"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "WindowsServer"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsServer"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "WindowsServerSemiAnnual"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftWindowsServerHPCPack"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "WindowsServerHPCPack"
+                                    }
+                                ]
+                            },
+                            {
+                                "field": "Microsoft.Compute/imagePublisher",
+                                "equals": "MicrosoftSQLServer"
+                            },
+                            {
+                                "field": "Microsoft.Compute/imagePublisher",
+                                "equals": "MicrosoftRServer"
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftVisualStudio"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "in": [
+                                            "VisualStudio",
+                                            "Windows"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "MicrosoftDynamicsAX"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "Dynamics"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageSKU",
+                                        "equals": "Pre-Req-AX7-Onebox-U8"
+                                    }
+                                ]
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Compute/imagePublisher",
+                                        "equals": "microsoft-ads"
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/imageOffer",
+                                        "equals": "windows-data-science-vm"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "field": "Microsoft.Compute/licenseType",
+                        "notEquals": "Windows_Server"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "append",
+                "details": [
+                    {
+                        "field": "Microsoft.Compute/licenseType",
+                        "value": "Windows_Server"
+                    }
+                ]
+            }
+        }
+    }
+}

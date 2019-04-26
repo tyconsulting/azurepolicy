@@ -15,7 +15,7 @@ Param (
 
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToSub', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
   [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'deployDirToMG', HelpMessage = 'Specify the directory path that contains the policy definition files.')]
-  [ValidateScript({test-path $_ -PathType 'Container'})][String[]]$FolderPath,
+  [ValidateScript({test-path $_ -PathType 'Container'})][String[]]$folderPath,
 
   [Parameter(Mandatory = $true, ParameterSetName = 'deployFilesToSub')]
   [Parameter(Mandatory = $true, ParameterSetName = 'deployDirToSub')]
@@ -23,7 +23,13 @@ Param (
 
   [Parameter(Mandatory = $true, ParameterSetName = 'deployFilesToMG')]
   [Parameter(Mandatory = $true, ParameterSetName = 'deployDirToMG')]
-  [ValidateNotNullOrEmpty()][String]$managementGroupName
+  [ValidateNotNullOrEmpty()][String]$managementGroupName,
+
+  [Parameter(Mandatory = $false, ParameterSetName = 'deployDirToSub', HelpMessage = 'Silent mode. When used, no interative prompt for sign in')]
+  [Parameter(Mandatory = $false, ParameterSetName = 'deployDirToMG', HelpMessage = 'Silent mode. When used, no interative prompt for sign in')]
+  [Parameter(Mandatory = $false, ParameterSetName = 'deployFilesToSub', HelpMessage = 'Silent mode. When used, no interative prompt for sign in')]
+  [Parameter(Mandatory = $false, ParameterSetName = 'deployFilesToMG', HelpMessage = 'Silent mode. When used, no interative prompt for sign in')]
+  [Switch]$silent
 )
 
 #region functions
@@ -76,31 +82,57 @@ Function DeployPolicyDefinition
 #endregion
 #region main
 #ensure signed in to Azure
-Try {
+if ($silent)
+{
+  Write-Verbose "Running script in silent mode."
+}
+Try
+{
     $context = Get-AzContext -ErrorAction SilentlyContinue
     $currentTenantId = $context.Tenant.Id
     $currentSubId = $context.Subscription.Id
     $currentSubName = $context.Subscription.Name
-    Write-output "You are currently signed to to tenant '$currentTenantId', subscription '$currentSubName'  using account '$($context.Account.Id).'"
-    Write-Output '', "Press any key to continue using current sign-in session or Esc to login using another user account."
-    $KeyPress = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    If ($KeyPress.virtualKeyCode -eq 27)
+    if ($context -ne $null)
     {
-      #sign out first
-      Disconnect-AzAccount -AzureContext $context
-      #sign in
-      ProcessAzureSignIn
+      Write-output "You are currently signed to to tenant '$currentTenantId', subscription '$currentSubName'  using account '$($context.Account.Id).'"
+      if (!$silent)
+      {
+        Write-Output '', "Press any key to continue using current sign-in session or Esc to login using another user account."
+        $KeyPress = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+        If ($KeyPress.virtualKeyCode -eq 27)
+        {
+          #sign out first
+          Disconnect-AzAccount -AzureContext $context
+          #sign in
+          ProcessAzureSignIn
+        }
+      } 
+    } else {
+      if (!$silent)
+      {
+        Write-Output '', "You are currently not signed in to Azure. Please sign in from the pop-up window."
+        ProcessAzureSignIn
+      } else {
+        Throw "You are not signed in to Azure!"
+      }
+
     }
 } Catch {
-    #sign in
-    ProcessAzureSignIn
+    if (!$silent)
+    {
+      #sign in
+      ProcessAzureSignIn
+    } else {
+      Throw "You are not signed in to Azure!"
+    }
+
 }
 #Read all definitions
 If ($PSCmdlet.ParameterSetName -eq 'deployDirToMG' -or $PSCmdlet.ParameterSetName -eq 'deployDirToSub')
 {
   Write-Verbose "A folder path is used. Retrieving all JSON files in the folder."
-  $definitionFile = (Get-ChildItem -Path $FolderPath -File -Filter '*.json').FullName
-  Write-Verbose "Number of JSON files located in folder '$FolderPath': $($definitionFile.count)."
+  $definitionFile = (Get-ChildItem -Path $folderPath -File -Filter '*.json').FullName
+  Write-Verbose "Number of JSON files located in folder '$folderPath': $($definitionFile.count)."
 }
 $Definitions = @()
 Foreach ($file in $definitionFile)

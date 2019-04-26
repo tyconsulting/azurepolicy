@@ -6,6 +6,7 @@ DATE:    24/04/2019
 Version: 1.0
 Comment: Alternative method to deploy Azure policy set (Initiative) definitions to a management group or a subscription
 Note: This script supports deploying initiative definitions that contains custom policy definitions without hardcoding definition Ids
+Syntax: .\deploy-policySetDef.ps1 -definitionFile c:\temp\azurepolicyset.json -PolicyLocations @{policyLocationResourceId1 = '/providers/Microsoft.Management/managementgroups/MGName'} -managementGroupName MGName
 ======================================================================================================================================
 #>
 [CmdLetBinding()]
@@ -22,7 +23,11 @@ Param (
   [ValidateScript({try {[guid]::parse($_)} catch {$false}})][String]$subscriptionId,
 
   [Parameter(Mandatory = $true, ParameterSetName = 'deployToMG')]
-  [ValidateNotNullOrEmpty()][String]$managementGroupName
+  [ValidateNotNullOrEmpty()][String]$managementGroupName,
+
+  [Parameter(Mandatory = $false, ParameterSetName = 'deployToSub', HelpMessage = 'Silent mode. When used, no interative prompt for sign in')]
+  [Parameter(Mandatory = $false, ParameterSetName = 'deployToMG', HelpMessage = 'Silent mode. When used, no interative prompt for sign in')]
+  [Switch]$silent
 )
 
 #region functions
@@ -85,24 +90,50 @@ Function DeployPolicySetDefinition
 
 #region main
 #ensure signed in to Azure
-Try {
+if ($silent)
+{
+  Write-Verbose "Running script in silent mode."
+}
+Try
+{
     $context = Get-AzContext -ErrorAction SilentlyContinue
     $currentTenantId = $context.Tenant.Id
     $currentSubId = $context.Subscription.Id
     $currentSubName = $context.Subscription.Name
-    Write-output "You are currently signed to to tenant '$currentTenantId', subscription '$currentSubName'  using account '$($context.Account.Id).'"
-    Write-Output '', "Press any key to continue using current sign-in session or Esc to login using another user account."
-    $KeyPress = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    If ($KeyPress.virtualKeyCode -eq 27)
+    if ($context -ne $null)
     {
-      #sign out first
-      Disconnect-AzAccount -AzureContext $context
-      #sign in
-      ProcessAzureSignIn
+      Write-output "You are currently signed to to tenant '$currentTenantId', subscription '$currentSubName'  using account '$($context.Account.Id).'"
+      if (!$silent)
+      {
+        Write-Output '', "Press any key to continue using current sign-in session or Esc to login using another user account."
+        $KeyPress = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+        If ($KeyPress.virtualKeyCode -eq 27)
+        {
+          #sign out first
+          Disconnect-AzAccount -AzureContext $context
+          #sign in
+          ProcessAzureSignIn
+        }
+      } 
+    } else {
+      if (!$silent)
+      {
+        Write-Output '', "You are currently not signed in to Azure. Please sign in from the pop-up window."
+        ProcessAzureSignIn
+      } else {
+        Throw "You are not signed in to Azure!"
+      }
+
     }
 } Catch {
-    #sign in
-    ProcessAzureSignIn
+    if (!$silent)
+    {
+      #sign in
+      ProcessAzureSignIn
+    } else {
+      Throw "You are not signed in to Azure!"
+    }
+
 }
 
 #Read initiative definition
