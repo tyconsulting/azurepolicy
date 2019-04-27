@@ -52,11 +52,11 @@ Function DeployPolicySetDefinition
     )
     #Extract from policy definition
     $policySetName = $Definition.name
-    $policySetDisplayName = $Definition.displayName
-    $policySetDescription = $Definition.description
-    $policySetParameters = $Definition.parameters | convertTo-Json
-    $policySetDefinition = $Definition.policyDefinitions | convertTo-Json -Depth 15
-    $policySetMetaData = $Definition.metadata | convertTo-Json
+    $policySetDisplayName = $Definition.properties.displayName
+    $policySetDescription = $Definition.properties.description
+    $policySetParameters = $Definition.properties.parameters | convertTo-Json
+    $policySetDefinition = $Definition.properties.policyDefinitions | convertTo-Json -Depth 15
+    $policySetMetaData = $Definition.properties.metadata | convertTo-Json
     If ($PSCmdlet.ParameterSetName -eq 'deployToSub')
     {
         Write-Verbose "Deploying Policy Initiative '$policySetName' to subscription '$subscriptionId'"
@@ -168,7 +168,7 @@ If ($objDef.properties.policyDefinitions)
 if ($bProceed -eq $true)
 {
     $params = @{
-        Definition = $($objDef.properties)
+        Definition = $objDef
     }
     If ($PSCmdlet.ParameterSetName -eq 'deployToSub')
     {

@@ -1,5 +1,4 @@
 {
-    "type": "Microsoft.Authorization/policySetDefinitions",
     "name": "sample-tagging-policySetDef",
     "properties": {
         "displayName": "Sample Tags Policy Initiative",

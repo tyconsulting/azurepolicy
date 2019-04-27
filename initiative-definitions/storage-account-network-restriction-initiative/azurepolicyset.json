@@ -1,5 +1,4 @@
 {
-    "type": "Microsoft.Authorization/policySetDefinitions",
     "name": "storage-account-network-restriction-policySetDef",
     "properties": {
         "displayName": "Storage Accounts Network Restriction Initiative",
