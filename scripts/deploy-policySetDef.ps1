@@ -1,3 +1,49 @@
+<#
+  .SYNOPSIS
+    Deploy Azure Policy Initiative (policy set) definition.
+  .DESCRIPTION
+    This script deploys Azure Policy Initiative (policy set) definition.
+  .PARAMETER -DefinitionFile
+    path to the Policy Initiative Definition file.
+  .PARAMETER -PolicyLocations
+    When the policy initiative contains custom policies, instead of hardcoding the policy definition resource Id, use a string to represent the location (resource Id to a subscription or a management group where the policy definition resides.) and replace this string with the value specified in this parameter. See Example for detailed usage
+  .PARAMETER -subscriptionId
+    When deploying the policy initiative definition to a subscription, specify the subscription Id.
+  .PARAMETER -managementGroupName
+    When deploying the policy initiative definition to a management group, specify the management group name (not the display name).
+  .PARAMETER -silent
+    Use this switch to use the surpress login prompt. The script will use the current Azure context (logon session) and it will fail if currently not logged on. Use this switch when using the script in CI/CD pipelines.
+  .EXAMPLE
+    ./deploy-policyDef.ps1 -definitionFile C:\Temp\azurepolicyset.json -subscriptionId cd45c044-18c4-4abe-a908-1e0b79f45003
+    Deploy a policy initiative definition to a subscription (interactive mode)
+  .EXAMPLE
+    ./deploy-policyDef.ps1 -definitionFile C:\Temp\azurepolicyset.json -managementGroupName myMG -silent
+    Deploy a policy initiative definition to a management group (silent mode, i.e. in a CI/CD pipeline)
+  .EXAMPLE
+    ./deploy-policyDef.ps1 -definitionFile C:\Temp\azurepolicyset.json -managementGroupName myMG -PolicyLocations @{policyLocationResourceId1 = '/providers/Microsoft.Management/managementGroups/MyMG'}
+    Deploy a policy initiative definition to a management group and replace the policy location from the definition file as shown below:
+    {
+    "name": "storage-account-network-restriction-policySetDef",
+    "properties": {
+        "displayName": "My Policy Initiative",
+        "description": "This is my test initiative",
+        "metadata": {
+            "category": "General"
+        },
+        "parameters": {},
+        "policyDefinitions": [
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/custom1-policyDef"
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/custom2-policyDef"
+            }
+        ]
+    }
+}
+
+#>
+
 #Requires -Modules 'az.resources'
 <#
 ======================================================================================================================================

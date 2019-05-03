@@ -1,3 +1,28 @@
+<#
+  .SYNOPSIS
+    Deploy Azure Policy definitions in bulk.
+  .DESCRIPTION
+    This script deploys Azure Policy definitions in bulk. You can deploy one or more policy definitions by specifying the file paths, or all policy definitions in a folder by specifying a folder path.
+  .PARAMETER -DefinitionFile
+    path to the Policy Definition file. Supports multiple paths using array.
+  .PARAMETER -FolderPath
+    Path to a folder that contains one or more policy definition files.
+  .PARAMETER -Recurse
+    Use this switch together with -FolderPath to deploy policy definitions in the folder and its sub folders (recursive).
+  .PARAMETER -subscriptionId
+    When deploying policy definitions to a subscription, specify the subscription Id.
+  .PARAMETER -managementGroupName
+    When deploying policy definitions to a management group, specify the management group name (not the display name).
+  .PARAMETER -silent
+    Use this switch to use the surpress login prompt. The script will use the current Azure context (logon session) and it will fail if currently not logged on. Use this switch when using the script in CI/CD pipelines.
+  .EXAMPLE
+    ./deploy-policyDef.ps1 -definitionFile C:\Temp\azurepolicy.json -subscriptionId cd45c044-18c4-4abe-a908-1e0b79f45003
+    Deploy a single policy definition to a subscription (interactive mode)
+  .EXAMPLE
+    ./deploy-policyDef.ps1 -FolderPath C:\Temp -recurse -managementGroupName myMG -silent
+    Deploy all policy definitions in a folder and its sub folders to a management group (silent mode, i.e. in a CI/CD pipeline)
+#>
+
 #Requires -Modules 'az.resources'
 <#
 =======================================================================================
