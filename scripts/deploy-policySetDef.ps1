@@ -3,15 +3,15 @@
     Deploy Azure Policy Initiative (policy set) definition.
   .DESCRIPTION
     This script deploys Azure Policy Initiative (policy set) definition.
-  .PARAMETER -DefinitionFile
+  .PARAMETER DefinitionFile
     path to the Policy Initiative Definition file.
-  .PARAMETER -PolicyLocations
+  .PARAMETER PolicyLocations
     When the policy initiative contains custom policies, instead of hardcoding the policy definition resource Id, use a string to represent the location (resource Id to a subscription or a management group where the policy definition resides.) and replace this string with the value specified in this parameter. See Example for detailed usage
-  .PARAMETER -subscriptionId
+  .PARAMETER subscriptionId
     When deploying the policy initiative definition to a subscription, specify the subscription Id.
-  .PARAMETER -managementGroupName
+  .PARAMETER managementGroupName
     When deploying the policy initiative definition to a management group, specify the management group name (not the display name).
-  .PARAMETER -silent
+  .PARAMETER silent
     Use this switch to use the surpress login prompt. The script will use the current Azure context (logon session) and it will fail if currently not logged on. Use this switch when using the script in CI/CD pipelines.
   .EXAMPLE
     ./deploy-policyDef.ps1 -definitionFile C:\Temp\azurepolicyset.json -subscriptionId cd45c044-18c4-4abe-a908-1e0b79f45003
