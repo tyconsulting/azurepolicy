@@ -1,6 +1,6 @@
 {
   "type": "Microsoft.Authorization/policyDefinitions",
-  "name": "restrict-storageAccount-firewall-rules",  
+  "name": "restrict-storageAccount-firewall-rules-policyDef",  
   "properties": {
     "displayName": "Restrict Storage Accounts firewall rules",
     "description": "This policy restrict IP ranges used in Storage Accounts firewall rules",

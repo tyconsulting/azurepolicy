@@ -1,9 +1,0 @@
-{
-	"subnetId": {
-		"type": "string",
-		"metadata": {
-			"description": "Resource Id for the Subnet",
-			"displayName": "Subnet Resource Id"
-		}
-	}
-}

@@ -1,0 +1,114 @@
+{
+    "name": "sample-tagging-policySetDef",
+    "properties": {
+        "displayName": "Sample Tags Policy Initiative",
+        "description": "This policy applies and enforces the cost Center app name tag values",
+        "metadata": {
+            "category": "General"
+        },
+        "parameters": {
+            "costCenter": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Value for the Cost Center tag"
+                }
+            },
+            "appName": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "value for App Name tag"
+                }
+            }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8ce3da23-7156-49e4-b145-24f95f9dcb46",
+                "parameters": {
+                    "tagName": {
+                        "value": "costCenter"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('costCenter')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/49c88fc8-6fd1-46fd-a676-f12d1d3a4c71",
+                "parameters": {
+                    "tagName": {
+                        "value": "costCenter"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('costCenter')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e30110a-5ceb-460c-a204-c1c3969c6d62",
+                "parameters": {
+                    "tagName": {
+                        "value": "costCenter"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('costCenter')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0e14a6-b0a6-4fab-991a-187a4f81c498",
+                "parameters": {
+                    "tagName": {
+                        "value": "costCenter"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('costCenter')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8ce3da23-7156-49e4-b145-24f95f9dcb46",
+                "parameters": {
+                    "tagName": {
+                        "value": "appName"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('appName')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/49c88fc8-6fd1-46fd-a676-f12d1d3a4c71",
+                "parameters": {
+                    "tagName": {
+                        "value": "appName"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('appName')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e30110a-5ceb-460c-a204-c1c3969c6d62",
+                "parameters": {
+                    "tagName": {
+                        "value": "appName"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('appName')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a0e14a6-b0a6-4fab-991a-187a4f81c498",
+                "parameters": {
+                    "tagName": {
+                        "value": "appName"
+                    },
+                    "tagValue": {
+                        "value": "[parameters('appName')]"
+                    }
+                }
+            }
+        ]
+    }
+}

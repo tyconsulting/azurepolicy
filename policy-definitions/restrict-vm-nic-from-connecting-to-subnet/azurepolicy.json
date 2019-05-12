@@ -1,4 +1,6 @@
 {
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "restrict-vm-nic-from-connecting-to-subnet-policyDef",
     "properties": {
         "displayName": "Restrict subnet for VM network interfaces",
         "description": "This policy restrict VM network interfaces from using a particular subnet",
