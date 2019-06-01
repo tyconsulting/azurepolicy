@@ -1,0 +1,161 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json##",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "logAnalyticsWorkspaceResourceId" :{
+            "type": "string",
+            "metadata": {
+                "description": "Log Analytics workspace Resource Id"
+            },
+            "minLength": 121
+        }
+    },
+    "variables": {
+        "alertTag" : "[concat('hidden-link:', parameters('logAnalyticsWorkspaceResourceId'))]",
+        "alertSchedule":{
+            "Frequency": 5,
+            "Time": 5
+        },
+        "policyNonCompliantResourceAlertSettings":{
+            "name": "PolicyNonCompliantResourceExampleAlert",
+            "description": "Azure Policy non-compliant resource alert example",
+            "Query": "let policyDefId = 'audit-resources-without-tags-policyDef'; AzureActivity | where Category == 'Policy' and Level != 'Informational' | extend p=todynamic(Properties) | extend policies=todynamic(tostring(p.policies)) | mvexpand policy = policies | where policy.policyDefinitionName in (policyDefId) and p.isComplianceCheck == 'False'",
+            "SourceId": "[parameters('logAnalyticsWorkspaceResourceId')]",
+            "actiongroup": "[concat(subscription().id, '/resourceGroups/', variables('resourceGroupName'), '/providers/microsoft.insights/actionGroups/', variables('action-groups')[0].name)]",
+            "Type":"ResultCount",
+            "SeverityLevel": "0",
+            "SuppressTimeinMin":20
+        },
+        "policyNonCompliantResourceAlertTrigger":{
+            "Operator":"GreaterThan",
+            "Threshold":"0"
+        },
+        "resourceGroupName": "rg-ss-monitoring",
+        "action-groups": [
+            {
+                "name": "action-group-policyCompliance",
+                "shortName": "policy",
+                "emailAddress": "your@email.com"
+            }
+        ]
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[deployment().location]",
+            "name": "[variables('resourceGroupName')]",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-05-01",
+            "name": "[concat('actionGroupsDeployment-',copyIndex())]",
+            "copy": {
+                "name": "actionGroupLoop",
+                "count": "[length(variables('action-groups'))]"
+            },
+            "resourceGroup": "[variables('resourceGroupName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('resourceGroupName'))]"
+            ],
+            "properties": {
+                "mode":"Incremental",
+                "template":{
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "comments": "Action Group",
+                            "type": "microsoft.insights/actionGroups",
+                            "name": "[variables('action-groups')[copyIndex()].name]",
+                            "apiVersion": "2018-09-01",
+                            "location": "Global",
+                            "tags": {},
+                            "scale": null,
+                            "properties": {
+                                "groupShortName": "[variables('action-groups')[copyIndex()].shortName]",
+                                "enabled": true,
+                                "emailReceivers": [
+                                    {
+                                        "name": "[variables('action-groups')[copyIndex()].shortName]",
+                                        "emailAddress": "[variables('action-groups')[copyIndex()].emailAddress]"
+                                    }
+                                ],
+                                "smsReceivers": [],
+                                "webhookReceivers": [],
+                                "itsmReceivers":[],
+                                "azureAppPushReceivers": [],
+                                "automationRunbookReceivers": [],
+                                "voiceReceivers":[],
+                                "logicAppReceivers":[],
+                                "azureFunctionReceivers":[],
+                                "armRoleReceivers":[]
+                            },
+                            "dependsOn": []
+                        }
+                    ],
+                    "outputs": {}
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-05-01",
+            "name": "policyAlertsDeployment",
+            "resourceGroup": "[variables('resourceGroupName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('resourceGroupName'))]",
+                "actionGroupLoop"
+            ],
+            "properties": {
+                "mode":"Incremental",
+                "template":{
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "comments": "Express Route Alert",
+                            "type": "microsoft.insights/scheduledQueryRules",
+                            "name": "[variables('policyNonCompliantResourceAlertSettings').name]",
+                            "apiVersion": "2018-04-16",
+                            "location": "[replace(reference(parameters('logAnalyticsWorkspaceResourceId'), '2015-11-01-preview', 'Full').location, ' ', '')]",
+                            "tags": {"[variables('alertTag')]": "Resource"},
+                            "scale": null,
+                            "properties":{
+                                "description": "[variables('policyNonCompliantResourceAlertSettings').description]",
+                                "enabled": "true",
+                                "source": {
+                                    "query": "[variables('policyNonCompliantResourceAlertSettings').Query]",
+                                    "dataSourceId": "[variables('policyNonCompliantResourceAlertSettings').SourceId]",
+                                    "queryType":"[variables('policyNonCompliantResourceAlertSettings').Type]"
+                                },
+                                "schedule":{
+                                    "frequencyInMinutes": "[variables('alertSchedule').Frequency]",
+                                    "timeWindowInMinutes": "[variables('alertSchedule').Time]"
+                                },
+                                "action":{
+                                    "odata.type": "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.Microsoft.AppInsights.Nexus.DataContracts.Resources.ScheduledQueryRules.AlertingAction",
+                                    "severity":"[variables('policyNonCompliantResourceAlertSettings').SeverityLevel]",
+                                    "throttlingInMin": "[variables('policyNonCompliantResourceAlertSettings').SuppressTimeinMin]",
+                                    "aznsAction":{
+                                        "actionGroup": "[array(variables('policyNonCompliantResourceAlertSettings').actiongroup)]",
+                                        "emailSubject":"Azure Express Route Alert"
+                                    },
+                                    "trigger":{
+                                        "thresholdOperator":"[variables('policyNonCompliantResourceAlertTrigger').Operator]",
+                                        "threshold":"[variables('policyNonCompliantResourceAlertTrigger').Threshold]"
+                                    }
+                                }
+                            },
+                            "dependsOn": []
+                        }
+                    ],
+                    "outputs": {}
+                }
+            }
+        }
+    ]
+}

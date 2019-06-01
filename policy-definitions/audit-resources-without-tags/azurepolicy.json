@@ -1,0 +1,30 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "audit-resources-without-tags-policyDef",
+    "properties": {
+      "displayName": "Audit resources without tags",
+      "description": "This policy audit resources without tags",
+      "metadata": {
+        "category": "General"
+      },
+      "mode": "indexed",
+      "parameters": {
+        "tagName": {
+          "type": "String",
+          "metadata": {
+            "description": "The tag name.",
+            "displayName": "Tag Name"
+          }
+        }
+      },
+      "policyRule": {
+        "if": {
+          "field": "[concat('tags[', parameters('tagName'), ']')]",
+          "exists": false
+        },
+        "then": {
+          "effect": "audit"
+        }
+      }
+    }
+  }
