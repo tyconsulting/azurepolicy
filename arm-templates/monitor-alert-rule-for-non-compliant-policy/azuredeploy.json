@@ -117,7 +117,7 @@
                     "variables": {},
                     "resources": [
                         {
-                            "comments": "Express Route Alert",
+                            "comments": "Azure Policy Non-Compliant Resource alert",
                             "type": "microsoft.insights/scheduledQueryRules",
                             "name": "[variables('policyNonCompliantResourceAlertSettings').name]",
                             "apiVersion": "2018-04-16",
@@ -142,7 +142,7 @@
                                     "throttlingInMin": "[variables('policyNonCompliantResourceAlertSettings').SuppressTimeinMin]",
                                     "aznsAction":{
                                         "actionGroup": "[array(variables('policyNonCompliantResourceAlertSettings').actiongroup)]",
-                                        "emailSubject":"Azure Express Route Alert"
+                                        "emailSubject":"Azure Policy Non-Compliant Resource: Detected Resource without required tags"
                                     },
                                     "trigger":{
                                         "thresholdOperator":"[variables('policyNonCompliantResourceAlertTrigger').Operator]",
