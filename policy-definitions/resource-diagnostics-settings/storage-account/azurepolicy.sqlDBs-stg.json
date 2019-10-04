@@ -12,7 +12,7 @@
             "type": "string",
                 "metadata": {
                     "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
+                    "description": "Name of the policy for the diagnostics settings."
                 }            },
             "storageAccount": {
                 "type": "string",
@@ -145,7 +145,7 @@
             "type": "string",
                 "metadata": {
                     "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
+                    "description": "Name of the policy for the diagnostics settings."
                 }            },
             "storageAccount": {
                                     "value": "[parameters('storageAccount')]"
