@@ -1,715 +1,765 @@
 {
-    "properties": {
-        "type": "Microsoft.Authorization/policySetDefinitions",
-        "name": "resource-diagnostic-settings-stg-policySet",
-        "displayName": "Apply diagnostic settings for applicable resources - Log Analytics",
-        "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
+  "properties": {
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "resource-diagnostic-settings-stg-policySet",
+    "displayName": "Apply diagnostic settings for applicable resources - Storage Account",
+    "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Storage Account.",
+    "metadata": {
+      "category": "Monitoring"
+    },
+    "parameters": {
+      "diagnosticsSettingNameToUse": {
+        "type": "string",
         "metadata": {
-            "category": "Monitoring"
-        },
+          "displayName": "Setting name",
+          "description": "Name of the policy for the diagnostics settings."
+        }
+      },
+      "storageAccount": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Account reference",
+          "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyDefinitions": [
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aa-diagnostic-settings-stg-policyDef",
         "parameters": {
-            "diagnosticsSettingNameToUse": {
+          "diagnosticsSettingNameToUse": {
             "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Storage Account reference",
-                    "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
-                    "assignPermissions": true
-                }
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
             }
-        },
-        "policyDefinitions": [
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aa-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aci-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
             "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aci-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/acr-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aks-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/analysisService-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/apiMgmt-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/batch-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cdnEndpoints-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cognitive-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cosmosDBs-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dataFactory-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dlanalytics-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dlstore-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventGridSub-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventGridTopic-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventHub-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/expressRoutes-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/firewall-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/hdInsight-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/iotHub-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/kv-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/lb-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/logicApps-integrationAccounts-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/logicApps-workflow-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/mySQL-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/nic-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/nsg-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/pip-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/postgreSQL-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/powerBIEmbedded-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/recoveryVault-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/redisCache-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/relay-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/searchServices-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/serviceBus-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/signalR-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sql-mi-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sqlDBs-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sqlElasticPools-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/streamAnalytics-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/timeSeriesInsights-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/trafficManager-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnet-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnetGW-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/webServerFarm-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-stg-policyDef",
-                "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings.",
-                }            },
-            "storageAccount": {
-                        "value": "[parameters('storageAccount')]"
-                    }
-                }
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
             }
-        ]
-    }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/acr-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aks-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/analysisService-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/apiMgmt-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/batch-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cdnEndpoints-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cognitive-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cosmosDBs-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dataFactory-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dlanalytics-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dlstore-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventGridSub-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventGridTopic-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventHub-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/expressRoutes-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/firewall-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/hdInsight-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/iotHub-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/kv-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/lb-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/logicApps-integrationAccounts-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/logicApps-workflow-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/mySQL-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/nic-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/nsg-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/pip-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/postgreSQL-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/powerBIEmbedded-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/recoveryVault-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/redisCache-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/relay-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/searchServices-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/serviceBus-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/signalR-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sql-mi-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sqlDBs-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sqlElasticPools-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/streamAnalytics-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/timeSeriesInsights-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/trafficManager-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnet-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnetGW-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/webServerFarm-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "type": "string",
+            "metadata": {
+              "displayName": "Setting name",
+              "description": "Name of the policy for the diagnostics settings."
+            }
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      }
+    ]
+  }
 }
