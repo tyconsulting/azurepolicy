@@ -13,7 +13,9 @@
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                }            },
+                } ,
+        "defaultValue": "setByPolicyStgAcct"
+           },
             "storageAccount": {
                 "type": "string",
                 "metadata": {
@@ -124,7 +126,9 @@
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                }            },
+                } ,
+        "defaultValue": "setByPolicyStgAcct"
+           },
             "storageAccount": {
                                     "value": "[parameters('storageAccount')]"
                                 },

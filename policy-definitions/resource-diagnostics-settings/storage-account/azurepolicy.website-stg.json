@@ -9,11 +9,13 @@
         "mode": "all",
         "parameters": {
             "diagnosticsSettingNameToUse": {
-            "type": "string",
+                "type": "string",
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                }            },
+                },
+                "defaultValue": "setByPolicyStgAcct"
+            },
             "storageAccount": {
                 "type": "string",
                 "metadata": {
@@ -96,13 +98,15 @@
                                 "outputs": {}
                             },
                             "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings."
-                }            },
-            "storageAccount": {
+                                "diagnosticsSettingNameToUse": {
+                                    "type": "string",
+                                    "metadata": {
+                                        "displayName": "Setting name",
+                                        "description": "Name of the policy for the diagnostics settings."
+                                    },
+                                    "defaultValue": "setByPolicyStgAcct"
+                                },
+                                "storageAccount": {
                                     "value": "[parameters('storageAccount')]"
                                 },
                                 "location": {

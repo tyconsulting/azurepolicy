@@ -7,9 +7,15 @@
         "metadata": {
             "category": "Monitoring"
         },
-        "parameters": {
-            "resourceLocation": {
-                "type": "string",
+"parameters": {
+            "diagnosticsSettingNameToUse": {
+            "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                }            
+            },
+            "resourceLocation": {                "type": "string",
                 "metadata": {
                     "displayName": "Resource Location",
                     "description": "Resource Location must be the same as the Event Hub",
