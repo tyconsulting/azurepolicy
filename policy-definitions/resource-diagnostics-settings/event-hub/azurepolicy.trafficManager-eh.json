@@ -8,6 +8,14 @@
         },
         "mode": "all",
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyEvtHub"
+            },
             "resourceLocation": {
                 "type": "string",
                 "metadata": {
@@ -96,7 +104,7 @@
                                     {
                                         "type": "Microsoft.Network/trafficManagerProfiles/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {

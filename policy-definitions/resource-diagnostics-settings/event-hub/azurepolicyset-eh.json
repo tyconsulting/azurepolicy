@@ -8,6 +8,14 @@
             "category": "Monitoring"
         },
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyEvtHub"
+            },
             "resourceLocation": {
                 "type": "string",
                 "metadata": {
