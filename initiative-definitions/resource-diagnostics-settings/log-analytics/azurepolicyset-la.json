@@ -27,6 +27,14 @@
                 }
             },
             {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aadds-diagnostic-settings-policyDef",
+                "parameters": {
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aci-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
@@ -59,6 +67,14 @@
                 }
             },
             {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/ap-diagnostic-settings-policyDef",
+                "parameters": {
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/apiMgmt-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
@@ -68,6 +84,14 @@
             },
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-policyDef",
+                "parameters": {
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/bastion-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -356,22 +380,6 @@
             },
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/trafficManager-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
