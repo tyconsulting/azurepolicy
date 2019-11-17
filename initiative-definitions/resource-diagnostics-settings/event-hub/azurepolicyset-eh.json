@@ -717,20 +717,6 @@
                         "value": "[parameters('eventHubAuthorizationRuleId')]"
                     }
                 }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-eh-policyDef",
-                "parameters": {
-                    "resourceLocation": {
-                        "value": "[parameters('resourceLocation')]"
-                    },
-                    "eventHubName": {
-                        "value": "[parameters('eventHubName')]"
-                    },
-                    "eventHubAuthorizationRuleId": {
-                        "value": "[parameters('eventHubAuthorizationRuleId')]"
-                    }
-                }
             }
         ]
     }

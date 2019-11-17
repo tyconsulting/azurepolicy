@@ -409,14 +409,6 @@
                         "value": "[parameters('logAnalytics')]"
                     }
                 }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
             }
         ]
     }
