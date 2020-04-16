@@ -28,7 +28,7 @@
     "eventHubDiagPolicyName": "eventHub-iftagged-diagnostic-settings-policyDef",
     "iotHubDiagPolicyName": "iotHub-iftagged-diagnostic-settings-policyDef",
     "logicAppsWorkflowDiagPolicyName": "logicApps-workflow-iftagged-diagnostic-settings-policyDef",
-    "logicAppsIntegrationAccountsDiagPolicyName": "logicApps-integrationAccounts-iftagged-diagnostic-settings-policyDef",
+    "logicAppsIntegrationAccountsDiagPolicyName": "logicApps-integrationAccts-iftag-diagnostic-settings-policyDef",
     "recoveryVaultDiagPolicyName": "recoveryVault-iftagged-diagnostic-settings-policyDef",
     "searchServicesDiagPolicyName": "searchServices-iftagged-diagnostic-settings-policyDef",
     "serviceBusDiagPolicyName": "serviceBus-iftagged-diagnostic-settings-policyDef",
