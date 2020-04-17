@@ -2,7 +2,20 @@
 
 Copy of [policy.definition.azuredeploy.json](..\diagnostic-settings\policy.definition.azuredeploy.json), but only configure diagnostic settings for specified tag.
 
-See [readme](..\diagnostic-settings\README.md) for details on installing and list of supported resource types.
+See [readme](..\diagnostic-settings\README.md) for a list of supported resource types.
+
+## Deployment
+
+```powershell
+$MgtGroupId = '<my management group id>'
+$Location = "West Europe"
+New-AzManagementGroupDeployment `
+    -Name policyMGDeployment `
+    -Location $Location `
+    -ManagementGroupId $MgtGroupId `
+    -TemplateUri "https://raw.githubusercontent.com/tyconsulting/azurepolicy/master/arm-templates/diagnostic-settings-if-tagged/policy.definition.azuredeploy.json" `
+    -managementGroupName $MgtGroupId    
+```
 
 ## Changes made
 

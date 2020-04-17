@@ -1,7 +1,11 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#", // https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#
   "contentVersion": "1.0.0.0",
-  "parameters": {},
+  "parameters": {
+    "managementGroupName" : {
+      "type": "string"
+    }
+  },
   "variables": {
     "singleQuote": "'",
     "logAnalytics": "[concat('[parameters(', variables('singleQuote'), 'logAnalytics', variables('singleQuote'), ')]')]",
@@ -6077,7 +6081,7 @@
     {
       "type": "Microsoft.Authorization/policySetDefinitions",
       "name": "[variables('diagSettingsInitiativeName')]",
-      "apiVersion": "2018-05-01",
+      "apiVersion": "2019-09-01",
       "dependsOn": [
         "[variables('timeSeriesInsightsDiagPolicyName')]"
       ],
@@ -6112,7 +6116,7 @@
           }
         },
         "policyDefinitions": [{
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('nicDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('nicDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6126,7 +6130,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('aaDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('aaDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6140,7 +6144,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('pipDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('pipDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6154,7 +6158,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('lbDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('lbDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6168,7 +6172,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('nsgDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('nsgDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6182,7 +6186,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('kvDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('kvDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6196,7 +6200,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('cognitiveDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('cognitiveDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6210,7 +6214,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('dataLakeAnalyticsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('dataLakeAnalyticsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6224,7 +6228,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('dataLakeStoreDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('dataLakeStoreDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6238,7 +6242,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('eventHubDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('eventHubDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6252,7 +6256,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('iotHubDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('iotHubDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6266,7 +6270,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('logicAppsWorkflowDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('logicAppsWorkflowDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6280,7 +6284,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('logicAppsIntegrationAccountsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('logicAppsIntegrationAccountsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6294,7 +6298,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('recoveryVaultDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('recoveryVaultDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6308,7 +6312,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('searchServicesDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('searchServicesDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6322,7 +6326,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('serviceBusDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('serviceBusDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6336,7 +6340,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('sqlDBsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('sqlDBsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6350,7 +6354,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('sqlElasticPoolsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('sqlElasticPoolsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6364,7 +6368,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('apiMgmtDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('apiMgmtDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6378,7 +6382,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('appGwDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('appGwDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6392,7 +6396,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('batchDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('batchDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6406,7 +6410,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('mySQLDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('mySQLDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6420,7 +6424,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('postgreSQLDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('postgreSQLDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6434,7 +6438,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('cdnEndpointsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('cdnEndpointsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6448,7 +6452,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('cosmosDBsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('cosmosDBsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6462,7 +6466,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('dataFactoryDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('dataFactoryDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6476,7 +6480,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('firewallDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('firewallDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6490,7 +6494,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('powerBIEmbeddedDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('powerBIEmbeddedDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6504,7 +6508,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('streamAnalyticsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('streamAnalyticsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6518,7 +6522,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('expressRoutesDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('expressRoutesDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6532,7 +6536,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('aciDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('aciDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6546,7 +6550,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('acrDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('acrDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6560,7 +6564,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('vnetDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('vnetDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6574,7 +6578,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('vmDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('vmDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6588,7 +6592,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('vmssDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('vmssDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6602,7 +6606,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('vnetGWDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('vnetGWDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6616,7 +6620,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('aksDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('aksDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6630,7 +6634,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('websiteDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('websiteDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6644,7 +6648,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('analysisServiceDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('analysisServiceDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6658,7 +6662,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('eventGridTopicDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('eventGridTopicDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6672,7 +6676,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('eventGridSubDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('eventGridSubDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6686,7 +6690,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('hdInsightDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('hdInsightDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6700,7 +6704,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('redisCacheDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('redisCacheDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6714,7 +6718,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('relayDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('relayDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6728,7 +6732,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('signalRDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('signalRDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6742,7 +6746,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('trafficManagerDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('trafficManagerDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6756,7 +6760,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('webServerFarmDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('webServerFarmDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6770,7 +6774,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('sqlMIDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('sqlMIDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
@@ -6784,7 +6788,7 @@
             }
           },
           {
-            "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('timeSeriesInsightsDiagPolicyName'))]",
+            "policyDefinitionId": "[extensionResourceId(resourceId('Microsoft.Management/managementGroups', parameters('managementGroupName')), 'Microsoft.Authorization/policyDefinitions/', variables('timeSeriesInsightsDiagPolicyName'))]",
             "parameters": {
               "logAnalytics": {
                 "value": "[variables('logAnalytics')]"
