@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#", // https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "managementGroupName" : {
+    "managementGroupName": {
       "type": "string"
     }
   },
@@ -2461,7 +2461,15 @@
                               "enabled": false
                             },
                             "timeGrain": null
-                          }
+                          },
+          {
+            "category": "Network Status",
+            "enabled": true,
+            "retentionPolicy": {
+              "enabled": false,
+              "days": 0
+            }
+          }
                         ],
                         "logs": [{
                           "category": "GatewayLogs",
@@ -4143,7 +4151,10 @@
                       "dependsOn": [],
                       "properties": {
                         "workspaceId": "[variables('logAnalytics')]",
-                        "metrics": [],
+                        "metrics": [{
+                          "category": "AllMetrics",
+                          "enabled": true
+                        }],
                         "logs": [{
                           "category": "VMProtectionAlerts",
                           "enabled": true
@@ -4769,7 +4780,27 @@
                           },
                           "timeGrain": null
                         }],
-                        "logs": []
+                        "logs": [{
+                            "category": "AppServiceHTTPLogs",
+                            "enabled": true
+                          },
+                          {
+                            "category": "AppServiceConsoleLogs",
+                            "enabled": true
+                          },
+                          {
+                            "category": "AppServiceAppLogs",
+                            "enabled": true
+                          },
+                          {
+                            "category": "AppServiceFileAuditLogs",
+                            "enabled": true
+                          },
+                          {
+                            "category": "AppServiceAuditLogs",
+                            "enabled": true
+                          }
+                        ]
                       }
                     }],
                     "outputs": {}
