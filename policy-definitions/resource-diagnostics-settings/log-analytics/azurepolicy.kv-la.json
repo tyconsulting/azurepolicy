@@ -8,10 +8,18 @@
         },
         "mode": "all",
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyLA"
+            },
             "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Log Analyitcs workspace",
+                    "displayName": "Log Analytics workspace",
                     "description": "Select the Log Analytics workspace from dropdown list",
                     "strongType": "omsWorkspace"
                 }
@@ -52,6 +60,9 @@
                                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
+                                   "diagnosticsSettingNameToUse": {
+                                       "type": "string"
+                                    },
                                     "resourceName": {
                                         "type": "string"
                                     },
@@ -67,7 +78,7 @@
                                     {
                                         "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
+                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {

@@ -1,13 +1,21 @@
 {
-    "name": "ap-diagnostic-settings-eh-policyDef",
+    "name": "website-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure App Service - Event Hub",
+        "displayName": "Apply diagnostic settings for Azure Web Sites - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
         },
         "mode": "all",
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyEvtHub"
+            },
             "resourceLocation": {
                 "type": "string",
                 "metadata": {
@@ -78,6 +86,9 @@
                                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
+                                   "diagnosticsSettingNameToUse": {
+                                       "type": "string"
+                                    },
                                     "resourceName": {
                                         "type": "string"
                                     },
@@ -96,7 +107,7 @@
                                     {
                                         "type": "Microsoft.Web/sites/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
@@ -105,36 +116,15 @@
                                             "metrics": [
                                                 {
                                                     "category": "AllMetrics",
-                                                    "timeGrain": null,
                                                     "enabled": true,
                                                     "retentionPolicy": {
-                                                        "enabled": false,
-                                                        "days": 0
-                                                    }
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
                                                 }
                                             ],
-                                            "logs": [
-                                                {
-                                                    "category": "AppServiceHTTPLogs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AppServiceConsoleLogs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AppServiceAppLogs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AppServiceFileAuditLogs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AppServiceAuditLogs",
-                                                    "enabled": true
-                                                }
-                                            ]
+                                            "logs": []
                                         }
                                     }
                                 ],

@@ -7,9 +7,15 @@
         "metadata": {
             "category": "Monitoring"
         },
-        "parameters": {
-            "resourceLocation": {
-                "type": "string",
+"parameters": {
+            "diagnosticsSettingNameToUse": {
+            "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                }            
+            },
+            "resourceLocation": {                "type": "string",
                 "metadata": {
                     "displayName": "Resource Location",
                     "description": "Resource Location must be the same as the Event Hub",
@@ -34,20 +40,6 @@
         "policyDefinitions": [
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aa-diagnostic-settings-eh-policyDef",
-                "parameters": {
-                    "resourceLocation": {
-                        "value": "[parameters('resourceLocation')]"
-                    },
-                    "eventHubName": {
-                        "value": "[parameters('eventHubName')]"
-                    },
-                    "eventHubAuthorizationRuleId": {
-                        "value": "[parameters('eventHubAuthorizationRuleId')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aadds-diagnostic-settings-eh-policyDef",
                 "parameters": {
                     "resourceLocation": {
                         "value": "[parameters('resourceLocation')]"
@@ -117,20 +109,6 @@
                 }
             },
             {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/ap-diagnostic-settings-eh-policyDef",
-                "parameters": {
-                    "resourceLocation": {
-                        "value": "[parameters('resourceLocation')]"
-                    },
-                    "eventHubName": {
-                        "value": "[parameters('eventHubName')]"
-                    },
-                    "eventHubAuthorizationRuleId": {
-                        "value": "[parameters('eventHubAuthorizationRuleId')]"
-                    }
-                }
-            },
-            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/apiMgmt-diagnostic-settings-eh-policyDef",
                 "parameters": {
                     "resourceLocation": {
@@ -146,20 +124,6 @@
             },
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-eh-policyDef",
-                "parameters": {
-                    "resourceLocation": {
-                        "value": "[parameters('resourceLocation')]"
-                    },
-                    "eventHubName": {
-                        "value": "[parameters('eventHubName')]"
-                    },
-                    "eventHubAuthorizationRuleId": {
-                        "value": "[parameters('eventHubAuthorizationRuleId')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/bastion-diagnostic-settings-eh-policyDef",
                 "parameters": {
                     "resourceLocation": {
                         "value": "[parameters('resourceLocation')]"
@@ -677,6 +641,34 @@
                 }
             },
             {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-eh-policyDef",
+                "parameters": {
+                    "resourceLocation": {
+                        "value": "[parameters('resourceLocation')]"
+                    },
+                    "eventHubName": {
+                        "value": "[parameters('eventHubName')]"
+                    },
+                    "eventHubAuthorizationRuleId": {
+                        "value": "[parameters('eventHubAuthorizationRuleId')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-eh-policyDef",
+                "parameters": {
+                    "resourceLocation": {
+                        "value": "[parameters('resourceLocation')]"
+                    },
+                    "eventHubName": {
+                        "value": "[parameters('eventHubName')]"
+                    },
+                    "eventHubAuthorizationRuleId": {
+                        "value": "[parameters('eventHubAuthorizationRuleId')]"
+                    }
+                }
+            },
+            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnet-diagnostic-settings-eh-policyDef",
                 "parameters": {
                     "resourceLocation": {
@@ -706,6 +698,20 @@
             },
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/webServerFarm-diagnostic-settings-eh-policyDef",
+                "parameters": {
+                    "resourceLocation": {
+                        "value": "[parameters('resourceLocation')]"
+                    },
+                    "eventHubName": {
+                        "value": "[parameters('eventHubName')]"
+                    },
+                    "eventHubAuthorizationRuleId": {
+                        "value": "[parameters('eventHubAuthorizationRuleId')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-eh-policyDef",
                 "parameters": {
                     "resourceLocation": {
                         "value": "[parameters('resourceLocation')]"

@@ -1,0 +1,137 @@
+{
+    "name": "streamAnalytics-diagnostic-settings-stg-policyDef",
+    "properties": {
+        "displayName": "Apply diagnostic settings for Stream Analytics - Log Analytics",
+        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+        "metadata": {
+            "category": "Monitoring"
+        },
+        "mode": "all",
+        "parameters": {
+            "diagnosticsSettingNameToUse": {
+            "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                } ,
+        "defaultValue": "setByPolicyStgAcct"
+           },
+            "storageAccount": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Storage Account reference",
+                    "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
+                    "assignPermissions": true
+                }
+            }
+        },
+        "policyRule": {
+            "if": {
+                "field": "type",
+                "equals": "Microsoft.StreamAnalytics/streamingjobs"
+            },
+            "then": {
+                "effect": "deployIfNotExists",
+                "details": {
+                    "type": "Microsoft.Insights/diagnosticSettings",
+                    "roleDefinitionIds": [
+                        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+                    ],
+                    "existenceCondition": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                                "equals": "True"
+                            },
+                            {
+                                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                                "equals": "True"
+                            },
+                            {
+                                "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
+                                "matchInsensitively": "[parameters('storageAccount')]"
+                            }
+                        ]
+                    },
+                    "deployment": {
+                        "properties": {
+                            "mode": "incremental",
+                            "template": {
+                                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                "contentVersion": "1.0.0.0",
+                                "parameters": {
+                                   "diagnosticsSettingNameToUse": {
+                                       "type": "string"
+                                    },
+                                    "resourceName": {
+                                        "type": "string"
+                                    },
+                                    "storageAccount": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    }
+                                },
+                                "variables": {},
+                                "resources": [
+                                    {
+                                        "type": "Microsoft.StreamAnalytics/streamingjobs/providers/diagnosticSettings",
+                                        "apiVersion": "2017-05-01-preview",
+                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
+                                        "location": "[parameters('location')]",
+                                        "dependsOn": [],
+                                        "properties": {
+                                            "storageAccountId": "[parameters('storageAccount')]",
+                                            "metrics": [
+                                                {
+                                                    "category": "AllMetrics",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                }
+                                            ],
+                                            "logs": [
+                                                {
+                                                    "category": "Execution",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "Authoring",
+                                                    "enabled": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "outputs": {}
+                            },
+                            "parameters": {
+            "diagnosticsSettingNameToUse": {
+            "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                } ,
+        "defaultValue": "setByPolicyStgAcct"
+           },
+            "storageAccount": {
+                                    "value": "[parameters('storageAccount')]"
+                                },
+                                "location": {
+                                    "value": "[field('location')]"
+                                },
+                                "resourceName": {
+                                    "value": "[field('name')]"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

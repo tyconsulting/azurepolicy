@@ -8,10 +8,17 @@
             "category": "Monitoring"
         },
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+            "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                }            
+            },
             "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Log Analyitcs workspace",
+                    "displayName": "Log Analytics workspace",
                     "description": "Select the Log Analytics workspace from dropdown list",
                     "strongType": "omsWorkspace"
                 }
@@ -20,14 +27,6 @@
         "policyDefinitions": [
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aa-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aadds-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -67,14 +66,6 @@
                 }
             },
             {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/ap-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/apiMgmt-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
@@ -84,14 +75,6 @@
             },
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/bastion-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -387,6 +370,22 @@
                 }
             },
             {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-policyDef",
+                "parameters": {
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-policyDef",
+                "parameters": {
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnet-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
@@ -404,6 +403,14 @@
             },
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/webServerFarm-diagnostic-settings-policyDef",
+                "parameters": {
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-policyDef",
                 "parameters": {
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"

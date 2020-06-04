@@ -8,6 +8,14 @@
         },
         "mode": "all",
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyEvtHub"
+            },
             "resourceLocation": {
                 "type": "string",
                 "metadata": {
@@ -78,6 +86,9 @@
                                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
+                                   "diagnosticsSettingNameToUse": {
+                                       "type": "string"
+                                    },
                                     "resourceName": {
                                         "type": "string"
                                     },
@@ -96,7 +107,7 @@
                                     {
                                         "type": "Microsoft.Web/serverfarms/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicyEvtHub')]",
+                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {

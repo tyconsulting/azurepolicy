@@ -1,17 +1,25 @@
 {
-    "name": "aadds-diagnostic-settings-policyDef",
+    "name": "vm-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure Ad Domain Services - Log Analytics",
+        "displayName": "Apply diagnostic settings for Virtual Machines - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
             "category": "Monitoring"
         },
         "mode": "all",
         "parameters": {
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyLA"
+            },
             "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Log Analyitcs workspace",
+                    "displayName": "Log Analytics workspace",
                     "description": "Select the Log Analytics workspace from dropdown list",
                     "strongType": "omsWorkspace"
                 }
@@ -20,7 +28,7 @@
         "policyRule": {
             "if": {
                 "field": "type",
-                "equals": "Microsoft.AAD/domainServices"
+                "equals": "Microsoft.Compute/virtualMachines"
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -36,6 +44,10 @@
                                 "equals": "True"
                             },
                             {
+                                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                                "equals": "True"
+                            },
+                            {
                                 "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
                                 "matchInsensitively": "[parameters('logAnalytics')]"
                             }
@@ -48,6 +60,9 @@
                                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
+                                   "diagnosticsSettingNameToUse": {
+                                       "type": "string"
+                                    },
                                     "resourceName": {
                                         "type": "string"
                                     },
@@ -61,52 +76,24 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.AAD/domainServices/providers/diagnosticSettings",
+                                        "type": "Microsoft.Compute/virtualMachines/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
+                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
                                             "workspaceId": "[parameters('logAnalytics')]",
-                                            "metrics": [],
-                                            "logs": [
+                                            "metrics": [
                                                 {
-                                                    "category": "SystemSecurity",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AccountManagement",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "LogonLogoff",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "ObjectAccess",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "PolicyChange",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "PrivilegeUse",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "DetailTracking",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "DirectoryServiceAccess",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AccountLogon",
-                                                    "enabled": true
+                                                    "category": "AllMetrics",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "enabled": false,
+                                                        "days": 0
+                                                    }
                                                 }
-                                            ]
+                                            ],
+                                            "logs": []
                                         }
                                     }
                                 ],
