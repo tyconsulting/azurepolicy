@@ -106,6 +106,9 @@
                                 "outputs": {}
                             },
                             "parameters": {
+                                "diagnosticsSettingNameToUse": {
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                                },
                                 "logAnalytics": {
                                     "value": "[parameters('logAnalytics')]"
                                 },

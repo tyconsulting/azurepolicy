@@ -144,6 +144,9 @@
                                 "outputs": {}
                             },
                             "parameters": {
+                                "diagnosticsSettingNameToUse": {
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                                },
                                 "eventHubName": {
                                     "value": "[parameters('eventHubName')]"
                                 },

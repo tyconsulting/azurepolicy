@@ -1,8 +1,8 @@
 {
     "name": "website-diagnostic-settings-stg-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure Web Sites - Log Analytics",
-        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+        "displayName": "Apply diagnostic settings for Azure Web Sites - Storage Account",
+        "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
         "metadata": {
             "category": "Monitoring"
         },
@@ -102,12 +102,7 @@
                             },
                             "parameters": {
                                 "diagnosticsSettingNameToUse": {
-                                    "type": "string",
-                                    "metadata": {
-                                        "displayName": "Setting name",
-                                        "description": "Name of the policy for the diagnostics settings."
-                                    },
-                                    "defaultValue": "setByPolicyStgAcct"
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
                                 },
                                 "storageAccount": {
                                     "value": "[parameters('storageAccount')]"

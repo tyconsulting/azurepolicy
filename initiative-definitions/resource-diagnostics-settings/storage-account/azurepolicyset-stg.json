@@ -1,4 +1,5 @@
 {
+  "name": "resource-diagnostic-settings-stg-policySet",
   "properties": {
     "type": "Microsoft.Authorization/policySetDefinitions",
     "name": "resource-diagnostic-settings-stg-policySet",
@@ -26,6 +27,17 @@
       }
     },
     "policyDefinitions": [
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aadds-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "value": "[parameters('diagnosticsSettingNameToUse')]"
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
       {
         "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aa-diagnostic-settings-stg-policyDef",
         "parameters": {
@@ -94,6 +106,17 @@
       },
       {
         "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-stg-policyDef",
+        "parameters": {
+          "diagnosticsSettingNameToUse": {
+            "value": "[parameters('diagnosticsSettingNameToUse')]"
+          },
+          "storageAccount": {
+            "value": "[parameters('storageAccount')]"
+          }
+        }
+      },
+      {
+        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/bastion-diagnostic-settings-stg-policyDef",
         "parameters": {
           "diagnosticsSettingNameToUse": {
             "value": "[parameters('diagnosticsSettingNameToUse')]"
@@ -490,28 +513,6 @@
       },
       {
         "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/trafficManager-diagnostic-settings-stg-policyDef",
-        "parameters": {
-          "diagnosticsSettingNameToUse": {
-            "value": "[parameters('diagnosticsSettingNameToUse')]"
-          },
-          "storageAccount": {
-            "value": "[parameters('storageAccount')]"
-          }
-        }
-      },
-      {
-        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-stg-policyDef",
-        "parameters": {
-          "diagnosticsSettingNameToUse": {
-            "value": "[parameters('diagnosticsSettingNameToUse')]"
-          },
-          "storageAccount": {
-            "value": "[parameters('storageAccount')]"
-          }
-        }
-      },
-      {
-        "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-stg-policyDef",
         "parameters": {
           "diagnosticsSettingNameToUse": {
             "value": "[parameters('diagnosticsSettingNameToUse')]"

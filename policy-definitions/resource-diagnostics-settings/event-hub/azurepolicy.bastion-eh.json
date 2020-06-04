@@ -8,13 +8,14 @@
         },
         "mode": "all",
         "parameters": {
-          "diagnosticsSettingNameToUse": {
-            "type": "string",
-            "metadata": {
-              "displayName": "Setting name",
-              "description": "Name of the policy for the diagnostics settings."
-            }
-          },
+            "diagnosticsSettingNameToUse": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "Setting name",
+                    "description": "Name of the policy for the diagnostics settings."
+                },
+                "defaultValue": "setByPolicyEvtHub"
+            },
             "resourceLocation": {
                 "type": "string",
                 "metadata": {
@@ -118,6 +119,9 @@
                                 "outputs": {}
                             },
                             "parameters": {
+                                "diagnosticsSettingNameToUse": {
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                                },
                                 "eventHubName": {
                                     "value": "[parameters('eventHubName')]"
                                 },

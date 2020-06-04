@@ -1,7 +1,8 @@
 {
     "name": "resource-diagnostic-settings-la-policySet",
-	"properties": {
+    "properties": {
         "type": "Microsoft.Authorization/policySetDefinitions",
+        "name": "resource-diagnostic-settings-la-policySet",
         "displayName": "Apply diagnostic settings for applicable resources - Log Analytics",
         "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
         "metadata": {
@@ -13,7 +14,8 @@
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                }            
+                },
+                "defaultValue": "setByPolicyLA"
             },
             "logAnalytics": {
                 "type": "string",
@@ -26,8 +28,22 @@
         },
         "policyDefinitions": [
             {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aadds-diagnostic-settings-policyDef",
+                "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aa-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -36,6 +52,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aci-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -44,6 +63,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/acr-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -52,6 +74,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/aks-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -60,6 +85,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/analysisService-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -68,6 +96,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/apiMgmt-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -76,6 +107,20 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/appGw-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
+                    "logAnalytics": {
+                        "value": "[parameters('logAnalytics')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/bastion-diagnostic-settings-policyDef",
+                "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -84,6 +129,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/batch-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -92,6 +140,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cdnEndpoints-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -100,6 +151,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cognitive-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -108,6 +162,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/cosmosDBs-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -116,6 +173,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dataFactory-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -124,6 +184,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dlanalytics-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -132,6 +195,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/dlstore-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -140,6 +206,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventGridSub-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -148,6 +217,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventGridTopic-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -156,6 +228,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/eventHub-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -164,6 +239,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/expressRoutes-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -172,6 +250,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/firewall-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -180,6 +261,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/hdInsight-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -188,6 +272,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/iotHub-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -196,6 +283,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/kv-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -204,6 +294,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/lb-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -212,6 +305,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/logicApps-integrationAccounts-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -220,6 +316,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/logicApps-workflow-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -228,6 +327,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/mySQL-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -236,6 +338,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/nic-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -244,6 +349,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/nsg-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -252,6 +360,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/pip-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -260,6 +371,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/postgreSQL-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -268,6 +382,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/powerBIEmbedded-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -276,6 +393,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/recoveryVault-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -284,6 +404,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/redisCache-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -292,6 +415,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/relay-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -300,6 +426,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/searchServices-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -308,6 +437,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/serviceBus-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -316,6 +448,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/signalR-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -324,6 +459,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sql-mi-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -332,6 +470,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sqlDBs-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -340,6 +481,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/sqlElasticPools-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -348,6 +492,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/streamAnalytics-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -356,6 +503,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/timeSeriesInsights-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -364,22 +514,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/trafficManager-diagnostic-settings-policyDef",
                 "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vm-diagnostic-settings-policyDef",
-                "parameters": {
-                    "logAnalytics": {
-                        "value": "[parameters('logAnalytics')]"
-                    }
-                }
-            },
-            {
-                "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vmss-diagnostic-settings-policyDef",
-                "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -388,6 +525,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnet-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -396,6 +536,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/vnetGW-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -404,6 +547,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/webServerFarm-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }
@@ -412,6 +558,9 @@
             {
                 "policyDefinitionId": "{policyLocationResourceId1}/providers/Microsoft.Authorization/policyDefinitions/website-diagnostic-settings-policyDef",
                 "parameters": {
+                    "diagnosticsSettingNameToUse":{
+                        "value": "[parameters('diagnosticsSettingNameToUse')]"
+                    },
                     "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
                     }

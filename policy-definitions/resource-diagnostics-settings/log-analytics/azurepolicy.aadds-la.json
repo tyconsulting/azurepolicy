@@ -1,7 +1,7 @@
 {
-    "name": "vm-diagnostic-settings-policyDef",
+    "name": "aadds-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Machines - Log Analytics",
+        "displayName": "Apply diagnostic settings for Azure AD Domain Services - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
             "category": "Monitoring"
@@ -28,7 +28,7 @@
         "policyRule": {
             "if": {
                 "field": "type",
-                "equals": "Microsoft.Compute/virtualMachines"
+                "equals": "Microsoft.AAD/domainServices"
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -41,10 +41,6 @@
                         "allOf": [
                             {
                                 "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                                "equals": "True"
-                            },
-                            {
-                                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                                 "equals": "True"
                             },
                             {
@@ -76,30 +72,61 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.Compute/virtualMachines/providers/diagnosticSettings",
+                                        "type": "Microsoft.AAD/domainServices/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
                                             "workspaceId": "[parameters('logAnalytics')]",
-                                            "metrics": [
+                                            "metrics": [],
+                                            "logs": [
                                                 {
-                                                    "category": "AllMetrics",
-                                                    "enabled": true,
-                                                    "retentionPolicy": {
-                                                        "enabled": false,
-                                                        "days": 0
-                                                    }
+                                                    "category": "SystemSecurity",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "AccountManagement",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "LogonLogoff",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "ObjectAccess",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "PolicyChange",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "PrivilegeUse",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "DetailTracking",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "DirectoryServiceAccess",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "AccountLogon",
+                                                    "enabled": true
                                                 }
-                                            ],
-                                            "logs": []
+                                            ]
                                         }
                                     }
                                 ],
                                 "outputs": {}
                             },
                             "parameters": {
+                                "diagnosticsSettingNameToUse": {
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                                },
                                 "logAnalytics": {
                                     "value": "[parameters('logAnalytics')]"
                                 },

@@ -1,7 +1,7 @@
 {
-    "name": "vmss-diagnostic-settings-eh-policyDef",
+    "name": "aadds-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Machine Scale Sets - Event Hub",
+        "displayName": "Apply diagnostic settings for Azure AD Domain Services - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
@@ -44,7 +44,7 @@
                 "allOf": [
                     {
                         "field": "type",
-                        "equals": "Microsoft.Compute/virtualMachineScaleSets"
+                        "equals": "Microsoft.AAD/domainServices"
                     },
                     {
                         "field": "location",
@@ -63,10 +63,6 @@
                         "allOf": [
                             {
                                 "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                                "equals": "True"
-                            },
-                            {
-                                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                                 "equals": "True"
                             },
                             {
@@ -105,7 +101,7 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.Compute/virtualMachineScaleSets/providers/diagnosticSettings",
+                                        "type": "Microsoft.AAD/domainServices/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
@@ -113,23 +109,54 @@
                                         "properties": {
                                             "eventHubName": "[parameters('eventHubName')]",
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                                            "metrics": [
+                                            "metrics": [],
+                                            "logs": [
                                                 {
-                                                    "category": "AllMetrics",
-                                                    "enabled": true,
-                                                    "retentionPolicy": {
-                                                        "enabled": false,
-                                                        "days": 0
-                                                    }
+                                                    "category": "SystemSecurity",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "AccountManagement",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "LogonLogoff",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "ObjectAccess",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "PolicyChange",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "PrivilegeUse",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "DetailTracking",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "DirectoryServiceAccess",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "AccountLogon",
+                                                    "enabled": true
                                                 }
-                                            ],
-                                            "logs": []
+                                            ]
                                         }
                                     }
                                 ],
                                 "outputs": {}
                             },
                             "parameters": {
+                                "diagnosticsSettingNameToUse": {
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                                },
                                 "eventHubName": {
                                     "value": "[parameters('eventHubName')]"
                                 },

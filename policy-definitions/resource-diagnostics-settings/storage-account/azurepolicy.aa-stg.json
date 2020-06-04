@@ -1,8 +1,8 @@
 {
   "name": "aa-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Azure Automation Accounts - Log Analytics",
-    "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+    "displayName": "Apply diagnostic settings for Azure Automation Accounts - Storage Account",
+    "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring"
     },
@@ -110,13 +110,9 @@
                 ],
                 "outputs": {}
               },
-              "parameters": {
+            "parameters": {
                 "diagnosticsSettingNameToUse": {
-                  "type": "string",
-                  "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings."
-                  }
+                    "value": "[parameters('diagnosticsSettingNameToUse')]"
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"

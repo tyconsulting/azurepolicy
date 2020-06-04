@@ -147,7 +147,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/networkInterfaces/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -262,7 +262,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Automation/automationAccounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -390,7 +390,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/publicIPAddresses/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -518,7 +518,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/loadBalancers/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -642,7 +642,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/networkSecurityGroups/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -758,7 +758,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -877,7 +877,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.CognitiveServices/accounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1001,7 +1001,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.DataLakeAnalytics/accounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1125,7 +1125,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.DataLakeStore/accounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1249,7 +1249,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.EventHub/namespaces/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1377,7 +1377,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Devices/IotHubs/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1545,7 +1545,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Logic/workflows/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1664,7 +1664,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Logic/integrationAccounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1775,7 +1775,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -1915,7 +1915,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Search/searchServices/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2034,7 +2034,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.ServiceBus/namespaces/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2153,7 +2153,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2313,7 +2313,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Sql/servers/elasticPools/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2429,7 +2429,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.ApiManagement/service/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2567,7 +2567,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/applicationGateways/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2695,7 +2695,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Batch/batchAccounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2814,7 +2814,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.DBforMySQL/servers/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -2933,7 +2933,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.DBforPostgreSQL/servers/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3052,7 +3052,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3163,7 +3163,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.DocumentDB/databaseAccounts/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3291,7 +3291,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.DataFactory/factories/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3419,7 +3419,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/azureFirewalls/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3543,7 +3543,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.PowerBIDedicated/capacities/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3662,7 +3662,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.StreamAnalytics/streamingjobs/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3786,7 +3786,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/expressRouteCircuits/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -3905,7 +3905,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.ContainerInstance/containerGroups/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4021,7 +4021,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.ContainerRegistry/registries/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4137,7 +4137,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/virtualNetworks/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4248,7 +4248,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Compute/virtualMachines/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4363,7 +4363,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Compute/virtualMachineScaleSets/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4478,7 +4478,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/virtualNetworkGateways/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4618,7 +4618,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.ContainerService/managedClusters/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4754,7 +4754,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Web/sites/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4870,7 +4870,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.AnalysisServices/servers/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -4994,7 +4994,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.EventGrid/topics/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5110,7 +5110,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.EventGrid/eventSubscriptions/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5226,7 +5226,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.HDInsight/clusters/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5342,7 +5342,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Cache/redis/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5458,7 +5458,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Relay/namespaces/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5574,7 +5574,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.SignalRService/SignalR/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5690,7 +5690,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Network/trafficManagerProfiles/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5809,7 +5809,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Web/serverfarms/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -5925,7 +5925,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.Sql/managedInstances/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],
@@ -6040,7 +6040,7 @@
                     "variables": {},
                     "resources": [{
                       "type": "Microsoft.TimeSeriesInsights/environments/providers/diagnosticSettings",
-                      "apiVersion": "2017-05-01-preview",
+                      "apiVersion": "2018-06-01",
                       "name": "[variables('resourceDiagName')]",
                       "location": "[variables('location')]",
                       "dependsOn": [],

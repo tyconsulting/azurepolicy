@@ -1,8 +1,8 @@
 {
     "name": "analysisService-diagnostic-settings-stg-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure Analysis Services - Log Analytics",
-        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+        "displayName": "Apply diagnostic settings for Azure Analysis Services - Storage Account",
+        "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
         "metadata": {
             "category": "Monitoring"
         },
@@ -110,15 +110,10 @@
                                 "outputs": {}
                             },
                             "parameters": {
-            "diagnosticsSettingNameToUse": {
-            "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings."
-                } ,
-        "defaultValue": "setByPolicyStgAcct"
-           },
-            "storageAccount": {
+                                "diagnosticsSettingNameToUse": {
+                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                                },
+                                "storageAccount": {
                                     "value": "[parameters('storageAccount')]"
                                 },
                                 "location": {

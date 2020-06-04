@@ -186,7 +186,7 @@
           "dependsOn": [
             "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultSettings')[copyIndex()].name)]"
           ],
-          "apiVersion": "2017-05-01-preview",
+          "apiVersion": "2018-06-01",
           "properties": "[variables('keyVaultSettings')[copyIndex()].diagConfig]"
         }
       ]
