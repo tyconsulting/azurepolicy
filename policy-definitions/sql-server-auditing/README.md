@@ -1,0 +1,1 @@
+# Policy Definition for Azure SQL Server Auditing Settings

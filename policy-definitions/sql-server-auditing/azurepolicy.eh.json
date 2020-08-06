@@ -1,13 +1,37 @@
 {
-    "name": "sqlDBs-diagnostic-settings-eh-policyDef",
+    "name": "sqlServers-auditing-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SQL Databases - Event Hub",
-        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
+        "displayName": "Enable SQL Servers Auditing for Event Hub",
+        "description": "This policy automatically deploys and enables SQL server auditing settings for Azure Monitor. The target Event Hub namespace is configured via the Diagnostics settings on the master database.",
         "metadata": {
             "category": "Monitoring"
         },
         "mode": "all",
         "parameters": {
+            "auditActionsAndGroups": {
+                "type": "array",
+                "defaultValue": [
+                    "BATCH_COMPLETED_GROUP",
+                    "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP",
+                    "FAILED_DATABASE_AUTHENTICATION_GROUP"
+                ],
+                "metadata": {
+                    "displayName": "Mandatory Action-Groups and Actions",
+                    "description": "Specifies the mandatory Actions-Groups and Actions."
+                }
+            },
+            "effect": {
+                "type": "string",
+                "defaultValue": "DeployIfNotExists",
+                "allowedValues": [
+                    "DeployIfNotExists",
+                    "Disabled"
+                ],
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "the desired effect of the policy"
+                }
+            },
             "diagnosticsSettingNameToUse": {
                 "type": "string",
                 "metadata": {
@@ -44,11 +68,7 @@
                 "allOf": [
                     {
                         "field": "type",
-                        "equals": "Microsoft.Sql/servers/databases"
-                    },
-                    {
-                        "field": "name",
-                        "notEquals": "master"
+                        "equals": "Microsoft.Sql/servers"
                     },
                     {
                         "field": "location",
@@ -57,29 +77,31 @@
                 ]
             },
             "then": {
-                "effect": "deployIfNotExists",
+                "effect": "[parameters('effect')]",
                 "details": {
-                    "type": "Microsoft.Insights/diagnosticSettings",
+                    "type": "Microsoft.Sql/servers/auditingSettings",
                     "roleDefinitionIds": [
                         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
                     ],
                     "existenceCondition": {
                         "allOf": [
                             {
-                                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                                "field": "Microsoft.Sql/auditingSettings.state",
+                                "equals": "Enabled"
+                            },
+                            {
+                                "field": "Microsoft.Sql/servers/auditingSettings/isAzureMonitorTargetEnabled",
                                 "equals": "True"
                             },
                             {
-                                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
-                                "equals": "True"
-                            },
-                            {
-                                "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
-                                "matchInsensitively": "[parameters('eventHubAuthorizationRuleId')]"
-                            },
-                            {
-                                "field": "Microsoft.Insights/diagnosticSettings/eventHubName",
-                                "matchInsensitively": "[parameters('eventHubName')]"
+                                "count": {
+                                    "field": "Microsoft.Sql/servers/auditingSettings/auditActionsAndGroups[*]",
+                                    "where": {
+                                        "field": "Microsoft.Sql/servers/auditingSettings/auditActionsAndGroups[*]",
+                                        "in": "[parameters('auditActionsAndGroups')]"
+                                    }
+                                },
+                                "equals": "[length(parameters('auditActionsAndGroups'))]"
                             }
                         ]
                     },
@@ -90,8 +112,8 @@
                                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
-                                   "diagnosticsSettingNameToUse": {
-                                       "type": "string"
+                                    "diagnosticsSettingNameToUse": {
+                                        "type": "string"
                                     },
                                     "resourceName": {
                                         "type": "string"
@@ -102,6 +124,9 @@
                                     "eventHubAuthorizationRuleId": {
                                         "type": "string"
                                     },
+                                    "auditActionsAndGroups": {
+                                        "type": "array"
+                                    },
                                     "location": {
                                         "type": "string"
                                     }
@@ -109,78 +134,30 @@
                                 "variables": {},
                                 "resources": [
                                     {
+                                        "type": "Microsoft.Sql/servers/auditingSettings",
+                                        "apiVersion": "2017-03-01-preview",
+                                        "name": "[concat(parameters('resourceName'), '/Default')]",
+                                        "location": "[parameters('location')]",
+                                        "dependsOn": [],
+                                        "properties": {
+                                            "State": "Enabled",
+                                            "auditActionsAndGroups": "[parameters('auditActionsAndGroups')]",
+                                            "isAzureMonitorTargetEnabled": true
+                                        }
+                                    },
+                                    {
                                         "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
+                                        "name": "[concat(parameters('resourceName'), '/master/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
                                             "eventHubName": "[parameters('eventHubName')]",
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                                            "metrics": [
-                                                {
-                                                    "category": "Basic",
-                                                    "enabled": true,
-                                                    "retentionPolicy": {
-                                                        "days": 0,
-                                                        "enabled": false
-                                                    },
-                                                    "timeGrain": null
-                                                },
-                                                {
-                                                    "category": "InstanceAndAppAdvanced",
-                                                    "enabled": true,
-                                                    "retentionPolicy": {
-                                                        "days": 0,
-                                                        "enabled": false
-                                                    },
-                                                    "timeGrain": null
-                                                },
-                                                {
-                                                    "category": "WorkloadManagement",
-                                                    "enabled": true,
-                                                    "retentionPolicy": {
-                                                        "days": 0,
-                                                        "enabled": false
-                                                    },
-                                                    "timeGrain": null
-                                                }
-                                            ],
+                                            "metrics": [],
                                             "logs": [
                                                 {
-                                                    "category": "SQLInsights",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AutomaticTuning",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "QueryStoreRuntimeStatistics",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "QueryStoreWaitStatistics",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Errors",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "DatabaseWaitStatistics",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Timeouts",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Blocks",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Deadlocks",
+                                                    "category": "SQLSecurityAuditEvents",
                                                     "enabled": true
                                                 }
                                             ]
@@ -198,6 +175,9 @@
                                 },
                                 "eventHubAuthorizationRuleId": {
                                     "value": "[parameters('eventHubAuthorizationRuleId')]"
+                                },
+                                "auditActionsAndGroups": {
+                                    "value": "[parameters('auditActionsAndGroups')]"
                                 },
                                 "location": {
                                     "value": "[field('location')]"
