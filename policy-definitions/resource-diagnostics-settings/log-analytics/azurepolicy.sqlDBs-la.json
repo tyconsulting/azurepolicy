@@ -33,8 +33,12 @@
                         "equals": "Microsoft.Sql/servers/databases"
                     },
                     {
+                        "field": "Microsoft.Sql/servers/databases/sku.tier",
+                        "notMatchInsensitively": "DataWarehouse"
+                    },
+                    {
                         "field": "name",
-                        "notEquals": "master"
+                        "notMatchInsensitively": "master"
                     }
                 ]
             },

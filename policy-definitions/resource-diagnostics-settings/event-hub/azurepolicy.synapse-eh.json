@@ -1,7 +1,7 @@
 {
-    "name": "sqlDBs-diagnostic-settings-eh-policyDef",
+    "name": "synapse-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SQL Databases - Event Hub",
+        "displayName": "Apply diagnostic settings for Azure Synapse SQL Pool - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
@@ -48,11 +48,7 @@
                     },
                     {
                         "field": "Microsoft.Sql/servers/databases/sku.tier",
-                        "notMatchInsensitively": "DataWarehouse"
-                    },
-                    {
-                        "field": "name",
-                        "notMatchInsensitively": "master"
+                        "matchInsensitively": "DataWarehouse"
                     },
                     {
                         "field": "location",
@@ -152,39 +148,23 @@
                                             ],
                                             "logs": [
                                                 {
-                                                    "category": "SQLInsights",
+                                                    "category": "DmsWorkers",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AutomaticTuning",
+                                                    "category": "ExecRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "QueryStoreRuntimeStatistics",
+                                                    "category": "RequestSteps",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "QueryStoreWaitStatistics",
+                                                    "category": "SqlRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "Errors",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "DatabaseWaitStatistics",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Timeouts",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Blocks",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Deadlocks",
+                                                    "category": "Waits",
                                                     "enabled": true
                                                 }
                                             ]

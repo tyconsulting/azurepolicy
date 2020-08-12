@@ -1,41 +1,27 @@
 {
-    "name": "sqlDBs-diagnostic-settings-eh-policyDef",
+    "name": "synapse-diagnostic-settings-stg-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SQL Databases - Event Hub",
-        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
+        "displayName": "Apply diagnostic settings for Azure Synapse SQL Pool - Storage Account",
+        "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
         "metadata": {
             "category": "Monitoring"
         },
         "mode": "all",
         "parameters": {
             "diagnosticsSettingNameToUse": {
-                "type": "string",
+            "type": "string",
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                },
-                "defaultValue": "setByPolicyEvtHub"
-            },
-            "resourceLocation": {
+                } ,
+        "defaultValue": "setByPolicyStgAcct"
+           },
+            "storageAccount": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Resource Location",
-                    "description": "Resource Location must be the same as the Event Hub",
-                    "strongType": "location"
-                }
-            },
-            "eventHubName": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Event Hub Name",
-                    "description": "Specify the name of the Event Hub"
-                }
-            },
-            "eventHubAuthorizationRuleId": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Event Hub Authorization Rule Id",
-                    "description": "Specify Event Hub Authorization Rule Id"
+                    "displayName": "Storage Account reference",
+                    "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
+                    "assignPermissions": true
                 }
             }
         },
@@ -48,15 +34,7 @@
                     },
                     {
                         "field": "Microsoft.Sql/servers/databases/sku.tier",
-                        "notMatchInsensitively": "DataWarehouse"
-                    },
-                    {
-                        "field": "name",
-                        "notMatchInsensitively": "master"
-                    },
-                    {
-                        "field": "location",
-                        "equals": "[parameters('resourceLocation')]"
+                        "matchInsensitively": "DataWarehouse"
                     }
                 ]
             },
@@ -78,12 +56,8 @@
                                 "equals": "True"
                             },
                             {
-                                "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
-                                "matchInsensitively": "[parameters('eventHubAuthorizationRuleId')]"
-                            },
-                            {
-                                "field": "Microsoft.Insights/diagnosticSettings/eventHubName",
-                                "matchInsensitively": "[parameters('eventHubName')]"
+                                "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
+                                "matchInsensitively": "[parameters('storageAccount')]"
                             }
                         ]
                     },
@@ -100,10 +74,7 @@
                                     "resourceName": {
                                         "type": "string"
                                     },
-                                    "eventHubName": {
-                                        "type": "string"
-                                    },
-                                    "eventHubAuthorizationRuleId": {
+                                    "storageAccount": {
                                         "type": "string"
                                     },
                                     "location": {
@@ -119,8 +90,7 @@
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
-                                            "eventHubName": "[parameters('eventHubName')]",
-                                            "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
+                                            "storageAccountId": "[parameters('storageAccount')]",
                                             "metrics": [
                                                 {
                                                     "category": "Basic",
@@ -152,39 +122,23 @@
                                             ],
                                             "logs": [
                                                 {
-                                                    "category": "SQLInsights",
+                                                    "category": "DmsWorkers",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AutomaticTuning",
+                                                    "category": "ExecRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "QueryStoreRuntimeStatistics",
+                                                    "category": "RequestSteps",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "QueryStoreWaitStatistics",
+                                                    "category": "SqlRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "Errors",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "DatabaseWaitStatistics",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Timeouts",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Blocks",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Deadlocks",
+                                                    "category": "Waits",
                                                     "enabled": true
                                                 }
                                             ]
@@ -197,11 +151,8 @@
                                 "diagnosticsSettingNameToUse": {
                                     "value": "[parameters('diagnosticsSettingNameToUse')]"
                                 },
-                                "eventHubName": {
-                                    "value": "[parameters('eventHubName')]"
-                                },
-                                "eventHubAuthorizationRuleId": {
-                                    "value": "[parameters('eventHubAuthorizationRuleId')]"
+                                "storageAccount": {
+                                    "value": "[parameters('storageAccount')]"
                                 },
                                 "location": {
                                     "value": "[field('location')]"
