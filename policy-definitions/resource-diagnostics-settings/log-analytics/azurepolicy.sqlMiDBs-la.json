@@ -1,8 +1,8 @@
 {
-    "name": "sql-mi-diagnostic-settings-eh-policyDef",
+    "name": "sqlMiDb-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for SQL Managed Instances - Event Hub",
-        "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
+        "displayName": "Apply diagnostic settings for SQL Managed Instance Databases - Log Analytics",
+        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
             "category": "Monitoring"
         },
@@ -14,43 +14,21 @@
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
                 },
-                "defaultValue": "setByPolicyEvtHub"
+                "defaultValue": "setByPolicyLA"
             },
-            "resourceLocation": {
+            "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Resource Location",
-                    "description": "Resource Location must be the same as the Event Hub",
-                    "strongType": "location"
-                }
-            },
-            "eventHubName": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Event Hub Name",
-                    "description": "Specify the name of the Event Hub"
-                }
-            },
-            "eventHubAuthorizationRuleId": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Event Hub Authorization Rule Id",
-                    "description": "Specify Event Hub Authorization Rule Id"
+                    "displayName": "Log Analytics workspace",
+                    "description": "Select the Log Analytics workspace from dropdown list",
+                    "strongType": "omsWorkspace"
                 }
             }
         },
         "policyRule": {
             "if": {
-                "allOf": [
-                    {
-                        "field": "type",
-                        "equals": "Microsoft.Sql/managedInstances"
-                    },
-                    {
-                        "field": "location",
-                        "equals": "[parameters('resourceLocation')]"
-                    }
-                ]
+                "field": "type",
+                "equals": "Microsoft.Sql/managedInstances/databases"
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -70,12 +48,8 @@
                                 "equals": "True"
                             },
                             {
-                                "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
-                                "matchInsensitively": "[parameters('eventHubAuthorizationRuleId')]"
-                            },
-                            {
-                                "field": "Microsoft.Insights/diagnosticSettings/eventHubName",
-                                "matchInsensitively": "[parameters('eventHubName')]"
+                                "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
+                                "matchInsensitively": "[parameters('logAnalytics')]"
                             }
                         ]
                     },
@@ -92,10 +66,7 @@
                                     "resourceName": {
                                         "type": "string"
                                     },
-                                    "eventHubName": {
-                                        "type": "string"
-                                    },
-                                    "eventHubAuthorizationRuleId": {
+                                    "logAnalytics": {
                                         "type": "string"
                                     },
                                     "location": {
@@ -105,25 +76,28 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.Sql/managedInstances/providers/diagnosticSettings",
+                                        "type": "Microsoft.Sql/managedInstances/databases/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
-                                            "eventHubName": "[parameters('eventHubName')]",
-                                            "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
+                                            "workspaceId": "[parameters('logAnalytics')]",
                                             "logs": [
                                                 {
-                                                    "category": "ResourceUsageStats",
+                                                    "category": "SQLInsights",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "DevOpsOperationsAudit",
+                                                    "category": "QueryStoreRuntimeStatistics",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "SQLSecurityAuditEvents",
+                                                    "category": "QueryStoreWaitStatistics",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "Errors",
                                                     "enabled": true
                                                 }
                                             ]
@@ -136,17 +110,14 @@
                                 "diagnosticsSettingNameToUse": {
                                     "value": "[parameters('diagnosticsSettingNameToUse')]"
                                 },
-                                "eventHubName": {
-                                    "value": "[parameters('eventHubName')]"
-                                },
-                                "eventHubAuthorizationRuleId": {
-                                    "value": "[parameters('eventHubAuthorizationRuleId')]"
+                                "logAnalytics": {
+                                    "value": "[parameters('logAnalytics')]"
                                 },
                                 "location": {
                                     "value": "[field('location')]"
                                 },
                                 "resourceName": {
-                                    "value": "[field('name')]"
+                                    "value": "[field('fullName')]"
                                 }
                             }
                         }
