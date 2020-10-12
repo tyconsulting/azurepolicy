@@ -27,8 +27,20 @@
         },
         "policyRule": {
             "if": {
-                "field": "type",
-                "equals": "Microsoft.Sql/servers/databases"
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Sql/servers/databases"
+                    },
+                    {
+                        "field": "Microsoft.Sql/servers/databases/sku.tier",
+                        "notMatchInsensitively": "DataWarehouse"
+                    },
+                    {
+                        "field": "name",
+                        "notMatchInsensitively": "master"
+                    }
+                ]
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -85,7 +97,25 @@
                                             "storageAccountId": "[parameters('storageAccount')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Basic",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "InstanceAndAppAdvanced",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "WorkloadManagement",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,
@@ -129,14 +159,6 @@
                                                 },
                                                 {
                                                     "category": "Deadlocks",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "Audit",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "SQLSecurityAuditEvents",
                                                     "enabled": true
                                                 }
                                             ]

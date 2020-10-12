@@ -1,7 +1,7 @@
 {
-    "name": "recoveryVault-diagnostic-settings-eh-policyDef",
+    "name": "la-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Recovery Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Log Analytics Workspaces - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
@@ -44,7 +44,7 @@
                 "allOf": [
                     {
                         "field": "type",
-                        "equals": "Microsoft.RecoveryServices/vaults"
+                        "equals": "Microsoft.OperationalInsights/Workspaces"
                     },
                     {
                         "field": "location",
@@ -105,7 +105,7 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
+                                        "type": "Microsoft.OperationalInsights/Workspaces/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
@@ -113,62 +113,20 @@
                                         "properties": {
                                             "eventHubName": "[parameters('eventHubName')]",
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                                            "metrics": [],
+                                            "metrics": [
+                                                {
+                                                    "category": "AllMetrics",
+                                                    "timeGrain": null,
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "enabled": false,
+                                                        "days": 0
+                                                    }
+                                                }
+                                            ],
                                             "logs": [
                                                 {
-                                                    "category": "AzureBackupReport",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "CoreAzureBackup",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupJobs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupAlerts",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupPolicy",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupStorage",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupProtectedInstance",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryJobs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryEvents",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicatedItems",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicationStats",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryRecoveryPoints",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicationDataUploadRate",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryProtectedDiskDataChurn",
+                                                    "category": "Audit",
                                                     "enabled": true
                                                 }
                                             ]

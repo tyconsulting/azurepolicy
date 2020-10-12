@@ -1,7 +1,7 @@
 {
-    "name": "recoveryVault-diagnostic-settings-eh-policyDef",
+    "name": "synapse-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Recovery Vaults - Event Hub",
+        "displayName": "Apply diagnostic settings for Azure Synapse SQL Pool - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
@@ -44,7 +44,11 @@
                 "allOf": [
                     {
                         "field": "type",
-                        "equals": "Microsoft.RecoveryServices/vaults"
+                        "equals": "Microsoft.Sql/servers/databases"
+                    },
+                    {
+                        "field": "Microsoft.Sql/servers/databases/sku.tier",
+                        "matchInsensitively": "DataWarehouse"
                     },
                     {
                         "field": "location",
@@ -105,7 +109,7 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
+                                        "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
@@ -113,62 +117,54 @@
                                         "properties": {
                                             "eventHubName": "[parameters('eventHubName')]",
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                                            "metrics": [],
+                                            "metrics": [
+                                                {
+                                                    "category": "Basic",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "InstanceAndAppAdvanced",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "WorkloadManagement",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                }
+                                            ],
                                             "logs": [
                                                 {
-                                                    "category": "AzureBackupReport",
+                                                    "category": "DmsWorkers",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "CoreAzureBackup",
+                                                    "category": "ExecRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AddonAzureBackupJobs",
+                                                    "category": "RequestSteps",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AddonAzureBackupAlerts",
+                                                    "category": "SqlRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AddonAzureBackupPolicy",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupStorage",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupProtectedInstance",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryJobs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryEvents",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicatedItems",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicationStats",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryRecoveryPoints",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicationDataUploadRate",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryProtectedDiskDataChurn",
+                                                    "category": "Waits",
                                                     "enabled": true
                                                 }
                                             ]
@@ -191,7 +187,7 @@
                                     "value": "[field('location')]"
                                 },
                                 "resourceName": {
-                                    "value": "[field('name')]"
+                                    "value": "[field('fullName')]"
                                 }
                             }
                         }

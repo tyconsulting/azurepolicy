@@ -1,34 +1,42 @@
 {
-    "name": "recoveryVault-diagnostic-settings-stg-policyDef",
+    "name": "synapse-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Recovery Vaults - Storage Account",
-        "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
+        "displayName": "Apply diagnostic settings for Azure Synapse SQL Pool - Log Analytics",
+        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
             "category": "Monitoring"
         },
         "mode": "all",
         "parameters": {
             "diagnosticsSettingNameToUse": {
-            "type": "string",
+                "type": "string",
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                } ,
-        "defaultValue": "setByPolicyStgAcct"
-           },
-            "storageAccount": {
+                },
+                "defaultValue": "setByPolicyLA"
+            },
+            "logAnalytics": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Storage Account reference",
-                    "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
-                    "assignPermissions": true
+                    "displayName": "Log Analytics workspace",
+                    "description": "Select the Log Analytics workspace from dropdown list",
+                    "strongType": "omsWorkspace"
                 }
             }
         },
         "policyRule": {
             "if": {
-                "field": "type",
-                "equals": "Microsoft.RecoveryServices/vaults"
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Sql/servers/databases"
+                    },
+                    {
+                        "field": "Microsoft.Sql/servers/databases/sku.tier",
+                        "matchInsensitively": "DataWarehouse"
+                    }
+                ]
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -48,8 +56,8 @@
                                 "equals": "True"
                             },
                             {
-                                "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
-                                "matchInsensitively": "[parameters('storageAccount')]"
+                                "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
+                                "matchInsensitively": "[parameters('logAnalytics')]"
                             }
                         ]
                     },
@@ -66,7 +74,7 @@
                                     "resourceName": {
                                         "type": "string"
                                     },
-                                    "storageAccount": {
+                                    "logAnalytics": {
                                         "type": "string"
                                     },
                                     "location": {
@@ -76,69 +84,61 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
+                                        "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
-                                            "storageAccountId": "[parameters('storageAccount')]",
-                                            "metrics": [],
+                                            "workspaceId": "[parameters('logAnalytics')]",
+                                            "metrics": [
+                                                {
+                                                    "category": "Basic",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "InstanceAndAppAdvanced",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "WorkloadManagement",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                }
+                                            ],
                                             "logs": [
                                                 {
-                                                    "category": "AzureBackupReport",
+                                                    "category": "DmsWorkers",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "CoreAzureBackup",
+                                                    "category": "ExecRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AddonAzureBackupJobs",
+                                                    "category": "RequestSteps",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AddonAzureBackupAlerts",
+                                                    "category": "SqlRequests",
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "AddonAzureBackupPolicy",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupStorage",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AddonAzureBackupProtectedInstance",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryJobs",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryEvents",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicatedItems",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicationStats",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryRecoveryPoints",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryReplicationDataUploadRate",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "AzureSiteRecoveryProtectedDiskDataChurn",
+                                                    "category": "Waits",
                                                     "enabled": true
                                                 }
                                             ]
@@ -151,14 +151,14 @@
                                 "diagnosticsSettingNameToUse": {
                                     "value": "[parameters('diagnosticsSettingNameToUse')]"
                                 },
-                                "storageAccount": {
-                                    "value": "[parameters('storageAccount')]"
+                                "logAnalytics": {
+                                    "value": "[parameters('logAnalytics')]"
                                 },
                                 "location": {
                                     "value": "[field('location')]"
                                 },
                                 "resourceName": {
-                                    "value": "[field('name')]"
+                                    "value": "[field('fullName')]"
                                 }
                             }
                         }

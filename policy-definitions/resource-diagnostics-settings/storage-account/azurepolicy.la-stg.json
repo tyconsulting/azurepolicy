@@ -1,7 +1,7 @@
 {
-  "name": "aa-diagnostic-settings-stg-policyDef",
+  "name": "la-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Azure Automation Accounts - Storage Account",
+    "displayName": "Apply diagnostic settings for Log Analytics Workspaces - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring"
@@ -28,7 +28,7 @@
     "policyRule": {
       "if": {
         "field": "type",
-        "equals": "Microsoft.Automation/automationAccounts"
+        "equals": "Microsoft.OperationalInsights/Workspaces"
       },
       "then": {
         "effect": "deployIfNotExists",
@@ -76,7 +76,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Automation/automationAccounts/providers/diagnosticSettings",
+                    "type": "Microsoft.OperationalInsights/Workspaces/providers/diagnosticSettings",
                     "apiVersion": "2017-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                     "location": "[parameters('location')]",
@@ -96,15 +96,7 @@
                       ],
                       "logs": [
                         {
-                          "category": "JobLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "JobStreams",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DscNodeStatus",
+                          "category": "Audit",
                           "enabled": true
                         }
                       ]
