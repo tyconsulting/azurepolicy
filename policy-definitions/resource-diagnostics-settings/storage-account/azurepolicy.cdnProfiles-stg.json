@@ -1,34 +1,34 @@
 {
-    "name": "vnetGW-diagnostic-settings-policyDef",
+    "name": "cdnProfiles-diagnostic-settings-stg-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Network Gateways - Log Analytics",
-        "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+        "displayName": "Apply diagnostic settings for CDN Profiles - Storage Account",
+        "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
         "metadata": {
             "category": "Monitoring"
         },
         "mode": "all",
         "parameters": {
             "diagnosticsSettingNameToUse": {
-                "type": "string",
+            "type": "string",
                 "metadata": {
                     "displayName": "Setting name",
                     "description": "Name of the policy for the diagnostics settings."
-                },
-                "defaultValue": "setByPolicyLA"
-            },
-            "logAnalytics": {
+                } ,
+        "defaultValue": "setByPolicyStgAcct"
+           },
+            "storageAccount": {
                 "type": "string",
                 "metadata": {
-                    "displayName": "Log Analytics workspace",
-                    "description": "Select the Log Analytics workspace from dropdown list",
-                    "strongType": "omsWorkspace"
+                    "displayName": "Storage Account reference",
+                    "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
+                    "assignPermissions": true
                 }
             }
         },
         "policyRule": {
             "if": {
                 "field": "type",
-                "equals": "Microsoft.Network/virtualNetworkGateways"
+                "equals": "Microsoft.Cdn/profiles"
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -48,8 +48,8 @@
                                 "equals": "True"
                             },
                             {
-                                "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
-                                "matchInsensitively": "[parameters('logAnalytics')]"
+                                "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
+                                "matchInsensitively": "[parameters('storageAccount')]"
                             }
                         ]
                     },
@@ -66,7 +66,7 @@
                                     "resourceName": {
                                         "type": "string"
                                     },
-                                    "logAnalytics": {
+                                    "storageAccount": {
                                         "type": "string"
                                     },
                                     "location": {
@@ -76,13 +76,13 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.Network/virtualNetworkGateways/providers/diagnosticSettings",
+                                        "type": "Microsoft.Cdn/profiles/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
                                         "dependsOn": [],
                                         "properties": {
-                                            "workspaceId": "[parameters('logAnalytics')]",
+                                            "storageAccountId": "[parameters('storageAccount')]",
                                             "metrics": [
                                                 {
                                                     "category": "AllMetrics",
@@ -96,23 +96,7 @@
                                             ],
                                             "logs": [
                                                 {
-                                                    "category": "GatewayDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "IKEDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "P2SDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "RouteDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "TunnelDiagnosticLog",
+                                                    "category": "AzureCdnAccessLog",
                                                     "enabled": true
                                                 }
                                             ]
@@ -125,8 +109,8 @@
                                 "diagnosticsSettingNameToUse": {
                                     "value": "[parameters('diagnosticsSettingNameToUse')]"
                                 },
-                                "logAnalytics": {
-                                    "value": "[parameters('logAnalytics')]"
+                                "storageAccount": {
+                                    "value": "[parameters('storageAccount')]"
                                 },
                                 "location": {
                                     "value": "[field('location')]"

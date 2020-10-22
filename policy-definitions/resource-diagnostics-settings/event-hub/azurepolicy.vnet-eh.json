@@ -110,7 +110,17 @@
                                         "properties": {
                                             "eventHubName": "[parameters('eventHubName')]",
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                                            "metrics": [],
+                                            "metrics": [
+                                                {
+                                                    "category": "AllMetrics",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                }
+                                            ],
                                             "logs": [
                                                 {
                                                     "category": "VMProtectionAlerts",

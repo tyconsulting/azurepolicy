@@ -124,7 +124,16 @@
                                                     "timeGrain": null
                                                 }
                                             ],
-                                            "logs": []
+                                            "logs": [
+                                                {
+                                                    "category": "DeliveryFailures",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "PublishFailures",
+                                                    "enabled": true
+                                                }
+                                            ]
                                         }
                                     }
                                 ],

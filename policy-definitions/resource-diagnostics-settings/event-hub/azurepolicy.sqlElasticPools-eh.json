@@ -115,7 +115,16 @@
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Basic",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "InstanceAndAppAdvanced",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,

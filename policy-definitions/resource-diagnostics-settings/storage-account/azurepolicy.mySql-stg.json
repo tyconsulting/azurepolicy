@@ -98,6 +98,10 @@
                                                 {
                                                     "category": "MySqlSlowLogs",
                                                     "enabled": true
+                                                },
+                                                {
+                                                    "category": "MySqlAuditLogs",
+                                                    "enabled": true
                                                 }
                                             ]
                                         }

@@ -124,7 +124,16 @@
                                                     "timeGrain": null
                                                 }
                                             ],
-                                            "logs": []
+                                            "logs": [
+                                                {
+                                                    "category": "Ingress",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "Management",
+                                                    "enabled": true
+                                                }
+                                            ]
                                         }
                                     }
                                 ],

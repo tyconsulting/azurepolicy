@@ -140,11 +140,15 @@
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "E2EDiagnostics",
+                                                    "category": "DistributedTracing",
                                                     "enabled": true
                                                 },
                                                 {
                                                     "category": "Configurations",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "DeviceStreams",
                                                     "enabled": true
                                                 }
                                             ]

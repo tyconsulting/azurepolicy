@@ -115,7 +115,16 @@
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Traffic",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "Errors",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,
@@ -124,7 +133,12 @@
                                                     "timeGrain": null
                                                 }
                                             ],
-                                            "logs": []
+                                            "logs": [
+                                                {
+                                                    "category": "AllLogs",
+                                                    "enabled": true
+                                                }
+                                            ]
                                         }
                                     }
                                 ],

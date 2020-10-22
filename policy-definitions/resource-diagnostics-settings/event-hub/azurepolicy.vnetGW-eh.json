@@ -142,10 +142,6 @@
                                                     "enabled": true
                                                 },
                                                 {
-                                                    "category": "RouteDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
                                                     "category": "TunnelDiagnosticLog",
                                                     "enabled": true
                                                 }

@@ -85,7 +85,34 @@
                                             "storageAccountId": "[parameters('storageAccount')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Circuit Traffic",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "Circuit Availability",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "Circuit Qos",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "GlobalReach Traffic",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,

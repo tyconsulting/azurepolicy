@@ -94,7 +94,12 @@
                                                     "timeGrain": null
                                                 }
                                             ],
-                                            "logs": []
+                                            "logs": [
+                                                {
+                                                    "category": "HybridConnectionsEvent",
+                                                    "enabled": true
+                                                }
+                                            ]
                                         }
                                     }
                                 ],

@@ -85,7 +85,7 @@
                                             "workspaceId": "[parameters('logAnalytics')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Availability",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,

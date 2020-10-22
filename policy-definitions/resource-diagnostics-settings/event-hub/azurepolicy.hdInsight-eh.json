@@ -115,7 +115,7 @@
                                             "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Availability",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,

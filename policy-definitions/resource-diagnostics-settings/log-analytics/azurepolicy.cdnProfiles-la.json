@@ -1,7 +1,7 @@
 {
-    "name": "vnetGW-diagnostic-settings-policyDef",
+    "name": "cdnProfiles-diagnostic-settings-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Virtual Network Gateways - Log Analytics",
+        "displayName": "Apply diagnostic settings for CDN Profiles - Log Analytics",
         "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
         "metadata": {
             "category": "Monitoring"
@@ -28,7 +28,7 @@
         "policyRule": {
             "if": {
                 "field": "type",
-                "equals": "Microsoft.Network/virtualNetworkGateways"
+                "equals": "Microsoft.Cdn/profiles"
             },
             "then": {
                 "effect": "deployIfNotExists",
@@ -76,7 +76,7 @@
                                 "variables": {},
                                 "resources": [
                                     {
-                                        "type": "Microsoft.Network/virtualNetworkGateways/providers/diagnosticSettings",
+                                        "type": "Microsoft.Cdn/profiles/providers/diagnosticSettings",
                                         "apiVersion": "2017-05-01-preview",
                                         "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
                                         "location": "[parameters('location')]",
@@ -96,23 +96,7 @@
                                             ],
                                             "logs": [
                                                 {
-                                                    "category": "GatewayDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "IKEDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "P2SDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "RouteDiagnosticLog",
-                                                    "enabled": true
-                                                },
-                                                {
-                                                    "category": "TunnelDiagnosticLog",
+                                                    "category": "AzureCdnAccessLog",
                                                     "enabled": true
                                                 }
                                             ]

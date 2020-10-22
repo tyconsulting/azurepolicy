@@ -83,7 +83,17 @@
                                         "dependsOn": [],
                                         "properties": {
                                             "storageAccountId": "[parameters('storageAccount')]",
-                                            "metrics": [],
+                                            "metrics": [
+                                                {
+                                                    "category": "AllMetrics",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
+                                                }
+                                            ],
                                             "logs": [
                                                 {
                                                     "category": "VMProtectionAlerts",

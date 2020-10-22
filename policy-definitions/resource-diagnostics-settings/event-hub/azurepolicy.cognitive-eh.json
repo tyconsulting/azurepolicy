@@ -132,6 +132,10 @@
                                                 {
                                                     "category": "RequestResponse",
                                                     "enabled": true
+                                                },
+                                                {
+                                                    "category": "Trace",
+                                                    "enabled": true
                                                 }
                                             ]
                                         }

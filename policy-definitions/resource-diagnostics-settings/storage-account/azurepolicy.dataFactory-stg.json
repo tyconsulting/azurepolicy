@@ -106,6 +106,30 @@
                                                 {
                                                     "category": "TriggerRuns",
                                                     "enabled": true
+                                                },
+                                                {
+                                                    "category": "SSISPackageEventMessages",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "SSISPackageExecutableStatistics",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "SSISPackageEventMessageContext",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "SSISPackageExecutionComponentPhases",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "SSISPackageExecutionDataStatistics",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "SSISIntegrationRuntimeLogs",
+                                                    "enabled": true
                                                 }
                                             ]
                                         }

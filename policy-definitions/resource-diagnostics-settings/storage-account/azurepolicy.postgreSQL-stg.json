@@ -98,6 +98,14 @@
                                                 {
                                                     "category": "PostgreSQLLogs",
                                                     "enabled": true
+                                                },
+                                                {
+                                                    "category": "QueryStoreRuntimeStatistics",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "QueryStoreWaitStatistics",
+                                                    "enabled": true
                                                 }
                                             ]
                                         }

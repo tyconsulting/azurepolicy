@@ -140,6 +140,15 @@
                                                         "enabled": false
                                                     },
                                                     "timeGrain": null
+                                                },
+                                                {
+                                                    "category": "Network Status",
+                                                    "enabled": true,
+                                                    "retentionPolicy": {
+                                                        "days": 0,
+                                                        "enabled": false
+                                                    },
+                                                    "timeGrain": null
                                                 }
                                             ],
                                             "logs": [

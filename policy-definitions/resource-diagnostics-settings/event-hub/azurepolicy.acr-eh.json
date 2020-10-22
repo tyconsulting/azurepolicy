@@ -124,7 +124,16 @@
                                                     "timeGrain": null
                                                 }
                                             ],
-                                            "logs": []
+                                            "logs": [
+                                                {
+                                                    "category": "ContainerRegistryRepositoryEvents",
+                                                    "enabled": true
+                                                },
+                                                {
+                                                    "category": "ContainerRegistryLoginEvents",
+                                                    "enabled": true
+                                                }
+                                            ]
                                         }
                                     }
                                 ],

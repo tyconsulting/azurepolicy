@@ -85,7 +85,7 @@
                                             "storageAccountId": "[parameters('storageAccount')]",
                                             "metrics": [
                                                 {
-                                                    "category": "AllMetrics",
+                                                    "category": "Availability",
                                                     "enabled": true,
                                                     "retentionPolicy": {
                                                         "days": 0,
