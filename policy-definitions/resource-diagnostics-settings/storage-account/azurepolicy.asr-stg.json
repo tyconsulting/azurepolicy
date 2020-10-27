@@ -40,12 +40,30 @@
           "existenceCondition": {
             "allOf": [
               {
-                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                "equals": "True"
-              },
-              {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
-                "equals": "True"
+                "count": {
+                  "field": "Microsoft.Insights/diagnosticSettings/logs[*]",
+                  "where": {
+                    "allOf": [
+                      {
+                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].Category",
+                        "in": [
+                          "AzureSiteRecoveryJobs",
+                          "AzureSiteRecoveryEvents",
+                          "AzureSiteRecoveryReplicatedItems",
+                          "AzureSiteRecoveryReplicationStats",
+                          "AzureSiteRecoveryRecoveryPoints",
+                          "AzureSiteRecoveryReplicationDataUploadRate",
+                          "AzureSiteRecoveryProtectedDiskDataChurn"
+                        ]
+                      },
+                      {
+                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].Enabled",
+                        "equals": "True"
+                      }
+                    ]
+                  }
+                },
+                "Equals": 7
               },
               {
                 "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
