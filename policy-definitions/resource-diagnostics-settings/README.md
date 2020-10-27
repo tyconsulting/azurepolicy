@@ -11,7 +11,8 @@
 * Azure API Management
 * AppInsights
 * App Gateway
-* App Service
+* App Services
+* App Service Environments
 * App Service Plans
 * Azure Backup
 * Azure Bastion
@@ -66,4 +67,6 @@ Configurable, default set to Enabled
 
 #### Azure Backup
 
-Enabled, Not configurable
+Enabled, Not configurable.
+
+Reference: [https://docs.microsoft.com/en-us/azure/backup/backup-azure-diagnostic-events](https://docs.microsoft.com/en-us/azure/backup/backup-azure-diagnostic-events)
