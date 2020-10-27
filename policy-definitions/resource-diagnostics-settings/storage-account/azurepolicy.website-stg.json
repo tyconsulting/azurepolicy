@@ -1,7 +1,7 @@
 {
     "name": "website-diagnostic-settings-stg-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure Web App - Storage Account",
+        "displayName": "Apply diagnostic settings for App Services - Storage Account",
         "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
         "metadata": {
             "category": "Monitoring"
@@ -27,8 +27,16 @@
         },
         "policyRule": {
             "if": {
-                "field": "type",
-                "equals": "Microsoft.Web/sites"
+                "allOf": [
+                    {
+                      "field": "type",
+                      "equals": "Microsoft.Web/sites"
+                    },
+                    {
+                      "field": "kind",
+                      "notLike": "functionapp*"
+                    }
+                  ]
             },
             "then": {
                 "effect": "deployIfNotExists",

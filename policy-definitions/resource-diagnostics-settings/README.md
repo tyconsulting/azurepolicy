@@ -9,10 +9,14 @@
 * Azure Kubernetes Service (AKS)
 * Azure Analysis Services
 * Azure API Management
+* AppInsights
 * App Gateway
+* App Service
 * App Service Plans
+* Azure Backup
 * Azure Bastion
 * Azure Batch
+* Azure Site Recovery
 * CDN Endpoint
 * CDN Profile
 * Azure Cognitive Services
@@ -38,7 +42,6 @@
 * Public IP
 * PostgreSQL
 * PowerBI Embedded
-* Recovery Services Vault
 * Redis Cache
 * Azure Relay
 * Search Service
@@ -54,4 +57,13 @@
 * Traffic Manager
 * Virtual Network (VNet)
 * Virtual Network Gateway
-* Web App
+
+### Support for LogAnalyticsDestinationType
+
+#### Azure Data Factory
+
+Configurable, default set to Enabled
+
+#### Azure Backup
+
+Enabled, Not configurable

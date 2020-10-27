@@ -1,7 +1,7 @@
 {
     "name": "website-diagnostic-settings-eh-policyDef",
     "properties": {
-        "displayName": "Apply diagnostic settings for Azure Web App - Event Hub",
+        "displayName": "Apply diagnostic settings for App Services - Event Hub",
         "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
         "metadata": {
             "category": "Monitoring"
@@ -45,6 +45,10 @@
                     {
                         "field": "type",
                         "equals": "Microsoft.Web/sites"
+                    },
+                    {
+                        "field": "kind",
+                        "notLike": "functionapp*"
                     },
                     {
                         "field": "location",

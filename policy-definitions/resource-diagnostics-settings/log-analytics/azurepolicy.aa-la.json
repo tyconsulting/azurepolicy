@@ -21,7 +21,8 @@
         "metadata": {
           "displayName": "Log Analytics workspace",
           "description": "Select the Log Analytics workspace from dropdown list",
-          "strongType": "omsWorkspace"
+          "strongType": "omsWorkspace",
+          "assignPermissions": true
         }
       }
     },
@@ -62,7 +63,7 @@
                 "parameters": {
                   "diagnosticsSettingNameToUse": {
                     "type": "string"
-                 },
+                  },
                   "resourceName": {
                     "type": "string"
                   },
@@ -113,10 +114,10 @@
                 ],
                 "outputs": {}
               },
-                            "parameters": {
-                                "diagnosticsSettingNameToUse": {
-                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
-                                },
+              "parameters": {
+                "diagnosticsSettingNameToUse": {
+                  "value": "[parameters('diagnosticsSettingNameToUse')]"
+                },
                 "logAnalytics": {
                   "value": "[parameters('logAnalytics')]"
                 },

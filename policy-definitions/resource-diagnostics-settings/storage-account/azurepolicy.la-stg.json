@@ -105,9 +105,9 @@
                 ],
                 "outputs": {}
               },
-            "parameters": {
+              "parameters": {
                 "diagnosticsSettingNameToUse": {
-                    "value": "[parameters('diagnosticsSettingNameToUse')]"
+                  "value": "[parameters('diagnosticsSettingNameToUse')]"
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
