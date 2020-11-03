@@ -24,6 +24,18 @@
           "strongType": "omsWorkspace",
           "assignPermissions": true
         }
+      },
+      "useDedicatedTable": {
+        "type": "string",
+        "allowedValues": [
+          "true",
+          "false"
+        ],
+        "defaultValue": "true",
+        "metadata": {
+          "displayName": "Use Dedicated Table in Log Analytics Workspace",
+          "description": "whether the export to Log Analytics should use the default destination type, i.e. AzureDiagnostics (if left as default value false), or use a destination type constructed as follows: <normalized service identity>_<normalized category name>."
+        }
       }
     },
     "policyRule": {
@@ -70,11 +82,16 @@
                   "logAnalytics": {
                     "type": "string"
                   },
+                  "useDedicatedTable": {
+                    "type": "string"
+                  },
                   "location": {
                     "type": "string"
                   }
                 },
-                "variables": {},
+                "variables": {
+                  "logAnalyticsDestinationType": "[if(equals(toLower(parameters('useDedicatedTable')),'true'), 'Dedicated', json('null'))]"
+                },
                 "resources": [
                   {
                     "type": "Microsoft.ApiManagement/service/providers/diagnosticSettings",
@@ -84,6 +101,7 @@
                     "dependsOn": [],
                     "properties": {
                       "workspaceId": "[parameters('logAnalytics')]",
+                      "logAnalyticsDestinationType": "[variables('logAnalyticsDestinationType')]",
                       "metrics": [
                         {
                           "category": "Gateway Requests",
@@ -131,7 +149,12 @@
                     }
                   }
                 ],
-                "outputs": {}
+                "outputs": {
+                  "logAnalyticsDestinationType": {
+                    "type": "string",
+                    "value": "[variables('logAnalyticsDestinationType')]"
+                  }
+                }
               },
               "parameters": {
                 "diagnosticsSettingNameToUse": {
@@ -139,6 +162,9 @@
                 },
                 "logAnalytics": {
                   "value": "[parameters('logAnalytics')]"
+                },
+                "useDedicatedTable": {
+                  "value": "[parameters('useDedicatedTable')]"
                 },
                 "location": {
                   "value": "[field('location')]"
