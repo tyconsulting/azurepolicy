@@ -1,8 +1,8 @@
 {
-  "name": "sa-diagnostic-settings-policyDef",
+  "name": "sa-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Storage Account - Log Analytics",
-    "description": "This policy automatically deploys and enable diagnostic settings to Log Analytics",
+    "displayName": "Apply diagnostic settings for Storage Account - Storage Account",
+    "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring"
     },
@@ -14,14 +14,13 @@
           "displayName": "Setting name",
           "description": "Name of the policy for the diagnostics settings."
         },
-        "defaultValue": "setByPolicyLA"
+        "defaultValue": "setByPolicyStgAcct"
       },
-      "logAnalytics": {
+      "storageAccount": {
         "type": "string",
         "metadata": {
-          "displayName": "Log Analytics workspace",
-          "description": "Select the Log Analytics workspace from dropdown list",
-          "strongType": "omsWorkspace",
+          "displayName": "Storage Account reference",
+          "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
           "assignPermissions": true
         }
       }
@@ -55,8 +54,8 @@
                 "equals": "True"
               },
               {
-                "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
-                "matchInsensitively": "[parameters('logAnalytics')]"
+                "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
+                "matchInsensitively": "[parameters('storageAccount')]"
               }
             ]
           },
@@ -73,7 +72,7 @@
                   "resourceName": {
                     "type": "string"
                   },
-                  "logAnalytics": {
+                  "storageAccount": {
                     "type": "string"
                   },
                   "location": {
@@ -89,7 +88,7 @@
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
-                      "workspaceId": "[parameters('logAnalytics')]",
+                      "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
                           "category": "Transaction",
@@ -133,7 +132,7 @@
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
-                      "workspaceId": "[parameters('logAnalytics')]",
+                      "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
                           "category": "Transaction",
@@ -177,7 +176,7 @@
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
-                      "workspaceId": "[parameters('logAnalytics')]",
+                      "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
                           "category": "Transaction",
@@ -221,7 +220,7 @@
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
-                      "workspaceId": "[parameters('logAnalytics')]",
+                      "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
                           "category": "Transaction",
@@ -265,7 +264,7 @@
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
-                      "workspaceId": "[parameters('logAnalytics')]",
+                      "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
                           "category": "Transaction",
@@ -296,8 +295,8 @@
                 "diagnosticsSettingNameToUse": {
                   "value": "[parameters('diagnosticsSettingNameToUse')]"
                 },
-                "logAnalytics": {
-                  "value": "[parameters('logAnalytics')]"
+                "storageAccount": {
+                  "value": "[parameters('storageAccount')]"
                 },
                 "location": {
                   "value": "[field('location')]"
