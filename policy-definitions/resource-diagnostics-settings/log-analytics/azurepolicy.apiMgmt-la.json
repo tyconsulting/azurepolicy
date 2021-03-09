@@ -104,40 +104,9 @@
                       "logAnalyticsDestinationType": "[variables('logAnalyticsDestinationType')]",
                       "metrics": [
                         {
-                          "category": "Gateway Requests",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          },
-                          "timeGrain": null
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          },
-                          "timeGrain": null
-                        },
-                        {
-                          "category": "EventHub Events",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          },
-                          "timeGrain": null
-                        },
-                        {
-                          "category": "Network Status",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          },
-                          "timeGrain": null
+                            "category": "AllMetrics",
+                            "timeGrain": null,
+                            "enabled": true
                         }
                       ],
                       "logs": [
