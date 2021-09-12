@@ -1,9 +1,9 @@
 {
     "type": "Microsoft.Authorization/policyDefinitions",
-    "name": "deploy-IaaSAntimalware-vm-extension-custom-config-policyDef",
+    "name": "deploy-IaaSAntimalware-vm-extension-sql-vm-policyDef",
     "properties": {
-        "displayName": "Deploy Microsoft IaaSAntimalware extension with custom configurations",
-        "description": "This policy deploys a Microsoft IaaSAntimalware extension with custom configuraions when a VM is not configured with the antimalware extension.",
+        "displayName": "Deploy Microsoft IaaSAntimalware extension for SQL VMs with custom configurations",
+        "description": "This policy deploys a Microsoft IaaSAntimalware extension for SQL VMs with custom configurations when a SQL VM is not configured with the antimalware extension.",
         "metadata": {
             "category": "Compute"
         },
@@ -22,7 +22,7 @@
             },
             "ExclusionsPaths": {
                 "type": "string",
-                "defaultValue": "",
+                "defaultValue": "'C:\\Windows\\Cluster'",
                 "metadata": {
                     "displayName": "Excluded files and locations",
                     "description": "Semicolon delimited list of file paths or locations to exclude from scanning. We recommend avoiding the use of wildcard characters. For example: c:\\excluded-path-1;c:\\excluded-path-2"
@@ -30,7 +30,7 @@
             },
             "ExclusionsExtensions": {
                 "type": "string",
-                "defaultValue": "",
+                "defaultValue": "mdf;ldf;ndf;bak;trn;sql",
                 "metadata": {
                     "displayName": "Excluded files extensions",
                     "description": "Semicolon delimited list of file extensions to exclude from scanning. We recommend avoiding the use of wildcard characters. For example: .ext1;.ext2"
@@ -38,7 +38,7 @@
             },
             "ExclusionsProcesses": {
                 "type": "string",
-                "defaultValue": "",
+                "defaultValue": "SQLServr.exe;ReportingServicesService.exe;MSMDSrv.exe",
                 "metadata": {
                     "displayName": "Excluded processes",
                     "description": "Semicolon delimited list of process names to exclude from scanning. No wildcard characters are permitted. For example: excludedproc1.exe;excludedproc2.exe"
@@ -119,94 +119,11 @@
                                 "allOf": [
                                     {
                                         "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "MicrosoftWindowsServer"
+                                        "equals": "MicrosoftSQLServer"
                                     },
                                     {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "equals": "WindowsServer"
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "MicrosoftWindowsServer"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "equals": "WindowsServerSemiAnnual"
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "MicrosoftWindowsServerHPCPack"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "equals": "WindowsServerHPCPack"
-                                    }
-                                ]
-                            },
-                            {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftRServer"
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "MicrosoftVisualStudio"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "in": [
-                                            "VisualStudio",
-                                            "Windows"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "MicrosoftDynamicsAX"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "equals": "Dynamics"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageSKU",
-                                        "equals": "Pre-Req-AX7-Onebox-U8"
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "microsoft-ads"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "equals": "windows-data-science-vm"
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "field": "Microsoft.Compute/imagePublisher",
-                                        "equals": "MicrosoftWindowsDesktop"
-                                    },
-                                    {
-                                        "field": "Microsoft.Compute/imageOffer",
-                                        "equals": "Windows-10"
+                                        "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.osType",
+                                        "equals": "Windows"
                                     }
                                 ]
                             }
