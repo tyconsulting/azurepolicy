@@ -22,7 +22,7 @@
             },
             "ExclusionsPaths": {
                 "type": "string",
-                "defaultValue": "'C:\\Windows\\Cluster'",
+                "defaultValue": "C:\\Windows\\Cluster",
                 "metadata": {
                     "displayName": "Excluded files and locations",
                     "description": "Semicolon delimited list of file paths or locations to exclude from scanning. We recommend avoiding the use of wildcard characters. For example: c:\\excluded-path-1;c:\\excluded-path-2"
@@ -165,21 +165,18 @@
                                     },
                                     "ExclusionsPaths": {
                                         "type": "string",
-                                        "defaultValue": "",
                                         "metadata": {
                                             "description": "Semicolon delimited list of file paths or locations to exclude from scanning"
                                         }
                                     },
                                     "ExclusionsExtensions": {
                                         "type": "string",
-                                        "defaultValue": "",
                                         "metadata": {
                                             "description": "Semicolon delimited list of file extensions to exclude from scanning"
                                         }
                                     },
                                     "ExclusionsProcesses": {
                                         "type": "string",
-                                        "defaultValue": "",
                                         "metadata": {
                                             "description": "Semicolon delimited list of process names to exclude from scanning"
                                         }
@@ -226,7 +223,7 @@
                                         "name": "[concat(parameters('vmName'),'/IaaSAntimalware')]",
                                         "type": "Microsoft.Compute/virtualMachines/extensions",
                                         "location": "[parameters('location')]",
-                                        "apiVersion": "2017-12-01",
+                                        "apiVersion": "2021-04-01",
                                         "properties": {
                                             "publisher": "Microsoft.Azure.Security",
                                             "type": "IaaSAntimalware",
