@@ -88,6 +88,12 @@
                   "resourceName": {
                     "type": "string"
                   },
+                  "metricsEnabled": {
+                    "type": "string"
+                  },
+                  "logsEnabled": {
+                    "type": "string"
+                  },
                   "storageAccount": {
                     "type": "string"
                   },
@@ -143,6 +149,12 @@
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
+                },
+                "metricsEnabled": {
+                  "value": "[parameters('metricsEnabled')]"
+                },
+                "logsEnabled": {
+                  "value": "[parameters('logsEnabled')]"
                 },
                 "location": {
                   "value": "[field('location')]"
