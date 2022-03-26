@@ -82,10 +82,6 @@
                 "equals": "True"
               },
               {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
-                "equals": "True"
-              },
-              {
                 "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
                 "matchInsensitively": "[parameters('logAnalytics')]"
               }

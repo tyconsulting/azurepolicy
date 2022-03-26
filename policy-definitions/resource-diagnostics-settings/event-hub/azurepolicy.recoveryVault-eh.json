@@ -1,5 +1,5 @@
 {
-  "name": "backup-diagnostic-settings-eh-policyDef",
+  "name": "rsv-diagnostic-settings-eh-policyDef",
   "properties": {
     "displayName": "Apply diagnostic settings for Recovery Services Vault - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
@@ -111,29 +111,12 @@
           "existenceCondition": {
             "allOf": [
               {
-                "count": {
-                  "field": "Microsoft.Insights/diagnosticSettings/logs[*]",
-                  "where": {
-                    "allOf": [
-                      {
-                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].Category",
-                        "in": [
-                          "CoreAzureBackup",
-                          "AddonAzureBackupJobs",
-                          "AddonAzureBackupAlerts",
-                          "AddonAzureBackupPolicy",
-                          "AddonAzureBackupStorage",
-                          "AddonAzureBackupProtectedInstance"
-                        ]
-                      },
-                      {
-                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].Enabled",
-                        "equals": "True"
-                      }
-                    ]
-                  }
-                },
-                "Equals": 6
+                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                "equals": "True"
+              },
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                "equals": "True"
               },
               {
                 "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
@@ -185,31 +168,20 @@
                     "properties": {
                       "eventHubName": "[parameters('eventHubName')]",
                       "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                      "metrics": [],
+                      "metrics": [
+                        {
+                          "category": "Health",
+                          "enabled": "[parameters('metricsEnabled')]",
+                          "retentionPolicy": {
+                            "days": 0,
+                            "enabled": false
+                          }
+                        }
+                      ],
                       "logs": [
                         {
-                          "category": "CoreAzureBackup",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AddonAzureBackupJobs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AddonAzureBackupAlerts",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AddonAzureBackupPolicy",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AddonAzureBackupStorage",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AddonAzureBackupProtectedInstance",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

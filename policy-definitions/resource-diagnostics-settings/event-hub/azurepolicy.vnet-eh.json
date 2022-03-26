@@ -141,7 +141,16 @@
                   "resourceName": {
                     "type": "string"
                   },
-                  "logAnalytics": {
+                  "eventHubName": {
+                    "type": "string"
+                  },
+                  "eventHubAuthorizationRuleId": {
+                    "type": "string"
+                  },
+                  "metricsEnabled": {
+                    "type": "string"
+                  },
+                  "logsEnabled": {
                     "type": "string"
                   },
                   "location": {
@@ -172,8 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "VMProtectionAlerts",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

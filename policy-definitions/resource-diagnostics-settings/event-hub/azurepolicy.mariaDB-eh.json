@@ -1,7 +1,7 @@
 {
-  "name": "dlanalytics-diagnostic-settings-eh-policyDef",
+  "name": "mariaDB-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Data Lake Analytics - Event Hub",
+    "displayName": "Apply diagnostic settings for Maria Databases - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -91,7 +91,7 @@
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.DataLakeAnalytics/accounts"
+            "equals": "Microsoft.DBforMariaDB/servers"
           },
           {
             "field": "location",
@@ -160,7 +160,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.DataLakeAnalytics/accounts/providers/diagnosticSettings",
+                    "type": "Microsoft.DBforMariaDB/servers/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",

@@ -1,7 +1,7 @@
 {
   "name": "redisCache-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Redis Cache - Event Hub",
+    "displayName": "Apply diagnostic settings for Azure Cache for Redis - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -141,7 +141,16 @@
                   "resourceName": {
                     "type": "string"
                   },
-                  "logAnalytics": {
+                  "eventHubName": {
+                    "type": "string"
+                  },
+                  "eventHubAuthorizationRuleId": {
+                    "type": "string"
+                  },
+                  "metricsEnabled": {
+                    "type": "string"
+                  },
+                  "logsEnabled": {
                     "type": "string"
                   },
                   "location": {
@@ -170,7 +179,12 @@
                           }
                         }
                       ],
-                      "logs": []
+                      "logs": [
+                        {
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
+                        }
+                      ]
                     }
                   }
                 ],

@@ -61,18 +61,6 @@
           "description": "Specify Event Hub Authorization Rule Id"
         }
       },
-      "metricsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable metrics",
-          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
-      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -115,10 +103,6 @@
                 "equals": "True"
               },
               {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
-                "equals": "True"
-              },
-              {
                 "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
                 "matchInsensitively": "[parameters('eventHubAuthorizationRuleId')]"
               },
@@ -147,9 +131,6 @@
                   "eventHubAuthorizationRuleId": {
                     "type": "string"
                   },
-                  "metricsEnabled": {
-                    "type": "string"
-                  },
                   "logsEnabled": {
                     "type": "string"
                   },
@@ -168,18 +149,11 @@
                     "properties": {
                       "eventHubName": "[parameters('eventHubName')]",
                       "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
+                      "metrics": [],
                       "logs": [
                         {
-                          "category": "ResourceUsageStats",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DevOpsOperationsAudit",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SQLSecurityAuditEvents",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -196,9 +170,6 @@
                 },
                 "eventHubAuthorizationRuleId": {
                   "value": "[parameters('eventHubAuthorizationRuleId')]"
-                },
-                "metricsEnabled": {
-                  "value": "[parameters('metricsEnabled')]"
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"

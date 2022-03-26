@@ -181,16 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "DDoSProtectionNotifications",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DDoSMitigationFlowLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DDoSMitigationReports",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

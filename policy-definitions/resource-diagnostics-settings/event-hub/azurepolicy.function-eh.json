@@ -1,7 +1,7 @@
 {
-  "name": "dlanalytics-diagnostic-settings-eh-policyDef",
+  "name": "function-app-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Data Lake Analytics - Event Hub",
+    "displayName": "Apply diagnostic settings for Function App - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -91,7 +91,11 @@
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.DataLakeAnalytics/accounts"
+            "equals": "Microsoft.Web/sites"
+          },
+          {
+            "field": "kind",
+            "like": "functionapp*"
           },
           {
             "field": "location",
@@ -160,7 +164,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.DataLakeAnalytics/accounts/providers/diagnosticSettings",
+                    "type": "Microsoft.Web/sites/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
@@ -181,7 +185,7 @@
                       ],
                       "logs": [
                         {
-                          "categoryGroup": "allLogs",
+                          "category": "FunctionAppLogs",
                           "enabled": "[parameters('logsEnabled')]"
                         }
                       ]

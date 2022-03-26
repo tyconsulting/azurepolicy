@@ -180,8 +180,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "OperationLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

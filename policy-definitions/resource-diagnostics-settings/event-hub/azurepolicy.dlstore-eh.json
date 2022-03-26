@@ -181,12 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "Audit",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Requests",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

@@ -181,8 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "HybridConnectionsEvent",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

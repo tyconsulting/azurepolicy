@@ -1,7 +1,7 @@
 {
   "name": "mySQL-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for MySQL Databases - Event Hub",
+    "displayName": "Apply diagnostic settings for Azure Database for MySQL - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -181,12 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "MySqlSlowLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "MySqlAuditLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

@@ -170,7 +170,7 @@
                       "metrics": [
                         {
                           "category": "Requests",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false

@@ -1,7 +1,7 @@
 {
   "name": "postgreSQL-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for PostgreSQL Databases - Event Hub",
+    "displayName": "Apply diagnostic settings for Azure Database for PostgreSQL - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -181,16 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "PostgreSQLLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "QueryStoreRuntimeStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "QueryStoreWaitStatistics",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

@@ -1,7 +1,7 @@
 {
-  "name": "synapse-diagnostic-settings-eh-policyDef",
+  "name": "frontdoor-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Azure Synapse SQL Pool - Event Hub",
+    "displayName": "Apply diagnostic settings for Azure Front Door - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -91,11 +91,7 @@
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.Sql/servers/databases"
-          },
-          {
-            "field": "Microsoft.Sql/servers/databases/sku.tier",
-            "matchInsensitively": "DataWarehouse"
+            "equals": "Microsoft.Network/frontDoors"
           },
           {
             "field": "location",
@@ -164,7 +160,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
+                    "type": "Microsoft.Network/frontDoors/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
@@ -174,24 +170,9 @@
                       "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
                       "metrics": [
                         {
-                          "category": "Basic",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "InstanceAndAppAdvanced",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "WorkloadManagement",
-                          "enabled": true,
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -200,24 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "DmsWorkers",
-                          "enabled": true
-                        },
-                        {
-                          "category": "ExecRequests",
-                          "enabled": true
-                        },
-                        {
-                          "category": "RequestSteps",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SqlRequests",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Waits",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -245,7 +210,7 @@
                   "value": "[field('location')]"
                 },
                 "resourceName": {
-                  "value": "[field('fullName')]"
+                  "value": "[field('name')]"
                 }
               }
             }

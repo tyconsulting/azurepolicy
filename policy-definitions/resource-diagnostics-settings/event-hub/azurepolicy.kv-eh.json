@@ -181,8 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "AuditEvent",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

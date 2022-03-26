@@ -170,16 +170,9 @@
                       "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
                       "metrics": [
                         {
-                          "category": "Traffic",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Errors",
-                          "enabled": true,
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -188,8 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "AllLogs",
-                          "enabled": true
+                          "category": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

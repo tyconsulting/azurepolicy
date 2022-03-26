@@ -181,32 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "ArchiveLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "OperationalLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AutoScaleLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "KafkaCoordinatorLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "KafkaUserErrorLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "EventHubVNetConnectionEvent",
-                          "enabled": true
-                        },
-                        {
-                          "category": "CustomerManagedKeyUserLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

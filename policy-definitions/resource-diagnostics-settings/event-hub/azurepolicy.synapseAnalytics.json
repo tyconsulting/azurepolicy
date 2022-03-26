@@ -1,7 +1,7 @@
 {
-  "name": "dlanalytics-diagnostic-settings-eh-policyDef",
+  "name": "synapseAnalytics-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Data Lake Analytics - Event Hub",
+    "displayName": "Apply diagnostic settings for Synapse Analytics - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -61,18 +61,6 @@
           "description": "Specify Event Hub Authorization Rule Id"
         }
       },
-      "metricsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable metrics",
-          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
-      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -91,7 +79,7 @@
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.DataLakeAnalytics/accounts"
+            "equals": "Microsoft.Synapse/workspaces"
           },
           {
             "field": "location",
@@ -112,10 +100,6 @@
             "allOf": [
               {
                 "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                "equals": "True"
-              },
-              {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
               },
               {
@@ -147,9 +131,6 @@
                   "eventHubAuthorizationRuleId": {
                     "type": "string"
                   },
-                  "metricsEnabled": {
-                    "type": "string"
-                  },
                   "logsEnabled": {
                     "type": "string"
                   },
@@ -160,7 +141,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.DataLakeAnalytics/accounts/providers/diagnosticSettings",
+                    "type": "Microsoft.Synapse/workspaces/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
@@ -168,20 +149,30 @@
                     "properties": {
                       "eventHubName": "[parameters('eventHubName')]",
                       "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                      "metrics": [
-                        {
-                          "category": "AllMetrics",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        }
-                      ],
+                      "metrics": [],
                       "logs": [
                         {
-                          "categoryGroup": "allLogs",
+                          "category": "SynapseRbacOperations",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "GatewayApiRequests",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "BuiltinSqlReqsEnded",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "IntegrationPipelineRuns",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "IntegrationActivityRuns",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "IntegrationTriggerRuns",
                           "enabled": "[parameters('logsEnabled')]"
                         }
                       ]

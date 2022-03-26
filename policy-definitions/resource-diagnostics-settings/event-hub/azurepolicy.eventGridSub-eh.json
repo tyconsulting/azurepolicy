@@ -72,18 +72,6 @@
           "False"
         ],
         "defaultValue": "True"
-      },
-      "logsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable logs",
-          "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
       }
     },
     "policyRule": {
@@ -110,10 +98,6 @@
           ],
           "existenceCondition": {
             "allOf": [
-              {
-                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                "equals": "True"
-              },
               {
                 "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
@@ -148,9 +132,6 @@
                     "type": "string"
                   },
                   "metricsEnabled": {
-                    "type": "string"
-                  },
-                  "logsEnabled": {
                     "type": "string"
                   },
                   "location": {
@@ -197,9 +178,6 @@
                 },
                 "metricsEnabled": {
                   "value": "[parameters('metricsEnabled')]"
-                },
-                "logsEnabled": {
-                  "value": "[parameters('logsEnabled')]"
                 },
                 "location": {
                   "value": "[field('location')]"
