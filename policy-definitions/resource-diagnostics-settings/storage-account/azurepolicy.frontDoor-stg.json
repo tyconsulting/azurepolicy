@@ -1,7 +1,7 @@
 {
-  "name": "cdnEndpoints-diagnostic-settings-stg-policyDef",
+  "name": "frontDoor-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for CDN Endpoints - Storage Account",
+    "displayName": "Apply diagnostic settings for Azure Front Door - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -39,6 +39,18 @@
         ],
         "defaultValue": "DeployIfNotExists"
       },
+      "metricsEnabled": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enable metrics",
+          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+        },
+        "allowedValues": [
+          "True",
+          "False"
+        ],
+        "defaultValue": "True"
+      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -63,7 +75,7 @@
     "policyRule": {
       "if": {
         "field": "type",
-        "equals": "Microsoft.Cdn/profiles/endpoints"
+        "equals": "Microsoft.Network/frontDoors"
       },
       "then": {
         "effect": "[parameters('effect')]",
@@ -78,6 +90,10 @@
             "allOf": [
               {
                 "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                "equals": "True"
+              },
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
               },
               {
@@ -99,6 +115,9 @@
                   "resourceName": {
                     "type": "string"
                   },
+                  "metricsEnabled": {
+                    "type": "string"
+                  },
                   "logsEnabled": {
                     "type": "string"
                   },
@@ -112,14 +131,24 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
+                    "type": "Microsoft.Network/frontDoors/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
                       "storageAccountId": "[parameters('storageAccount')]",
-                      "metrics": [],
+                      "metrics": [
+                        {
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
+                          "retentionPolicy": {
+                            "days": 0,
+                            "enabled": false
+                          }
+                        }
+                      ],
                       "logs": [
                         {
                           "categoryGroup": "allLogs",
@@ -138,6 +167,9 @@
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
                 },
+                "metricsEnabled": {
+                  "value": "[parameters('metricsEnabled')]"
+                },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"
                 },
@@ -145,7 +177,7 @@
                   "value": "[field('location')]"
                 },
                 "resourceName": {
-                  "value": "[field('fullName')]"
+                  "value": "[field('name')]"
                 }
               }
             }

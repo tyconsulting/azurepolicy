@@ -140,32 +140,9 @@
                       "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
-                          "category": "Circuit Traffic",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Circuit Availability",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Circuit Qos",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "GlobalReach Traffic",
-                          "enabled": true,
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -174,8 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "PeeringRouteLog",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

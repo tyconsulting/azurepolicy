@@ -1,7 +1,7 @@
 {
-  "name": "synapse-diagnostic-settings-stg-policyDef",
+  "name": "MlWorkspace-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Azure Synapse SQL Pool - Storage Account",
+    "displayName": "Apply diagnostic settings for Machine Learning workspace - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -74,16 +74,8 @@
     },
     "policyRule": {
       "if": {
-        "allOf": [
-          {
-            "field": "type",
-            "equals": "Microsoft.Sql/servers/databases"
-          },
-          {
-            "field": "Microsoft.Sql/servers/databases/sku.tier",
-            "matchInsensitively": "DataWarehouse"
-          }
-        ]
+        "field": "type",
+        "equals": "Microsoft.MachineLearningServices/workspaces"
       },
       "then": {
         "effect": "[parameters('effect')]",
@@ -139,7 +131,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
+                    "type": "Microsoft.MachineLearningServices/workspaces/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
@@ -148,24 +140,9 @@
                       "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
-                          "category": "Basic",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "InstanceAndAppAdvanced",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "WorkloadManagement",
-                          "enabled": true,
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -174,24 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "DmsWorkers",
-                          "enabled": true
-                        },
-                        {
-                          "category": "ExecRequests",
-                          "enabled": true
-                        },
-                        {
-                          "category": "RequestSteps",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SqlRequests",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Waits",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -216,7 +177,7 @@
                   "value": "[field('location')]"
                 },
                 "resourceName": {
-                  "value": "[field('fullName')]"
+                  "value": "[field('name')]"
                 }
               }
             }

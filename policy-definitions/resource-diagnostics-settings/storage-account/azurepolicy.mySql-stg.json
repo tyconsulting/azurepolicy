@@ -1,7 +1,7 @@
 {
   "name": "mySQL-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for MySQL Databases - Storage Account",
+    "displayName": "Apply diagnostic settings for Azure Database for MySQL - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "MySqlSlowLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "MySqlAuditLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

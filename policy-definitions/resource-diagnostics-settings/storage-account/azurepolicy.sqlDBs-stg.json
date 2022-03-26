@@ -80,10 +80,6 @@
             "equals": "Microsoft.Sql/servers/databases"
           },
           {
-            "field": "Microsoft.Sql/servers/databases/sku.tier",
-            "notMatchInsensitively": "DataWarehouse"
-          },
-          {
             "field": "name",
             "notMatchInsensitively": "master"
           }
@@ -153,7 +149,7 @@
                       "metrics": [
                         {
                           "category": "Basic",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -161,7 +157,7 @@
                         },
                         {
                           "category": "InstanceAndAppAdvanced",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -169,7 +165,7 @@
                         },
                         {
                           "category": "WorkloadManagement",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -178,40 +174,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "SQLInsights",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AutomaticTuning",
-                          "enabled": true
-                        },
-                        {
-                          "category": "QueryStoreRuntimeStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "QueryStoreWaitStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Errors",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DatabaseWaitStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Timeouts",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Blocks",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Deadlocks",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

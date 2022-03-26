@@ -140,32 +140,9 @@
                       "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
-                          "category": "Gateway Requests",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "EventHub Events",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Network Status",
-                          "enabled": true,
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -174,8 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "GatewayLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "Engine",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Service",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

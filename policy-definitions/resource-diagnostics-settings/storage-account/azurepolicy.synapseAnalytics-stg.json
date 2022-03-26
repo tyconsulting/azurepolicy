@@ -1,7 +1,7 @@
 {
-  "name": "cdnEndpoints-diagnostic-settings-stg-policyDef",
+  "name": "synapseAnalytics-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for CDN Endpoints - Storage Account",
+    "displayName": "Apply diagnostic settings for Synapse Analytics - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -63,7 +63,7 @@
     "policyRule": {
       "if": {
         "field": "type",
-        "equals": "Microsoft.Cdn/profiles/endpoints"
+        "equals": "Microsoft.Synapse/workspaces"
       },
       "then": {
         "effect": "[parameters('effect')]",
@@ -112,7 +112,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
+                    "type": "Microsoft.Synapse/workspaces/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
@@ -122,7 +122,27 @@
                       "metrics": [],
                       "logs": [
                         {
-                          "categoryGroup": "allLogs",
+                          "category": "SynapseRbacOperations",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "GatewayApiRequests",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "BuiltinSqlReqsEnded",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "IntegrationPipelineRuns",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "IntegrationActivityRuns",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "IntegrationTriggerRuns",
                           "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
@@ -138,6 +158,9 @@
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
                 },
+                "metricsEnabled": {
+                  "value": "[parameters('metricsEnabled')]"
+                },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"
                 },
@@ -145,7 +168,7 @@
                   "value": "[field('location')]"
                 },
                 "resourceName": {
-                  "value": "[field('fullName')]"
+                  "value": "[field('name')]"
                 }
               }
             }

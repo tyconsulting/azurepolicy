@@ -39,18 +39,6 @@
         ],
         "defaultValue": "DeployIfNotExists"
       },
-      "metricsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable metrics",
-          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
-      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -93,10 +81,6 @@
                 "equals": "True"
               },
               {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
-                "equals": "True"
-              },
-              {
                 "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
                 "matchInsensitively": "[parameters('storageAccount')]"
               }
@@ -113,9 +97,6 @@
                     "type": "string"
                   },
                   "resourceName": {
-                    "type": "string"
-                  },
-                  "metricsEnabled": {
                     "type": "string"
                   },
                   "logsEnabled": {
@@ -141,8 +122,8 @@
                       "metrics": [],
                       "logs": [
                         {
-                          "category": "IntegrationAccountTrackingEvents",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -156,9 +137,6 @@
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
-                },
-                "metricsEnabled": {
-                  "value": "[parameters('metricsEnabled')]"
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"

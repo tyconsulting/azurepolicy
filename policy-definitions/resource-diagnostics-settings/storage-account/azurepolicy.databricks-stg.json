@@ -1,7 +1,7 @@
 {
-  "name": "logicApps-ISE-diagnostic-settings-stg-policyDef",
+  "name": "databricks-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Logic Apps Integration Service Environments - Storage Account",
+    "displayName": "Apply diagnostic settings for Azure Databricks Premium - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -39,18 +39,6 @@
         ],
         "defaultValue": "DeployIfNotExists"
       },
-      "metricsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable metrics",
-          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
-      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -74,8 +62,16 @@
     },
     "policyRule": {
       "if": {
-        "field": "type",
-        "equals": "Microsoft.Logic/integrationServiceEnvironments"
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Databricks/workspaces"
+          },
+          {
+            "field": "Microsoft.Databricks/workspaces/sku.name",
+            "matchInsensitively": "premium"
+          }
+        ]
       },
       "then": {
         "effect": "[parameters('effect')]",
@@ -90,10 +86,6 @@
             "allOf": [
               {
                 "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                "equals": "True"
-              },
-              {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
               },
               {
@@ -115,9 +107,6 @@
                   "resourceName": {
                     "type": "string"
                   },
-                  "metricsEnabled": {
-                    "type": "string"
-                  },
                   "logsEnabled": {
                     "type": "string"
                   },
@@ -131,25 +120,20 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Logic/integrationServiceEnvironments/providers/diagnosticSettings",
+                    "type": "Microsoft.Databricks/workspaces/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
                       "storageAccountId": "[parameters('storageAccount')]",
-                      "metrics": [
+                      "metrics": [],
+                      "logs": [
                         {
-                          "category": "AllMetrics",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
-                      ],
-                      "logs": []
+                      ]
                     }
                   }
                 ],
@@ -161,9 +145,6 @@
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
-                },
-                "metricsEnabled": {
-                  "value": "[parameters('metricsEnabled')]"
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"

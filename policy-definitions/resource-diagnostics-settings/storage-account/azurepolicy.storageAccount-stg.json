@@ -147,15 +147,7 @@
                       "metrics": [
                         {
                           "category": "Transaction",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -165,15 +157,15 @@
                       "logs": [
                         {
                           "category": "StorageRead",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageWrite",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageDelete",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -189,15 +181,7 @@
                       "metrics": [
                         {
                           "category": "Transaction",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -207,15 +191,15 @@
                       "logs": [
                         {
                           "category": "StorageRead",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageWrite",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageDelete",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -231,15 +215,7 @@
                       "metrics": [
                         {
                           "category": "Transaction",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -249,15 +225,15 @@
                       "logs": [
                         {
                           "category": "StorageRead",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageWrite",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageDelete",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -273,15 +249,7 @@
                       "metrics": [
                         {
                           "category": "Transaction",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
@@ -291,15 +259,15 @@
                       "logs": [
                         {
                           "category": "StorageRead",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageWrite",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "StorageDelete",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -315,15 +283,7 @@
                       "metrics": [
                         {
                           "category": "Transaction",
-                          "enabled": true,
-                          "retentionPolicy": {
-                            "days": 0,
-                            "enabled": false
-                          }
-                        },
-                        {
-                          "category": "Capacity",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false

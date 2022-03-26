@@ -140,104 +140,19 @@
                       "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [
                         {
-                          "category": "Availability",
+                          "category": "AllMetrics",
                           "timeGrain": null,
                           "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Browser",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Server",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Failures",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Usage",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Performance counters",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
+                            "days": 0,
+                            "enabled": false
                           }
                         }
                       ],
                       "logs": [
                         {
-                          "category": "AppAvailabilityResults",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppBrowserTimings",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppEvents",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppMetrics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppDependencies",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppExceptions",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppPageViews",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppPerformanceCounters",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppRequests",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppSystemEvents",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppTraces",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

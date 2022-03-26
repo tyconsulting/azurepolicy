@@ -39,18 +39,6 @@
         ],
         "defaultValue": "DeployIfNotExists"
       },
-      "metricsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable metrics",
-          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
-      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -111,9 +99,6 @@
                   "resourceName": {
                     "type": "string"
                   },
-                  "metricsEnabled": {
-                    "type": "string"
-                  },
                   "logsEnabled": {
                     "type": "string"
                   },
@@ -137,40 +122,8 @@
                       "metrics": [],
                       "logs": [
                         {
-                          "category": "SystemSecurity",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AccountManagement",
-                          "enabled": true
-                        },
-                        {
-                          "category": "LogonLogoff",
-                          "enabled": true
-                        },
-                        {
-                          "category": "ObjectAccess",
-                          "enabled": true
-                        },
-                        {
-                          "category": "PolicyChange",
-                          "enabled": true
-                        },
-                        {
-                          "category": "PrivilegeUse",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DetailTracking",
-                          "enabled": true
-                        },
-                        {
-                          "category": "DirectoryServiceAccess",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AccountLogon",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -184,9 +137,6 @@
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
-                },
-                "metricsEnabled": {
-                  "value": "[parameters('metricsEnabled')]"
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"

@@ -152,31 +152,47 @@
                       "logs": [
                         {
                           "category": "kube-apiserver",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "kube-audit",
-                          "enabled": true
-                        },
-                        {
-                          "category": "kube-controller-manager",
-                          "enabled": true
-                        },
-                        {
-                          "category": "kube-scheduler",
-                          "enabled": true
-                        },
-                        {
-                          "category": "cluster-autoscaler",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "kube-audit-admin",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "kube-controller-manager",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "kube-scheduler",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "cluster-autoscaler",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "cloud-controller-manager",
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "guard",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "csi-azuredisk-controller",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "csi-azurefile-controller",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "csi-snapshot-controller",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

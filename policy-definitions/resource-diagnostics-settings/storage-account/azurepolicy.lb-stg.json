@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "LoadBalancerAlertEvent",
-                          "enabled": true
-                        },
-                        {
-                          "category": "LoadBalancerProbeHealthStatus",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

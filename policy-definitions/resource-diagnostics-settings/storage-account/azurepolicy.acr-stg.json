@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "ContainerRegistryRepositoryEvents",
-                          "enabled": true
-                        },
-                        {
-                          "category": "ContainerRegistryLoginEvents",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

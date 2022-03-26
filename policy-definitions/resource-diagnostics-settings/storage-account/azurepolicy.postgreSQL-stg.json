@@ -151,16 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "PostgreSQLLogs",
-                          "enabled": true
-                        },
-                        {
-                          "category": "QueryStoreRuntimeStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "QueryStoreWaitStatistics",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

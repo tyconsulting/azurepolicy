@@ -151,16 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "AzureFirewallApplicationRule",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AzureFirewallNetworkRule",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AzureFirewallDnsProxy",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

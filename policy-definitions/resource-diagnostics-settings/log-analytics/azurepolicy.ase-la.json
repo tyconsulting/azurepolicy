@@ -124,7 +124,7 @@
                       "logs": [
                         {
                           "category": "AppServiceEnvironmentPlatformLogs",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

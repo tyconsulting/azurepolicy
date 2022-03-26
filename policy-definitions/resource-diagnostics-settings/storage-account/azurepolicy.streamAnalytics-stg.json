@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "Execution",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Authoring",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

@@ -1,7 +1,7 @@
 {
-  "name": "cdnEndpoints-diagnostic-settings-stg-policyDef",
+  "name": "sub-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for CDN Endpoints - Storage Account",
+    "displayName": "Apply diagnostic settings for Azure subscriptions - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -63,12 +63,14 @@
     "policyRule": {
       "if": {
         "field": "type",
-        "equals": "Microsoft.Cdn/profiles/endpoints"
+        "equals": "Microsoft.Resources/subscriptions"
       },
       "then": {
         "effect": "[parameters('effect')]",
         "details": {
           "type": "Microsoft.Insights/diagnosticSettings",
+          "deploymentScope": "Subscription",
+          "existenceScope": "Subscription",
           "evaluationDelay": "[parameters('evaluationDelay')]",
           "roleDefinitionIds": [
             "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
@@ -87,6 +89,7 @@
             ]
           },
           "deployment": {
+            "location": "australiaeast",
             "properties": {
               "mode": "incremental",
               "template": {
@@ -94,9 +97,6 @@
                 "contentVersion": "1.0.0.0",
                 "parameters": {
                   "profileName": {
-                    "type": "string"
-                  },
-                  "resourceName": {
                     "type": "string"
                   },
                   "logsEnabled": {
@@ -112,17 +112,45 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
+                    "type": "Microsoft.Insights/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
-                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
-                    "location": "[parameters('location')]",
+                    "name": "[parameters('profileName')]",
+                    "location": "Global",
                     "dependsOn": [],
                     "properties": {
                       "storageAccountId": "[parameters('storageAccount')]",
                       "metrics": [],
                       "logs": [
                         {
-                          "categoryGroup": "allLogs",
+                          "category": "Administrative",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Security",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "ServiceHealth",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Alert",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Recommendation",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Policy",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Autoscale",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "ResourceHealth",
                           "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
@@ -140,12 +168,6 @@
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"
-                },
-                "location": {
-                  "value": "[field('location')]"
-                },
-                "resourceName": {
-                  "value": "[field('fullName')]"
                 }
               }
             }

@@ -93,6 +93,10 @@
                 "equals": "True"
               },
               {
+                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                "equals": "True"
+              },
+              {
                 "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
                 "matchInsensitively": "[parameters('storageAccount')]"
               }
@@ -134,11 +138,21 @@
                     "dependsOn": [],
                     "properties": {
                       "storageAccountId": "[parameters('storageAccount')]",
-                      "metrics": [],
+                      "metrics": [
+                        {
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
+                          "retentionPolicy": {
+                            "days": 0,
+                            "enabled": false
+                          }
+                        }
+                      ],
                       "logs": [
                         {
-                          "category": "BastionAuditLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

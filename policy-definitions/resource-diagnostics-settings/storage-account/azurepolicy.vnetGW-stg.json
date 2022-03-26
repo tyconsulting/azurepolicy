@@ -151,24 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "GatewayDiagnosticLog",
-                          "enabled": true
-                        },
-                        {
-                          "category": "IKEDiagnosticLog",
-                          "enabled": true
-                        },
-                        {
-                          "category": "P2SDiagnosticLog",
-                          "enabled": true
-                        },
-                        {
-                          "category": "RouteDiagnosticLog",
-                          "enabled": true
-                        },
-                        {
-                          "category": "TunnelDiagnosticLog",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

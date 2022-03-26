@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "Ingress",
-                          "enabled": true
-                        },
-                        {
-                          "category": "Management",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

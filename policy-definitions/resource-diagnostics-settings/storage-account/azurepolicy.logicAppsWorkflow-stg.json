@@ -151,8 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "WorkflowRuntime",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

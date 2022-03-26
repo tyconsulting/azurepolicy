@@ -1,7 +1,7 @@
 {
-  "name": "cdnEndpoints-diagnostic-settings-stg-policyDef",
+  "name": "vmss-diagnostic-settings-stg-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for CDN Endpoints - Storage Account",
+    "displayName": "Apply diagnostic settings for Virtual Machine Scale Sets - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
       "category": "Monitoring",
@@ -39,11 +39,11 @@
         ],
         "defaultValue": "DeployIfNotExists"
       },
-      "logsEnabled": {
+      "metricsEnabled": {
         "type": "string",
         "metadata": {
-          "displayName": "Enable logs",
-          "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+          "displayName": "Enable metrics",
+          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
         },
         "allowedValues": [
           "True",
@@ -63,7 +63,7 @@
     "policyRule": {
       "if": {
         "field": "type",
-        "equals": "Microsoft.Cdn/profiles/endpoints"
+        "equals": "Microsoft.Compute/virtualMachineScaleSets"
       },
       "then": {
         "effect": "[parameters('effect')]",
@@ -77,7 +77,7 @@
           "existenceCondition": {
             "allOf": [
               {
-                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
               },
               {
@@ -99,7 +99,7 @@
                   "resourceName": {
                     "type": "string"
                   },
-                  "logsEnabled": {
+                  "metricsEnabled": {
                     "type": "string"
                   },
                   "storageAccount": {
@@ -112,20 +112,25 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Cdn/profiles/endpoints/providers/diagnosticSettings",
+                    "type": "Microsoft.Compute/virtualMachineScaleSets/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
                       "storageAccountId": "[parameters('storageAccount')]",
-                      "metrics": [],
-                      "logs": [
+                      "metrics": [
                         {
-                          "categoryGroup": "allLogs",
-                          "enabled": "[parameters('logsEnabled')]"
+                          "category": "AllMetrics",
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
+                          "retentionPolicy": {
+                            "days": 0,
+                            "enabled": false
+                          }
                         }
-                      ]
+                      ],
+                      "logs": []
                     }
                   }
                 ],
@@ -145,7 +150,7 @@
                   "value": "[field('location')]"
                 },
                 "resourceName": {
-                  "value": "[field('fullName')]"
+                  "value": "[field('name')]"
                 }
               }
             }

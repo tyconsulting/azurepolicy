@@ -115,6 +115,7 @@
             ]
           },
           "deployment": {
+            "location": "australiaeast",
             "properties": {
               "mode": "incremental",
               "template": {
@@ -203,12 +204,6 @@
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"
-                },
-                "location": {
-                  "value": "[field('location')]"
-                },
-                "resourceName": {
-                  "value": "[field('name')]"
                 }
               }
             }

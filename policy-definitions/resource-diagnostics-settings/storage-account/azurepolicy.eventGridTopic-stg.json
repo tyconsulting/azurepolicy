@@ -151,12 +151,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "DeliveryFailures",
-                          "enabled": true
-                        },
-                        {
-                          "category": "PublishFailures",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
