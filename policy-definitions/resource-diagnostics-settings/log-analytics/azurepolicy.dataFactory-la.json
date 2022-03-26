@@ -134,6 +134,12 @@
                   "useDedicatedTable": {
                     "type": "string"
                   },
+                  "metricsEnabled": {
+                    "type": "string"
+                  },
+                  "logsEnabled": {
+                    "type": "string"
+                  },
                   "location": {
                     "type": "string"
                   }

@@ -181,8 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "AzureCdnAccessLog",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

@@ -181,16 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "ApplicationGatewayAccessLog",
-                          "enabled": true
-                        },
-                        {
-                          "category": "ApplicationGatewayPerformanceLog",
-                          "enabled": true
-                        },
-                        {
-                          "category": "ApplicationGatewayFirewallLog",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

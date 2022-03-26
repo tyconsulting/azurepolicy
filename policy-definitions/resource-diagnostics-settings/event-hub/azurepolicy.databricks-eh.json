@@ -1,7 +1,7 @@
 {
-  "name": "appInsights-diagnostic-settings-eh-policyDef",
+  "name": "databricks-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for AppInsights - Event Hub",
+    "displayName": "Apply diagnostic settings for Azure Databricks Premium - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -61,18 +61,6 @@
           "description": "Specify Event Hub Authorization Rule Id"
         }
       },
-      "metricsEnabled": {
-        "type": "string",
-        "metadata": {
-          "displayName": "Enable metrics",
-          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
-        },
-        "allowedValues": [
-          "True",
-          "False"
-        ],
-        "defaultValue": "True"
-      },
       "logsEnabled": {
         "type": "string",
         "metadata": {
@@ -91,7 +79,11 @@
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.Insights/Components"
+            "equals": "Microsoft.Databricks/workspaces"
+          },
+          {
+            "field": "Microsoft.Databricks/workspaces/sku.name",
+            "matchInsensitively": "premium"
           },
           {
             "field": "location",
@@ -112,10 +104,6 @@
             "allOf": [
               {
                 "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                "equals": "True"
-              },
-              {
-                "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
               },
               {
@@ -147,9 +135,6 @@
                   "eventHubAuthorizationRuleId": {
                     "type": "string"
                   },
-                  "metricsEnabled": {
-                    "type": "string"
-                  },
                   "logsEnabled": {
                     "type": "string"
                   },
@@ -160,7 +145,7 @@
                 "variables": {},
                 "resources": [
                   {
-                    "type": "Microsoft.Insights/Components/providers/diagnosticSettings",
+                    "type": "Microsoft.Databricks/workspaces/providers/diagnosticSettings",
                     "apiVersion": "2021-05-01-preview",
                     "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
@@ -168,106 +153,11 @@
                     "properties": {
                       "eventHubName": "[parameters('eventHubName')]",
                       "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-                      "metrics": [
-                        {
-                          "category": "Availability",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Browser",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Server",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Failures",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Usage",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        },
-                        {
-                          "category": "Performance counters",
-                          "timeGrain": null,
-                          "enabled": "[parameters('metricsEnabled')]",
-                          "retentionPolicy": {
-                            "enabled": false,
-                            "days": 0
-                          }
-                        }
-                      ],
+                      "metrics": [],
                       "logs": [
                         {
-                          "category": "AppAvailabilityResults",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppBrowserTimings",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppEvents",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppMetrics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppDependencies",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppExceptions",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppPageViews",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppPerformanceCounters",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppRequests",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppSystemEvents",
-                          "enabled": true
-                        },
-                        {
-                          "category": "AppTraces",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
@@ -284,9 +174,6 @@
                 },
                 "eventHubAuthorizationRuleId": {
                   "value": "[parameters('eventHubAuthorizationRuleId')]"
-                },
-                "metricsEnabled": {
-                  "value": "[parameters('metricsEnabled')]"
                 },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"

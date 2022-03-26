@@ -1,7 +1,7 @@
 {
   "name": "dataFactory-diagnostic-settings-eh-policyDef",
   "properties": {
-    "displayName": "Apply diagnostic settings for Data Factory - Event Hub",
+    "displayName": "Apply diagnostic settings for Data Factory V2 - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
       "category": "Monitoring",
@@ -181,40 +181,8 @@
                       ],
                       "logs": [
                         {
-                          "category": "ActivityRuns",
-                          "enabled": true
-                        },
-                        {
-                          "category": "PipelineRuns",
-                          "enabled": true
-                        },
-                        {
-                          "category": "TriggerRuns",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SSISPackageEventMessages",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SSISPackageExecutableStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SSISPackageEventMessageContext",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SSISPackageExecutionComponentPhases",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SSISPackageExecutionDataStatistics",
-                          "enabled": true
-                        },
-                        {
-                          "category": "SSISIntegrationRuntimeLogs",
-                          "enabled": true
+                          "categoryGroup": "allLogs",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }

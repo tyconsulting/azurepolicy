@@ -180,35 +180,39 @@
                       "logs": [
                         {
                           "category": "DataPlaneRequests",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "MongoRequests",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "QueryRuntimeStatistics",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "PartitionKeyStatistics",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "PartitionKeyRUConsumption",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "ControlPlaneRequests",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "CassandraRequests",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
                         },
                         {
                           "category": "GremlinRequests",
-                          "enabled": true
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "TableApiRequests",
+                          "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
                     }
