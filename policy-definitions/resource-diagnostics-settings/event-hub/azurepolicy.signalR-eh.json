@@ -4,15 +4,18 @@
     "displayName": "Apply diagnostic settings for SignalR - Event Hub",
     "description": "This policy automatically deploys and enable diagnostic settings to Event Hub",
     "metadata": {
-      "category": "Monitoring"
+      "category": "Monitoring",
+      "version": "2.0.0",
+      "preview": false,
+      "depreciated": false
     },
     "mode": "all",
     "parameters": {
-      "diagnosticsSettingNameToUse": {
+      "profileName": {
         "type": "string",
         "metadata": {
-          "displayName": "Setting name",
-          "description": "Name of the policy for the diagnostics settings."
+          "displayName": "Profile name",
+          "description": "The diagnostic settings profile name"
         },
         "defaultValue": "setByPolicyEvtHub"
       },
@@ -23,6 +26,26 @@
           "description": "Resource Location must be the same as the Event Hub",
           "strongType": "location"
         }
+      },
+      "evaluationDelay": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Evaluation Delay",
+          "description": "Specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. Allowed values are AfterProvisioning, AfterProvisioningSuccess, AfterProvisioningFailure, or an ISO 8601 duration between 0 and 360 minutes."
+        },
+        "defaultValue": "AfterProvisioning"
+      },
+      "effect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
       },
       "eventHubName": {
         "type": "string",
@@ -37,6 +60,30 @@
           "displayName": "Event Hub Authorization Rule Id",
           "description": "Specify Event Hub Authorization Rule Id"
         }
+      },
+      "metricsEnabled": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enable metrics",
+          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+        },
+        "allowedValues": [
+          "True",
+          "False"
+        ],
+        "defaultValue": "True"
+      },
+      "logsEnabled": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enable logs",
+          "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+        },
+        "allowedValues": [
+          "True",
+          "False"
+        ],
+        "defaultValue": "True"
       }
     },
     "policyRule": {
@@ -53,11 +100,13 @@
         ]
       },
       "then": {
-        "effect": "deployIfNotExists",
+        "effect": "[parameters('effect')]",
         "details": {
           "type": "Microsoft.Insights/diagnosticSettings",
+          "evaluationDelay": "[parameters('evaluationDelay')]",
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+            "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
           ],
           "existenceCondition": {
             "allOf": [
@@ -86,7 +135,7 @@
                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                 "contentVersion": "1.0.0.0",
                 "parameters": {
-                  "diagnosticsSettingNameToUse": {
+                  "profileName": {
                     "type": "string"
                   },
                   "resourceName": {
@@ -98,6 +147,12 @@
                   "eventHubAuthorizationRuleId": {
                     "type": "string"
                   },
+                  "metricsEnabled": {
+                    "type": "string"
+                  },
+                  "logsEnabled": {
+                    "type": "string"
+                  },
                   "location": {
                     "type": "string"
                   }
@@ -106,8 +161,8 @@
                 "resources": [
                   {
                     "type": "Microsoft.SignalRService/SignalR/providers/diagnosticSettings",
-                    "apiVersion": "2017-05-01-preview",
-                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
+                    "apiVersion": "2021-05-01-preview",
+                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
@@ -120,8 +175,7 @@
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         },
                         {
                           "category": "Errors",
@@ -129,8 +183,7 @@
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         }
                       ],
                       "logs": [
@@ -145,14 +198,20 @@
                 "outputs": {}
               },
               "parameters": {
-                "diagnosticsSettingNameToUse": {
-                  "value": "[parameters('diagnosticsSettingNameToUse')]"
+                "profileName": {
+                  "value": "[parameters('profileName')]"
                 },
                 "eventHubName": {
                   "value": "[parameters('eventHubName')]"
                 },
                 "eventHubAuthorizationRuleId": {
                   "value": "[parameters('eventHubAuthorizationRuleId')]"
+                },
+                "metricsEnabled": {
+                  "value": "[parameters('metricsEnabled')]"
+                },
+                "logsEnabled": {
+                  "value": "[parameters('logsEnabled')]"
                 },
                 "location": {
                   "value": "[field('location')]"

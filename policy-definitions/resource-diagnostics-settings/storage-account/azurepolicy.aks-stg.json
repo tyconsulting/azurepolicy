@@ -4,15 +4,18 @@
     "displayName": "Apply diagnostic settings for Azure Kubernetes Service - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
-      "category": "Monitoring"
+      "category": "Monitoring",
+      "version": "2.0.0",
+      "preview": false,
+      "depreciated": false
     },
     "mode": "all",
     "parameters": {
-      "diagnosticsSettingNameToUse": {
+      "profileName": {
         "type": "string",
         "metadata": {
-          "displayName": "Setting name",
-          "description": "Name of the policy for the diagnostics settings."
+          "displayName": "Profile name",
+          "description": "The diagnostic settings profile name"
         },
         "defaultValue": "setByPolicyStgAcct"
       },
@@ -31,11 +34,13 @@
         "equals": "Microsoft.ContainerService/managedClusters"
       },
       "then": {
-        "effect": "deployIfNotExists",
+        "effect": "[parameters('effect')]",
         "details": {
           "type": "Microsoft.Insights/diagnosticSettings",
+          "evaluationDelay": "[parameters('evaluationDelay')]",
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+            "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
           ],
           "existenceCondition": {
             "allOf": [
@@ -60,7 +65,7 @@
                 "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                 "contentVersion": "1.0.0.0",
                 "parameters": {
-                  "diagnosticsSettingNameToUse": {
+                  "profileName": {
                     "type": "string"
                   },
                   "resourceName": {
@@ -77,8 +82,8 @@
                 "resources": [
                   {
                     "type": "Microsoft.ContainerService/managedClusters/providers/diagnosticSettings",
-                    "apiVersion": "2017-05-01-preview",
-                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
+                    "apiVersion": "2021-05-01-preview",
+                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
@@ -86,12 +91,12 @@
                       "metrics": [
                         {
                           "category": "AllMetrics",
-                          "enabled": true,
+                          "timeGrain": null,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         }
                       ],
                       "logs": [
@@ -130,8 +135,8 @@
                 "outputs": {}
               },
               "parameters": {
-                "diagnosticsSettingNameToUse": {
-                  "value": "[parameters('diagnosticsSettingNameToUse')]"
+                "profileName": {
+                  "value": "[parameters('profileName')]"
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"

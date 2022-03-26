@@ -154,8 +154,7 @@
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         },
                         {
                           "category": "InstanceAndAppAdvanced",
@@ -163,8 +162,7 @@
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         },
                         {
                           "category": "WorkloadManagement",
@@ -172,8 +170,7 @@
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         }
                       ],
                       "logs": [

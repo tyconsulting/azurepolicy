@@ -160,12 +160,12 @@
                       "metrics": [
                         {
                           "category": "AllMetrics",
+                          "timeGrain": null,
                           "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         }
                       ],
                       "logs": [
