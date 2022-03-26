@@ -1,166 +1,166 @@
 {
-    "name": "sqlServers-auditing-la-policyDef",
-    "properties": {
-        "displayName": "Enable SQL Servers Auditing for Log Analytics",
-        "description": "This policy automatically deploys and enables SQL server auditing settings for Azure Monitor. The target Log Analytics workspace is configured via the Diagnostics settings on the master database.",
+  "name": "sqlServers-auditing-la-policyDef",
+  "properties": {
+    "displayName": "Enable SQL Servers Auditing for Log Analytics",
+    "description": "This policy automatically deploys and enables SQL server auditing settings for Azure Monitor. The target Log Analytics workspace is configured via the Diagnostics settings on the master database.",
+    "metadata": {
+      "category": "Monitoring"
+    },
+    "mode": "all",
+    "parameters": {
+      "auditActionsAndGroups": {
+        "type": "array",
+        "defaultValue": [
+          "BATCH_COMPLETED_GROUP",
+          "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP",
+          "FAILED_DATABASE_AUTHENTICATION_GROUP"
+        ],
         "metadata": {
-            "category": "Monitoring"
-        },
-        "mode": "all",
-        "parameters": {
-            "auditActionsAndGroups": {
-                "type": "array",
-                "defaultValue": [
-                    "BATCH_COMPLETED_GROUP",
-                    "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP",
-                    "FAILED_DATABASE_AUTHENTICATION_GROUP"
-                ],
-                "metadata": {
-                    "displayName": "Mandatory Action-Groups and Actions",
-                    "description": "Specifies the mandatory Actions-Groups and Actions."
-                }
-            },
-            "effect": {
-                "type": "string",
-                "defaultValue": "DeployIfNotExists",
-                "allowedValues": [
-                    "DeployIfNotExists",
-                    "Disabled"
-                ],
-                "metadata": {
-                    "displayName": "Effect",
-                    "description": "the desired effect of the policy"
-                }
-            },
-            "diagnosticsSettingNameToUse": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Setting name",
-                    "description": "Name of the policy for the diagnostics settings."
-                },
-                "defaultValue": "setByPolicyLA"
-            },
-            "logAnalytics": {
-                "type": "string",
-                "metadata": {
-                    "displayName": "Log Analytics workspace",
-                    "description": "Select the Log Analytics workspace from dropdown list",
-                    "strongType": "omsWorkspace"
-                }
-            }
-        },
-        "policyRule": {
-            "if": {
-                "field": "type",
-                "equals": "Microsoft.Sql/servers"
-            },
-            "then": {
-                "effect": "[parameters('effect')]",
-                "details": {
-                    "type": "Microsoft.Sql/servers/auditingSettings",
-                    "roleDefinitionIds": [
-                        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
-                    ],
-                    "existenceCondition": {
-                        "allOf": [
-                            {
-                                "field": "Microsoft.Sql/auditingSettings.state",
-                                "equals": "Enabled"
-                            },
-                            {
-                                "field": "Microsoft.Sql/servers/auditingSettings/isAzureMonitorTargetEnabled",
-                                "equals": "True"
-                            },
-                            {
-                                "count": {
-                                    "field": "Microsoft.Sql/servers/auditingSettings/auditActionsAndGroups[*]",
-                                    "where": {
-                                        "field": "Microsoft.Sql/servers/auditingSettings/auditActionsAndGroups[*]",
-                                        "in": "[parameters('auditActionsAndGroups')]"
-                                    }
-                                },
-                                "equals": "[length(parameters('auditActionsAndGroups'))]"
-                            }
-                        ]
-                    },
-                    "deployment": {
-                        "properties": {
-                            "mode": "incremental",
-                            "template": {
-                                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                                "contentVersion": "1.0.0.0",
-                                "parameters": {
-                                    "diagnosticsSettingNameToUse": {
-                                        "type": "string"
-                                    },
-                                    "resourceName": {
-                                        "type": "string"
-                                    },
-                                    "logAnalytics": {
-                                        "type": "string"
-                                    },
-                                    "auditActionsAndGroups": {
-                                        "type": "array"
-                                    },
-                                    "location": {
-                                        "type": "string"
-                                    }
-                                },
-                                "variables": {},
-                                "resources": [
-                                    {
-                                        "type": "Microsoft.Sql/servers/auditingSettings",
-                                        "apiVersion": "2017-03-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/Default')]",
-                                        "location": "[parameters('location')]",
-                                        "dependsOn": [],
-                                        "properties": {
-                                            "State": "Enabled",
-                                            "auditActionsAndGroups": "[parameters('auditActionsAndGroups')]",
-                                            "isAzureMonitorTargetEnabled": true
-                                        }
-                                    },
-                                    {
-                                        "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
-                                        "apiVersion": "2017-05-01-preview",
-                                        "name": "[concat(parameters('resourceName'), '/master/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
-                                        "location": "[parameters('location')]",
-                                        "dependsOn": [],
-                                        "properties": {
-                                            "workspaceId": "[parameters('logAnalytics')]",
-                                            "metrics": [],
-                                            "logs": [
-                                                {
-                                                    "category": "SQLSecurityAuditEvents",
-                                                    "enabled": true
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ],
-                                "outputs": {}
-                            },
-                            "parameters": {
-                                "diagnosticsSettingNameToUse": {
-                                    "value": "[parameters('diagnosticsSettingNameToUse')]"
-                                },
-                                "logAnalytics": {
-                                    "value": "[parameters('logAnalytics')]"
-                                },
-                                "auditActionsAndGroups": {
-                                    "value": "[parameters('auditActionsAndGroups')]"
-                                },
-                                "location": {
-                                    "value": "[field('location')]"
-                                },
-                                "resourceName": {
-                                    "value": "[field('fullName')]"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+          "displayName": "Mandatory Action-Groups and Actions",
+          "description": "Specifies the mandatory Actions-Groups and Actions."
         }
+      },
+      "effect": {
+        "type": "string",
+        "defaultValue": "DeployIfNotExists",
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "metadata": {
+          "displayName": "Effect",
+          "description": "the desired effect of the policy"
+        }
+      },
+      "diagnosticsSettingNameToUse": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Setting name",
+          "description": "Name of the policy for the diagnostics settings."
+        },
+        "defaultValue": "setByPolicyLA"
+      },
+      "logAnalytics": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Log Analytics workspace",
+          "description": "Select the Log Analytics workspace from dropdown list",
+          "strongType": "omsWorkspace"
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Sql/servers"
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Sql/servers/auditingSettings",
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ],
+          "existenceCondition": {
+            "allOf": [
+              {
+                "field": "Microsoft.Sql/auditingSettings.state",
+                "equals": "Enabled"
+              },
+              {
+                "field": "Microsoft.Sql/servers/auditingSettings/isAzureMonitorTargetEnabled",
+                "equals": "True"
+              },
+              {
+                "count": {
+                  "field": "Microsoft.Sql/servers/auditingSettings/auditActionsAndGroups[*]",
+                  "where": {
+                    "field": "Microsoft.Sql/servers/auditingSettings/auditActionsAndGroups[*]",
+                    "in": "[parameters('auditActionsAndGroups')]"
+                  }
+                },
+                "equals": "[length(parameters('auditActionsAndGroups'))]"
+              }
+            ]
+          },
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "diagnosticsSettingNameToUse": {
+                    "type": "string"
+                  },
+                  "resourceName": {
+                    "type": "string"
+                  },
+                  "logAnalytics": {
+                    "type": "string"
+                  },
+                  "auditActionsAndGroups": {
+                    "type": "array"
+                  },
+                  "location": {
+                    "type": "string"
+                  }
+                },
+                "variables": {},
+                "resources": [
+                  {
+                    "type": "Microsoft.Sql/servers/auditingSettings",
+                    "apiVersion": "2017-03-01-preview",
+                    "name": "[concat(parameters('resourceName'), '/Default')]",
+                    "location": "[parameters('location')]",
+                    "dependsOn": [],
+                    "properties": {
+                      "State": "Enabled",
+                      "auditActionsAndGroups": "[parameters('auditActionsAndGroups')]",
+                      "isAzureMonitorTargetEnabled": true
+                    }
+                  },
+                  {
+                    "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
+                    "apiVersion": "2017-05-01-preview",
+                    "name": "[concat(parameters('resourceName'), '/master/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
+                    "location": "[parameters('location')]",
+                    "dependsOn": [],
+                    "properties": {
+                      "workspaceId": "[parameters('logAnalytics')]",
+                      "metrics": [],
+                      "logs": [
+                        {
+                          "category": "SQLSecurityAuditEvents",
+                          "enabled": true
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "outputs": {}
+              },
+              "parameters": {
+                "diagnosticsSettingNameToUse": {
+                  "value": "[parameters('diagnosticsSettingNameToUse')]"
+                },
+                "logAnalytics": {
+                  "value": "[parameters('logAnalytics')]"
+                },
+                "auditActionsAndGroups": {
+                  "value": "[parameters('auditActionsAndGroups')]"
+                },
+                "location": {
+                  "value": "[field('location')]"
+                },
+                "resourceName": {
+                  "value": "[field('fullName')]"
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }
