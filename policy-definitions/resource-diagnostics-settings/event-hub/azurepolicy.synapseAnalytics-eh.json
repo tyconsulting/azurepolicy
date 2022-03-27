@@ -190,9 +190,6 @@
                 "eventHubAuthorizationRuleId": {
                   "value": "[parameters('eventHubAuthorizationRuleId')]"
                 },
-                "metricsEnabled": {
-                  "value": "[parameters('metricsEnabled')]"
-                },
                 "logsEnabled": {
                   "value": "[parameters('logsEnabled')]"
                 },

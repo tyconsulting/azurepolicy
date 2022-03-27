@@ -143,7 +143,7 @@
                   "value": "[parameters('storageAccount')]"
                 },
                 "logsEnabled": {
-                  "value": "[parameters('logsEnabled')]"
+                  "value": "[parameters('metricsEnabled')]"
                 },
                 "location": {
                   "value": "[field('location')]"
