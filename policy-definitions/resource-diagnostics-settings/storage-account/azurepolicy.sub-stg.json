@@ -1,0 +1,178 @@
+{
+  "name": "sub-diagnostic-settings-stg-policyDef",
+  "properties": {
+    "displayName": "Apply diagnostic settings for Azure subscriptions - Storage Account",
+    "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
+    "metadata": {
+      "category": "Monitoring",
+      "version": "2.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "mode": "all",
+    "parameters": {
+      "profileName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Profile name",
+          "description": "The diagnostic settings profile name"
+        },
+        "defaultValue": "setByPolicyStgAcct"
+      },
+      "evaluationDelay": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Evaluation Delay",
+          "description": "Specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. Allowed values are AfterProvisioning, AfterProvisioningSuccess, AfterProvisioningFailure, or an ISO 8601 duration between 0 and 360 minutes."
+        },
+        "defaultValue": "AfterProvisioning"
+      },
+      "effect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "logsEnabled": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enable logs",
+          "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+        },
+        "allowedValues": [
+          "True",
+          "False"
+        ],
+        "defaultValue": "True"
+      },
+      "storageAccount": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Account reference",
+          "description": "Set the full path (resourceId) to the target storage account for diagnostics events.",
+          "assignPermissions": true
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Resources/subscriptions"
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Insights/diagnosticSettings",
+          "deploymentScope": "Subscription",
+          "existenceScope": "Subscription",
+          "evaluationDelay": "[parameters('evaluationDelay')]",
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ],
+          "existenceCondition": {
+            "allOf": [
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                "equals": "True"
+              },
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/storageAccountId",
+                "matchInsensitively": "[parameters('storageAccount')]"
+              }
+            ]
+          },
+          "deployment": {
+            "location": "australiaeast",
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "profileName": {
+                    "type": "string"
+                  },
+                  "logsEnabled": {
+                    "type": "string"
+                  },
+                  "storageAccount": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  }
+                },
+                "variables": {},
+                "resources": [
+                  {
+                    "type": "Microsoft.Insights/diagnosticSettings",
+                    "apiVersion": "2021-05-01-preview",
+                    "name": "[parameters('profileName')]",
+                    "location": "Global",
+                    "dependsOn": [],
+                    "properties": {
+                      "storageAccountId": "[parameters('storageAccount')]",
+                      "metrics": [],
+                      "logs": [
+                        {
+                          "category": "Administrative",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Security",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "ServiceHealth",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Alert",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Recommendation",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Policy",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "Autoscale",
+                          "enabled": "[parameters('logsEnabled')]"
+                        },
+                        {
+                          "category": "ResourceHealth",
+                          "enabled": "[parameters('logsEnabled')]"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "outputs": {}
+              },
+              "parameters": {
+                "profileName": {
+                  "value": "[parameters('profileName')]"
+                },
+                "storageAccount": {
+                  "value": "[parameters('storageAccount')]"
+                },
+                "logsEnabled": {
+                  "value": "[parameters('logsEnabled')]"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

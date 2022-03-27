@@ -4,17 +4,52 @@
     "displayName": "Apply diagnostic settings for HDInsight - Storage Account",
     "description": "This policy automatically deploys and enable diagnostic settings to Storage Account",
     "metadata": {
-      "category": "Monitoring"
+      "category": "Monitoring",
+      "version": "2.0.0",
+      "preview": false,
+      "depreciated": false
     },
     "mode": "all",
     "parameters": {
-      "diagnosticsSettingNameToUse": {
+      "profileName": {
         "type": "string",
         "metadata": {
-          "displayName": "Setting name",
-          "description": "Name of the policy for the diagnostics settings."
+          "displayName": "Profile name",
+          "description": "The diagnostic settings profile name"
         },
         "defaultValue": "setByPolicyStgAcct"
+      },
+      "evaluationDelay": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Evaluation Delay",
+          "description": "Specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. Allowed values are AfterProvisioning, AfterProvisioningSuccess, AfterProvisioningFailure, or an ISO 8601 duration between 0 and 360 minutes."
+        },
+        "defaultValue": "AfterProvisioning"
+      },
+      "effect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "metricsEnabled": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enable metrics",
+          "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+        },
+        "allowedValues": [
+          "True",
+          "False"
+        ],
+        "defaultValue": "True"
       },
       "storageAccount": {
         "type": "string",
@@ -31,18 +66,15 @@
         "equals": "Microsoft.HDInsight/clusters"
       },
       "then": {
-        "effect": "deployIfNotExists",
+        "effect": "[parameters('effect')]",
         "details": {
           "type": "Microsoft.Insights/diagnosticSettings",
+          "evaluationDelay": "[parameters('evaluationDelay')]",
           "roleDefinitionIds": [
             "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
           ],
           "existenceCondition": {
             "allOf": [
-              {
-                "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
-                "equals": "True"
-              },
               {
                 "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                 "equals": "True"
@@ -57,13 +89,16 @@
             "properties": {
               "mode": "incremental",
               "template": {
-                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                 "contentVersion": "1.0.0.0",
                 "parameters": {
-                  "diagnosticsSettingNameToUse": {
+                  "profileName": {
                     "type": "string"
                   },
                   "resourceName": {
+                    "type": "string"
+                  },
+                  "metricsEnabled": {
                     "type": "string"
                   },
                   "storageAccount": {
@@ -77,8 +112,8 @@
                 "resources": [
                   {
                     "type": "Microsoft.HDInsight/clusters/providers/diagnosticSettings",
-                    "apiVersion": "2017-05-01-preview",
-                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagnosticsSettingNameToUse'))]",
+                    "apiVersion": "2021-05-01-preview",
+                    "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
                     "location": "[parameters('location')]",
                     "dependsOn": [],
                     "properties": {
@@ -86,12 +121,11 @@
                       "metrics": [
                         {
                           "category": "Availability",
-                          "enabled": true,
+                          "enabled": "[parameters('metricsEnabled')]",
                           "retentionPolicy": {
                             "days": 0,
                             "enabled": false
-                          },
-                          "timeGrain": null
+                          }
                         }
                       ],
                       "logs": []
@@ -101,11 +135,14 @@
                 "outputs": {}
               },
               "parameters": {
-                "diagnosticsSettingNameToUse": {
-                  "value": "[parameters('diagnosticsSettingNameToUse')]"
+                "profileName": {
+                  "value": "[parameters('profileName')]"
                 },
                 "storageAccount": {
                   "value": "[parameters('storageAccount')]"
+                },
+                "metricsEnabled": {
+                  "value": "[parameters('metricsEnabled')]"
                 },
                 "location": {
                   "value": "[field('location')]"
