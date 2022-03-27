@@ -133,9 +133,6 @@
                   "metricsEnabled": {
                     "type": "string"
                   },
-                  "logsEnabled": {
-                    "type": "string"
-                  },
                   "location": {
                     "type": "string"
                   }
