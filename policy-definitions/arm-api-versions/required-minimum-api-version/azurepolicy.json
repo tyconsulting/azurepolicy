@@ -1,0 +1,58 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "required-minimum-arm-api-versions-policyDef",
+    "properties": {
+      "displayName": "Required minimum Azure Resource Manager REST API version for a resource type",
+      "description": "This policy controls the minimum required version of Azure Resource Manager REST API for a resource type.",
+      "metadata": {
+        "category": "General"
+      },
+      "parameters": {
+        "resourceType": {
+          "type": "string",
+          "metadata": {
+            "description": "The resource type to be controlled.",
+            "displayName": "Select the resource type",
+            "strongType": "resourceTypes"
+          }
+        },
+        "MinimumAPIVersion": {
+          "type": "string",
+          "metadata": {
+            "description": "The minimum version of the ARM API.",
+            "displayName": "Allowed minimum API version"
+          }
+        },
+        "policyEffect": {
+          "type": "String",
+          "metadata": {
+            "displayName": "Policy Effect",
+            "description": "The desired effect of the policy."
+          },
+          "allowedValues": [
+            "deny",
+            "audit",
+            "disabled"
+          ],
+          "defaultValue": "deny"
+        }
+      },
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "[parameters('resourceType')]"
+            },
+            {
+              "value": "[requestContext().apiVersion]",
+              "less": "[parameters('MinimumAPIVersion')]"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('policyEffect')]"
+        }
+      }
+    }
+  }

@@ -1,0 +1,58 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "restrict-to-specific-arm-api-versions-policyDef",
+    "properties": {
+      "displayName": "Restrict to specific Azure Resource Manager REST API versions for a resource type",
+      "description": "This policy whitelists specific API versions for a specific Azure service.",
+      "metadata": {
+        "category": "General"
+      },
+      "parameters": {
+        "resourceType": {
+          "type": "string",
+          "metadata": {
+            "description": "The resource type to be controlled.",
+            "displayName": "Select the resource type",
+            "strongType": "resourceTypes"
+          }
+        },
+        "listOfAllowedAPIs": {
+          "type": "Array",
+          "metadata": {
+            "description": "The list of allowed API versions.",
+            "displayName": "Allowed API versions"
+          }
+        },
+        "policyEffect": {
+          "type": "String",
+          "metadata": {
+            "displayName": "Policy Effect",
+            "description": "The desired effect of the policy."
+          },
+          "allowedValues": [
+            "deny",
+            "audit",
+            "disabled"
+          ],
+          "defaultValue": "deny"
+        }
+      },
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "[parameters('resourceType')]"
+            },
+            {
+              "value": "[requestContext().apiVersion]",
+              "notIn": "[parameters('listOfAllowedAPIs')]"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('policyEffect')]"
+        }
+      }
+    }
+  }
