@@ -1,0 +1,41 @@
+{
+ "sku": {
+  "name": "A0",
+  "tier": "Free"
+ },
+ "identity": {
+  "principalId": "4dce4522-d12e-4c3e-b729-d8ba3e605e89",
+  "tenantId": "c7e9abb7-1aa0-47d4-9ff4-49c649b768fd",
+  "type": "SystemAssigned"
+ },
+ "properties": {
+  "displayName": "Apply diagnostic settings for applicable resources - Log Analytics",
+  "policyDefinitionId": "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8/providers/Microsoft.Authorization/policySetDefinitions/resource-diagnostic-settings-policySet",
+  "scope": "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8",
+  "notScopes": [
+   "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8/resourceGroups/CHS-PDE-Work1",
+   "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8/resourceGroups/PDE-POC-Admin"
+  ],
+  "parameters": {
+   "logAnalytics": {
+    "value": "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8/resourcegroups/chs-hippa-dev/providers/microsoft.operationalinsights/workspaces/chs-hpa-loganalytic"
+   }
+  },
+  "description": "",
+  "metadata": {
+   "assignedBy": "Kevin Martin",
+   "parameterScopes": {
+    "logAnalytics": "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8"
+   },
+   "createdBy": "7558c923-8e1d-4c06-9ed8-eb54080021e7",
+   "createdOn": "2021-10-21T13:09:07.7135275Z",
+   "updatedBy": "7558c923-8e1d-4c06-9ed8-eb54080021e7",
+   "updatedOn": "2022-05-18T19:52:37.6738173Z"
+  },
+  "enforcementMode": "Default"
+ },
+ "id": "/subscriptions/4f29dd34-c806-491d-83d5-89cce130fcf8/providers/Microsoft.Authorization/policyAssignments/cf044580022a405ea5be8ccc",
+ "type": "Microsoft.Authorization/policyAssignments",
+ "name": "cf044580022a405ea5be8ccc",
+ "location": "northcentralus"
+}

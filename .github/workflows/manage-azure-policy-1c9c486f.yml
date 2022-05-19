@@ -1,0 +1,34 @@
+name: manage-azure-policy-1c9c486f
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'initiatives/Apply_diagnostic_settings_for_applicable_resources_-_Log_Analytics_resource-diagnostic-settings-policySet/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Key_Vault_to_Log_Analytics_workspace_bef3f64c-5290-43b7-85b0-9b254eef4c47/**'
+#      - .github/workflows/manage-azure-policy-1c9c486f.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_1c9c486f}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          initiatives/Apply_diagnostic_settings_for_applicable_resources_-_Log_Analytics_resource-diagnostic-settings-policySet/**
+          policies/Deploy_Diagnostic_Settings_for_Key_Vault_to_Log_Analytics_workspace_bef3f64c-5290-43b7-85b0-9b254eef4c47/**
