@@ -1,0 +1,34 @@
+{
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "audit-storage-account-without-lifecycle-mgmt-policy",
+  "properties": {
+    "displayName": "Audit Storage Account Without Lifecycle Management Policy",
+    "description": "This policy audit Storage Account without a Lifecycle Management Policy.",
+    "metadata": {
+      "category": "Storage"
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Storage/StorageAccounts"
+      },
+      "then": {
+        "effect": "auditIfNotExists",
+        "details": {
+          "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+          "name": "default",
+          "existenceCondition": {
+            "count": {
+              "field": "Microsoft.Storage/storageAccounts/managementPolicies/policy.rules[*]",
+              "where": {
+                "field": "Microsoft.Storage/storageAccounts/managementPolicies/policy.rules[*].type",
+                "equals": "Lifecycle"
+              }
+            },
+            "greater": 0
+          }
+        }
+      }
+    }
+  }
+}
