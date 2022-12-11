@@ -1,0 +1,5 @@
+{
+  "itemDisplayName": "Azure Policy Assignment Module",
+  "description": "This deploys Policy Assignments to a Management Group scope.",
+  "summary": "Deploys the Policy Assignments in an Azure environments."
+}

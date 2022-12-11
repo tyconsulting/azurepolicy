@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "assignmentIdentityType": {
+      "value": "SystemAssigned"
+    },
+    "tagAssignmentName": {
+      "value": "pa-tags-tyang"
+    },
+    "tagPolicyDefinitionId": {
+      "value": "{policyLocationResourceId}/providers/microsoft.authorization/policySetDefinitions/polset-tags"
+    },
+    "tagAssignmentDisplayName": {
+      "value": "TYANG-Tagging Policies"
+    },
+    "tagAssignmentMetadata": {
+      "value": {
+        "category": "Tags"
+      }
+    },
+    "tagAssignmentParameters": {
+      "value": {
+        "subEnvTagName": {
+          "value": "Environment"
+        },
+        "subEnvTagEffect": {
+          "value": "modify"
+        },
+        "subProjectTagName": {
+          "value": "Project"
+        },
+        "subProjectTagEffect": {
+          "value": "modify"
+        },
+        "subCostCenterTagName": {
+          "value": "CostCenter"
+        },
+        "subCostCenterTagEffect": {
+          "value": "modify"
+        }
+      }
+    },
+    "tagAssignmentRoleDefinitionIds": {
+      "value": [
+        "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    }
+  }
+}
