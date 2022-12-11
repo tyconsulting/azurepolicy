@@ -3,7 +3,7 @@ targetScope = 'managementGroup'
 var PolicyDefinitions = [
   loadTextContent('pol-control-preview-api.json')
   loadTextContent('pol-required-minimum-api-version.json')
-  loadTextContent('polrestrict-to-specific-api-version.json')
+  loadTextContent('pol-restrict-to-specific-api-version.json')
   loadTextContent('pol-inherit-tags-from-sub.json')
 ]
 
