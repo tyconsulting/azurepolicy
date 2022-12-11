@@ -1,0 +1,5 @@
+{
+  "itemDisplayName": "Azure Policy Definition Module",
+  "description": "This deploys Policy Definitions to a Management Group scope.",
+  "summary": "Deploys the Policy Definition in an Azure environments."
+}

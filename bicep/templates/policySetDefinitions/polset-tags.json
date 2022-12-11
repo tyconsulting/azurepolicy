@@ -1,0 +1,131 @@
+{
+  "name": "polset-tags",
+  "properties": {
+    "displayName": "Resource Tags",
+    "description": "This policy initiative defines apply required resource tags from parent subscription and resource group",
+    "metadata": {
+      "category": "Data Protection",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false,
+      "iso_27001": [
+        "A.18.1.1"
+      ]
+    },
+    "parameters": {
+      "subEnvTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Subscription Environment Tag Name",
+          "description": "Name of the Subscription Environment Tag"
+        },
+        "defaultValue": "Environment"
+      },
+      "subEnvTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Subscription Environment Tag effect",
+          "description": "''modify' modifies the specific tag. 'Disable' turns off the policy."
+        },
+        "allowedValues": [
+          "modify",
+          "Disabled"
+        ],
+        "defaultValue": "modify"
+      },
+      "subProjectTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Subscription Project Tag Name",
+          "description": "Name of the Subscription Project Tag"
+        },
+        "defaultValue": "Project"
+      },
+      "subProjectTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Subscription Project Tag effect",
+          "description": "''modify' modifies the specific tag. 'Disable' turns off the policy."
+        },
+        "allowedValues": [
+          "modify",
+          "Disabled"
+        ],
+        "defaultValue": "modify"
+      },
+      "subCostCenterTagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Subscription CostCenter Tag Name",
+          "description": "Name of the Subscription CostCenter Tag"
+        },
+        "defaultValue": "CostCenter"
+      },
+      "subCostCenterTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Subscription CostCenter Tag effect",
+          "description": "''modify' modifies the specific tag. 'Disable' turns off the policy."
+        },
+        "allowedValues": [
+          "modify",
+          "Disabled"
+        ],
+        "defaultValue": "modify"
+      }
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "ISO27001-2013_A.18.1.1",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_A.8.2.3"
+      }
+    ],
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "subEnvTag",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-inherit-tags-from-sub",
+        "parameters": {
+          "tagName": {
+            "value": "[[parameters('subEnvTagName')]"
+          },
+          "effect": {
+            "value": "[[parameters('subEnvTagEffect')]"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.18.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "subProjectTag",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-inherit-tags-from-sub",
+        "parameters": {
+          "tagName": {
+            "value": "[[parameters('subProjectTagName')]"
+          },
+          "effect": {
+            "value": "[[parameters('subProjectTagEffect')]"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.18.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "subCostCenterTag",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-inherit-tags-from-sub",
+        "parameters": {
+          "tagName": {
+            "value": "[[parameters('subCostCenterTagName')]"
+          },
+          "effect": {
+            "value": "[[parameters('subCostCenterTagEffect')]"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.18.1.1"
+        ]
+      }
+    ]
+  }
+}

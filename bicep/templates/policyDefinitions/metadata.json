@@ -1,0 +1,5 @@
+{
+  "itemDisplayName": "Policy Definitions Template",
+  "description": "This template deploys the policy definitions to the a management group.",
+  "summary": "Deploys policy definitions to management group."
+}

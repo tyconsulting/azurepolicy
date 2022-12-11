@@ -1,0 +1,5 @@
+{
+  "itemDisplayName": "Policy Assignment Template",
+  "description": "This template creates policy assignments on various Management Group level scopes.",
+  "summary": "Deploys policy assignments to management group scopes."
+}

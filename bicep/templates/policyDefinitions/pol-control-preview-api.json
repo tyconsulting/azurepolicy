@@ -1,0 +1,53 @@
+{
+  "name": "pol-control-arm-preview-api-policyDef",
+  "properties": {
+    "displayName": "Control usage of preview versions of Azure Resource Manager REST APIs",
+    "description": "This policy controls which Azure services can be deployed using ARM preview APIs.",
+    "mode": "All",
+    "metadata": {
+      "category": "General"
+    },
+    "parameters": {
+      "listOfResourceTypes": {
+        "type": "Array",
+        "metadata": {
+          "description": "The list of resource types that can be deployed using preview APIs.",
+          "displayName": "Allowed resource types",
+          "strongType": "resourceTypes"
+        }
+      },
+      "policyEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Policy Effect",
+          "description": "The desired effect of the policy."
+        },
+        "allowedValues": [
+          "deny",
+          "audit",
+          "disabled"
+        ],
+        "defaultValue": "deny"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "not": {
+              "field": "type",
+              "in": "[parameters('listOfResourceTypes')]"
+            }
+          },
+          {
+            "value": "[requestContext().apiVersion]",
+            "like": "*-preview"
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('policyEffect')]"
+      }
+    }
+  }
+}

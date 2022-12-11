@@ -1,0 +1,5 @@
+{
+  "itemDisplayName": "Azure Policy Set (Initiative) Definition Module",
+  "description": "This deploys Policy Set (Initiative) Definitions to a Management Group scope.",
+  "summary": "Deploys the Policy Set (Initiative) Definition in an Azure environments."
+}
