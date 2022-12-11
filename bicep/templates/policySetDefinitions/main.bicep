@@ -29,7 +29,7 @@ var tagPolicySetDefinition = {
 
 //------Deploy Policy Initiatives------
 
-module tagPolicyInitiative '../../Modules/Bicep/microsoft.authorization/policySetDefinitions/main.bicep' = {
+module tagPolicyInitiative '../../modules/policySetDefinitions/main.bicep' = {
   name: tagPolicySetDefinitionFromFile.name
   params: {
     policySetDefinition: tagPolicySetDefinition
