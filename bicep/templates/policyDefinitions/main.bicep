@@ -5,6 +5,8 @@ var PolicyDefinitions = [
   loadTextContent('pol-required-minimum-api-version.json')
   loadTextContent('pol-restrict-to-specific-api-version.json')
   loadTextContent('pol-inherit-tags-from-sub.json')
+  loadTextContent('../../../policy-definitions/event-hub-restrict-public-network-access/azurepolicy.json')
+  loadTextContent('../../../policy-definitions/event-hub-network-ruleset-restrict-public-network-access/azurepolicy.json')
 ]
 
 @batchSize(15)
