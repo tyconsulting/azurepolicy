@@ -1,0 +1,180 @@
+{
+  "name": "pol-deploy-rsv-backup-pe-dns-records",
+  "properties": {
+    "displayName": "Create the required DNS record in the central private DNS zone if link does not exist (Azure Backup)",
+    "description": "This policy creates a Private DNS Group link for a Azure PaaS Private Endpoint Resource (Recovery Services Vault Azure Backup)",
+    "metadata": {
+      "category": "Network Security",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "mode": "All",
+    "parameters": {
+      "evaluationDelay": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Evaluation Delay",
+          "description": "Specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. Allowed values are AfterProvisioning, AfterProvisioningSuccess, AfterProvisioningFailure, or an ISO 8601 duration between 0 and 360 minutes."
+        },
+        "defaultValue": "AfterProvisioning"
+      },
+      "effect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "resourceLocation": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Resource Location",
+          "description": "Resource Location must match the private dnz zone name",
+          "strongType": "location"
+        }
+      },
+      "privateDnsZoneIdRSV": {
+        "metadata": {
+          "displayName": "Private DNZ Zone for Azure Backups",
+          "description": "The resource Id of the RSV private DNZ zone",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        },
+        "type": "String"
+      },
+      "privateDnsZoneIdBlob": {
+        "metadata": {
+          "displayName": "Private DNZ Zone for Storage Blob",
+          "description": "The resource Id of the storage blob private DNZ zone",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        },
+        "type": "String"
+      },
+      "privateDnsZoneIdQueue": {
+        "metadata": {
+          "displayName": "Private DNZ Zone for Storage Queue",
+          "description": "The resource Id of the storage queue private DNZ zone",
+          "strongType": "Microsoft.Network/privateDnsZones"
+        },
+        "type": "String"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "equals": "Microsoft.Network/privateEndpoints",
+            "field": "type"
+          },
+          {
+            "field": "location",
+            "equals": "[parameters('resourceLocation')]"
+          },
+          {
+            "count": {
+              "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].groupIds[*]",
+              "where": {
+                "equals": "AzureBackup",
+                "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].groupIds[*]"
+              }
+            },
+            "greaterOrEquals": 1
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+          "evaluationDelay": "[parameters('evaluationDelay')]",
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+          ],
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "location": {
+                    "type": "string"
+                  },
+                  "privateDnsZoneIdRSV": {
+                    "type": "string"
+                  },
+                  "privateDnsZoneIdBlob": {
+                    "type": "string"
+                  },
+                  "privateDnsZoneIdQueue": {
+                    "type": "string"
+                  },
+                  "privateEndpointName": {
+                    "type": "string"
+                  }
+                },
+                "variables": {
+                  "privateDnsZoneNameRSV": "[replace(last(split(parameters('privateDnsZoneIdRSV'),'/')), '.', '-')]",
+                  "privateDnsZoneNameQueue": "[replace(last(split(parameters('privateDnsZoneIdQueue'),'/')), '.', '-')]",
+                  "privateDnsZoneNameBlob": "[replace(last(split(parameters('privateDnsZoneIdBlob'),'/')), '.', '-')]"
+                },
+                "resources": [
+                  {
+                    "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+                    "apiVersion": "2020-03-01",
+                    "name": "[concat(parameters('privateEndpointName'), '/default')]",
+                    "properties": {
+                      "privateDnsZoneConfigs": [
+                        {
+                          "name": "[variables('privateDnsZoneNameRSV')]",
+                          "properties": {
+                            "privateDnsZoneId": "[parameters('privateDnsZoneIdRSV')]"
+                          }
+                        },
+                        {
+                          "name": "[variables('privateDnsZoneNameQueue')]",
+                          "properties": {
+                            "privateDnsZoneId": "[parameters('privateDnsZoneIdQueue')]"
+                          }
+                        },
+                        {
+                          "name": "[variables('privateDnsZoneNameBlob')]",
+                          "properties": {
+                            "privateDnsZoneId": "[parameters('privateDnsZoneIdBlob')]"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "outputs": {}
+              },
+              "parameters": {
+                "privateDnsZoneIdRSV": {
+                  "value": "[parameters('privateDnsZoneIdRSV')]"
+                },
+                "privateDnsZoneIdBlob": {
+                  "value": "[parameters('privateDnsZoneIdBlob')]"
+                },
+                "privateDnsZoneIdQueue": {
+                  "value": "[parameters('privateDnsZoneIdQueue')]"
+                },
+                "location": {
+                  "value": "[field('location')]"
+                },
+                "privateEndpointName": {
+                  "value": "[field('name')]"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
