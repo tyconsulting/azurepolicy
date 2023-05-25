@@ -121,27 +121,7 @@
                       "metrics": [],
                       "logs": [
                         {
-                          "category": "SynapseRbacOperations",
-                          "enabled": "[parameters('logsEnabled')]"
-                        },
-                        {
-                          "category": "GatewayApiRequests",
-                          "enabled": "[parameters('logsEnabled')]"
-                        },
-                        {
-                          "category": "BuiltinSqlReqsEnded",
-                          "enabled": "[parameters('logsEnabled')]"
-                        },
-                        {
-                          "category": "IntegrationPipelineRuns",
-                          "enabled": "[parameters('logsEnabled')]"
-                        },
-                        {
-                          "category": "IntegrationActivityRuns",
-                          "enabled": "[parameters('logsEnabled')]"
-                        },
-                        {
-                          "category": "IntegrationTriggerRuns",
+                          "categoryGroup": "allLogs",
                           "enabled": "[parameters('logsEnabled')]"
                         }
                       ]
