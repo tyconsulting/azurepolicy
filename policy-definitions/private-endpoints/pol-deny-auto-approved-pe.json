@@ -1,0 +1,72 @@
+{
+  "name": "pol-deny-auto-approved-pe",
+  "properties": {
+    "displayName": "Restrict Automatically Approved Private Endpoints for a resource type",
+    "description": "When creating a Private Endpoint for a specific resource type, the Private Endpoint must be configured for manual approval.",
+    "metadata": {
+      "category": "Network Security",
+      "version": "1.0.0"
+    },
+    "mode": "Indexed",
+    "parameters": {
+      "groupId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Group ID",
+          "description": "Target group id (sub resource type) for the private endpoint."
+        }
+      },
+      "resourceType": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Resoruce Type",
+          "description": "Target resource type for the private endpoint."
+        }
+      },
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Deny",
+          "Audit",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/privateEndpoints"
+          },
+          {
+            "count": {
+              "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*]",
+              "where": {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].privateLinkServiceId",
+                    "contains": "[parameters('resourceType')]"
+                  },
+                  {
+                    "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].groupIds[*]",
+                    "equals": "[parameters('groupId')]"
+                  }
+                ]
+              }
+            },
+            "greaterOrEquals": 1
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
