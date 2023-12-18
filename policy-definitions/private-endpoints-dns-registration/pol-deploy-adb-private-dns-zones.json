@@ -1,7 +1,7 @@
 {
   "name": "pol-deploy-adb-private-dns-zones",
   "properties": {
-    "displayName": "onfigure Azure Databricks workspace to use private DNS zones",
+    "displayName": "Configure Azure Databricks workspace to use private DNS zones",
     "description": "Use private DNS zones to override the DNS resolution for a private endpoint. A private DNS zone links to your virtual network to resolve to Azure Databricks workspaces. Learn more at: https://aka.ms/adbpe.",
     "metadata": {
       "category": "Network Security",
