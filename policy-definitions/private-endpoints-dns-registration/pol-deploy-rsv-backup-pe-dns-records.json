@@ -35,30 +35,30 @@
         "type": "string",
         "metadata": {
           "displayName": "Resource Location",
-          "description": "Resource Location must match the private dnz zone name",
+          "description": "Resource Location must match the Private DNS zone name",
           "strongType": "location"
         }
       },
       "privateDnsZoneIdRSV": {
         "metadata": {
-          "displayName": "Private DNZ Zone for Azure Backups",
-          "description": "The resource Id of the RSV private DNZ zone",
+          "displayName": "Private DNS Zone for Azure Backups",
+          "description": "The resource Id of the RSV Private DNS zone",
           "strongType": "Microsoft.Network/privateDnsZones"
         },
         "type": "String"
       },
       "privateDnsZoneIdBlob": {
         "metadata": {
-          "displayName": "Private DNZ Zone for Storage Blob",
-          "description": "The resource Id of the storage blob private DNZ zone",
+          "displayName": "Private DNS Zone for Storage Blob",
+          "description": "The resource Id of the storage blob Private DNS zone",
           "strongType": "Microsoft.Network/privateDnsZones"
         },
         "type": "String"
       },
       "privateDnsZoneIdQueue": {
         "metadata": {
-          "displayName": "Private DNZ Zone for Storage Queue",
-          "description": "The resource Id of the storage queue private DNZ zone",
+          "displayName": "Private DNS Zone for Storage Queue",
+          "description": "The resource Id of the storage queue Private DNS zone",
           "strongType": "Microsoft.Network/privateDnsZones"
         },
         "type": "String"

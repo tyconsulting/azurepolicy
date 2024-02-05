@@ -33,8 +33,8 @@
       },
       "privateDnsZoneId": {
         "metadata": {
-          "displayName": "Private DNZ Zone for Databricks Workspace",
-          "description": "The resource Id of the Databricks Workspace private DNZ zone 'privatelink.azuredatabricks.net'",
+          "displayName": "Private DNS Zone for Databricks Workspace",
+          "description": "The resource Id of the Databricks Workspace private DNS zone 'privatelink.azuredatabricks.net'",
           "strongType": "Microsoft.Network/privateDnsZones"
         },
         "type": "String"
