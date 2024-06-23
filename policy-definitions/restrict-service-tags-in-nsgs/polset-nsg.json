@@ -1,0 +1,219 @@
+{
+  "name": "polset-nsg",
+  "properties": {
+    "displayName": "Network Security Groups Initiative",
+    "description": "This policy initiative defines the security requirements for Network Security Groups",
+    "metadata": {
+      "category": "Network Security Group",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "parameters": {
+      "nsgDenyInboundInternetServiceTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Deny Inbound Internet Service Tag Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "nsgDenyInboundStorageAusCentralServiceTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Deny Inbound Storage.AustraliaCentral Service Tag Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "nsgDenyOutboundInternetServiceTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Deny Out Internet Service Tag Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "nsgDenyOutboundStorageAusCentralServiceTagEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Deny Out Storage.AustraliaCentral Service Tag Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      }
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "ISO27001-2013_A.13.1.1",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_A.13.1.1"
+      }
+    ],
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "nsg01",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg-rule",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyInboundInternetServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Inbound"
+          },
+          "serviceTag": {
+            "value": "Internet"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg02",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyInboundInternetServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Inbound"
+          },
+          "serviceTag": {
+            "value": "Internet"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg03",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg-rule",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyInboundStorageAusCentralServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Inbound"
+          },
+          "serviceTag": {
+            "value": "Storage.AustraliaCentral"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg04",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyInboundStorageAusCentralServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Inbound"
+          },
+          "serviceTag": {
+            "value": "Storage.AustraliaCentral"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg05",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg-rule",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyOutboundInternetServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Outbound"
+          },
+          "serviceTag": {
+            "value": "Internet"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg06",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyOutboundInternetServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Outbound"
+          },
+          "serviceTag": {
+            "value": "Internet"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg07",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg-rule",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyOutboundStorageAusCentralServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Outbound"
+          },
+          "serviceTag": {
+            "value": "Storage.AustraliaCentral"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg08",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deny-service-tag-in-nsg",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgDenyOutboundStorageAusCentralServiceTagEffect')]"
+          },
+          "direction": {
+            "value": "Outbound"
+          },
+          "serviceTag": {
+            "value": "Storage.AustraliaCentral"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      }
+    ]
+  }
+}

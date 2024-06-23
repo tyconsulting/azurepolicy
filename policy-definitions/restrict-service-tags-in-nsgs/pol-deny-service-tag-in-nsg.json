@@ -1,0 +1,111 @@
+{
+  "name": "pol-deny-service-tag-in-nsg",
+  "properties": {
+    "displayName": "Restrict Use of Specific Service Tag in NSG",
+    "mode": "All",
+    "description": "This policy restricts the use of specific service tag in NSG rules",
+    "metadata": {
+      "category": "Network Security Group",
+      "version": "1.0.0",
+      "preview": false,
+      "deprecated": false
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "serviceTag": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Service tag",
+          "description": "Service tag to be restricted"
+        }
+      },
+      "direction": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Direction",
+          "description": "NSG rule direction. Allowed values are Outbound or Inbound",
+          "AllowedValues": [
+            "Inbound",
+            "Outbound"
+          ]
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/networkSecurityGroups"
+          },
+          {
+            "count": {
+              "field": "Microsoft.Network/networkSecurityGroups/securityRules[*]",
+              "where": {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].access",
+                    "equals": "Allow"
+                  },
+                  {
+                    "anyof": [
+                      {
+                        "allOf": [
+                          {
+                            "value": "[parameters('direction')]",
+                            "equals": "Inbound"
+                          },
+                          {
+                            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                            "equals": "[parameters('serviceTag')]"
+                          },
+                          {
+                            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].direction",
+                            "equals": "[parameters('direction')]"
+                          }
+                        ]
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "value": "[parameters('direction')]",
+                            "equals": "Outbound"
+                          },
+                          {
+                            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                            "equals": "[parameters('serviceTag')]"
+                          },
+                          {
+                            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].direction",
+                            "equals": "[parameters('direction')]"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "greater": 0
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
