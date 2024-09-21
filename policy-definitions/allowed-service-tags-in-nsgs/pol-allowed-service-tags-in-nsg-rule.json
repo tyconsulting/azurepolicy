@@ -1,0 +1,307 @@
+{
+  "name": "pol-allowed-service-tags-in-nsg-rule",
+  "properties": {
+    "displayName": "Allowed list of Service Tags in Network Security Group Security Rules",
+    "mode": "All",
+    "description": "This policy restrict the use of disallowed service tags in Network Security Group Security Rules.",
+    "metadata": {
+      "category": "Network Security",
+      "version": "1.0.0",
+      "preview": false,
+      "deprecated": false
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "allowedServiceTags": {
+        "type": "array",
+        "metadata": {
+          "displayName": "Allowed Service tags",
+          "description": "Allowed service tags in NSG rules"
+        }
+      },
+      "direction": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Direction",
+          "description": "NSG rule direction. Allowed values are Outbound or Inbound",
+          "AllowedValues": [
+            "Inbound",
+            "Outbound"
+          ]
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "anyOf": [
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/networkSecurityGroups"
+              },
+              {
+                "count": {
+                  "field": "Microsoft.Network/networkSecurityGroups/securityRules[*]",
+                  "where": {
+                    "allOf": [
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].access",
+                        "equals": "Allow"
+                      },
+                      {
+                        "anyOf": [
+                          {
+                            "allOf": [
+                              {
+                                "value": "[parameters('direction')]",
+                                "equals": "Inbound"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notIn": "[parameters('allowedServiceTags')]"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "1*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "2*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "3*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "4*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "5*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "6*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "7*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "8*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix",
+                                "notLike": "9*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].direction",
+                                "equals": "[parameters('direction')]"
+                              }
+                            ]
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "value": "[parameters('direction')]",
+                                "equals": "Outbound"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notIn": "[parameters('allowedServiceTags')]"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "1*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "2*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "3*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "4*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "5*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "6*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "7*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "8*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix",
+                                "notLike": "9*"
+                              },
+                              {
+                                "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].direction",
+                                "equals": "[parameters('direction')]"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "greater": 0
+              }
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Network/networkSecurityGroups/securityRules"
+              },
+              {
+                "field": "Microsoft.Network/networkSecurityGroups/securityRules/access",
+                "equals": "Allow"
+              },
+              {
+                "anyOf": [
+                  {
+                    "allOf": [
+                      {
+                        "value": "[parameters('direction')]",
+                        "equals": "Inbound"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "1*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "2*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "3*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "4*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "5*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "6*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "7*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "8*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notLike": "9*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                        "notIn": "[parameters('allowedServiceTags')]"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
+                        "equals": "[parameters('direction')]"
+                      }
+                    ]
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "value": "[parameters('direction')]",
+                        "equals": "Outbound"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "1*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "2*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "3*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "4*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "5*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "6*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "7*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "8*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notLike": "9*"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationAddressPrefix",
+                        "notIn": "[parameters('allowedServiceTags')]"
+                      },
+                      {
+                        "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
+                        "equals": "[parameters('direction')]"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}

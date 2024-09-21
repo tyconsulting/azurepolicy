@@ -1,0 +1,101 @@
+{
+  "name": "polset-nsg",
+  "properties": {
+    "displayName": "Network Security Groups Initiative",
+    "description": "This policy initiative defines the foundation security requirements for Network Security Groups",
+    "metadata": {
+      "category": "TYANG - Network Security Group",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "parameters": {
+      "nsgAllowedInboundServiceTagsEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Allowed Inbound Service Tags Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "nsgAllowedInboundServiceTags": {
+        "type": "array",
+        "metadata": {
+          "displayName": "Allowed Inbound Service Tags",
+          "description": "List of allowed service tags for inbound rules"
+        }
+      },
+      "nsgAllowedOutboundServiceTagsEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Allowed Outbound Service Tags Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "nsgAllowedOutboundServiceTags": {
+        "type": "array",
+        "metadata": {
+          "displayName": "Allowed Outbound Service Tags",
+          "description": "List of allowed service tags for outbound rules"
+        }
+      }
+
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "ISO27001-2013_A.13.1.1",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_A.13.1.1"
+      }
+    ],
+    "policyDefinitions": [
+
+      {
+        "policyDefinitionReferenceId": "nsg01",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-allowed-service-tags-in-nsg-rule",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgAllowedInboundServiceTagsEffect')]"
+          },
+          "direction": {
+            "value": "Inbound"
+          },
+          "allowedServiceTags": {
+            "value": "[parameters('nsgAllowedInboundServiceTags')]"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "nsg02",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-allowed-service-tags-in-nsg-rule",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('nsgAllowedOutboundServiceTagsEffect')]"
+          },
+          "direction": {
+            "value": "Outbound"
+          },
+          "allowedServiceTags": {
+            "value": "[parameters('nsgAllowedOutboundServiceTags')]"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.1"
+        ]
+      }
+    ]
+  }
+}
