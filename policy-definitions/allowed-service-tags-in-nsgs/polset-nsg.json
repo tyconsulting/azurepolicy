@@ -4,7 +4,7 @@
     "displayName": "Network Security Groups Initiative",
     "description": "This policy initiative defines the foundation security requirements for Network Security Groups",
     "metadata": {
-      "category": "TYANG - Network Security Group",
+      "category": "Network Security Group",
       "version": "1.0.0",
       "preview": false,
       "depreciated": false
