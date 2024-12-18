@@ -1,0 +1,110 @@
+{
+  "name": "pol-restrict-cross-sub-pe",
+  "properties": {
+    "displayName": "Restrict Cross-Subscription private endpoints only to allowed Private Link Service IDs",
+    "description": "This policy restrict cross-subscription Private Endpoints except for the service aliases or resource Ids from the approved list.",
+    "mode": "Indexed",
+    "metadata": {
+      "category": "Network Security",
+      "version": "1.0.0",
+      "preview": false,
+      "deprecated": false,
+      "control_ids": [
+        "ISO27001-2013_A.13.1.1"
+      ]
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enabled or disabled the execution of the policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "allowedCrossSubPrivateLinkResources": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed Cross Subscription Private Link Resource",
+          "description": "List of allowed Private Link Resource aliases or resource IDs."
+        },
+        "defaultValue": []
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/privateEndpoints"
+          },
+          {
+            "anyOf": [
+              {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*].name",
+                    "exists": true
+                  },
+                  {
+                    "count": {
+                      "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*]",
+                      "where": {
+                        "allOf": [
+                          {
+                            "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*].privateLinkServiceId",
+                            "notIn": "[parameters('allowedCrossSubPrivateLinkResources')]"
+                          },
+                          {
+                            "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*].privateLinkServiceId",
+                            "notLike": "[concat('/subscriptions/', subscription().subscriptionId, '/*')]"
+                          }
+                        ]
+                      }
+                    },
+                    "greater": 0
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].name",
+                    "exists": true
+                  },
+                  {
+                    "count": {
+                      "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*]",
+                      "where": {
+                        "allOf": [
+                          {
+                            "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].privateLinkServiceId",
+                            "notIn": "[parameters('allowedCrossSubPrivateLinkResources')]"
+                          },
+                          {
+                            "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].privateLinkServiceId",
+                            "notLike": "[concat('/subscriptions/', subscription().subscriptionId, '/*')]"
+                          }
+                        ]
+                      }
+                    },
+                    "greater": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
