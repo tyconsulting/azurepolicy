@@ -8,10 +8,7 @@
       "category": "Network Security",
       "version": "1.0.0",
       "preview": false,
-      "deprecated": false,
-      "control_ids": [
-        "ISO27001-2013_A.13.1.1"
-      ]
+      "deprecated": false
     },
     "version": "1.0.0",
     "parameters": {
