@@ -1,0 +1,476 @@
+{
+  "name": "polset-deploy-pe-dns-records",
+  "properties": {
+    "displayName": "Create DNS Records for Private Endpoints",
+    "description": "This policy Initiative creates required DNS records for private endpoints.",
+    "metadata": {
+      "category": "Network Security",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "parameters": {
+      "azureBackupEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Azure Backup Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "storageBlobEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Blob Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "storageFileEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage File Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "storageDfsEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Storage Dfs Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "keyVaultEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Key Vault Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "webSiteEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Web Site Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "eventHubNamespaceEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Event Hub Namespace Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "databricksBrowserAuthEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Databricks Browser Auth Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "databricksUiApiEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Databricks UI API Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "adxEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Azure Data Explorer Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "amplsEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Azure Monitor Private Link Scope Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "healthEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Health Data Services Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "evaluationDelay": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Evaluation Delay",
+          "description": "Specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. Allowed values are AfterProvisioning, AfterProvisioningSuccess, AfterProvisioningFailure, or an ISO 8601 duration between 0 and 360 minutes."
+        },
+        "defaultValue": "AfterProvisioning"
+      },
+      "privateDnsZoneResourceGroup": {
+        "metadata": {
+          "displayName": "Private DNS Zone Resource Group",
+          "description": "The resource group of the private DNS zone"
+        },
+        "type": "String"
+      }
+    },
+    "policyDefinitionGroups": [
+      {
+        "name": "ISO27001-2013_A.13.1.3",
+        "additionalMetadataId": "/providers/Microsoft.PolicyInsights/policyMetadata/ISO27001-2013_A.13.1.3"
+      }
+    ],
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "rsv-backup-aue",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-multiple-dns-zones-single-location",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('azureBackupEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "AzureBackup"
+          },
+          "resourceLocation": {
+            "value": "australiaeast"
+          },
+          "privateDnsZoneIds": {
+            "value": "[concat(array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.blob.core.windows.net')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.queue.core.windows.net')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.ae.backup.windowsazure.com')))]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.RecoveryServices/vaults"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "sa-blob",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('storageBlobEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "blob"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.blob.core.windows.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Storage/storageAccounts"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "sa-file",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('storageFileEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "file"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.file.core.windows.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Storage/storageAccounts"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "sa-dfs",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('storageDfsEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "dfs"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.dfs.core.windows.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Storage/storageAccounts"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "kv",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('keyVaultEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "vault"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.vaultcore.azure.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.KeyVault/vaults"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "website",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('webSiteEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "sites"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.azurewebsites.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Web/sites"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "eh-namespace",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('eventHubNamespaceEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "namespace"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.servicebus.windows.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.EventHub/namespaces"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "databricks-browser-auth",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('databricksBrowserAuthEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "browser_authentication"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.azuredatabricks.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Databricks/workspaces"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "databricks-ui-api",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('databricksUiApiEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "databricks_ui_api"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.azuredatabricks.net')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Databricks/workspaces"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "adx-aue",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-multiple-dns-zones-single-location",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('adxEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "cluster"
+          },
+          "resourceLocation": {
+            "value": "australiaeast"
+          },
+          "privateDnsZoneIds": {
+            "value": "[concat(array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.blob.core.windows.net')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.queue.core.windows.net')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.table.core.windows.net')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.australiaeast.kusto.windows.net')))]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Kusto/Clusters"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "ampls",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-multiple-dns-zones-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('amplsEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "azuremonitor"
+          },
+          "privateDnsZoneIds": {
+            "value": "[concat(array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.monitor.azure.com')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.oms.opinsights.azure.com')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.ods.opinsights.azure.com')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.agentsvc.azure-automation.net')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.blob.core.windows.net')))]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.Insights/privateLinkScopes"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "healthcare",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-multiple-dns-zones-all-locations",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('healthEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "cluster"
+          },
+          "privateDnsZoneIds": {
+            "value": "[concat(array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.workspace.azurehealthcareapis.com')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.fhir.azurehealthcareapis.com')), array(concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.dicom.azurehealthcareapis.com')))]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.HealthcareApis/workspaces"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      }
+    ]
+  }
+}

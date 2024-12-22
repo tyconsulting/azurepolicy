@@ -1,0 +1,180 @@
+{
+  "name": "pol-deploy-pe-dns-records-multiple-dns-zones-all-locations",
+  "properties": {
+    "displayName": "Configure Private Endpoints to use Private DNS Zones (Multiple DNS Zones All Locations)",
+    "description": "This policy creates a Private DNS Group link for a Azure PaaS Private Endpoint Resource that requires DNS records in multiple Private DNS zones.",
+    "metadata": {
+      "category": "Network Security",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "mode": "All",
+    "parameters": {
+      "evaluationDelay": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Evaluation Delay",
+          "description": "Specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. Allowed values are AfterProvisioning, AfterProvisioningSuccess, AfterProvisioningFailure, or an ISO 8601 duration between 0 and 360 minutes."
+        },
+        "defaultValue": "AfterProvisioning"
+      },
+      "groupId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Group ID",
+          "description": "Target group id (sub resource type) for the private endpoint."
+        }
+      },
+      "effect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "privateDnsZoneIds": {
+        "metadata": {
+          "displayName": "Private DNS Zone Resource IDs",
+          "description": "The resource IDs of the private DNS zones"
+        },
+        "type": "Array"
+      },
+      "privateLinkServiceResourceType": {
+        "metadata": {
+          "displayName": "Private Link Service Resource Type",
+          "description": "The resource type of the private link service"
+        },
+        "type": "String"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/privateEndpoints"
+          },
+          {
+            "anyOf": [
+              {
+                "count": {
+                  "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*]",
+                  "where": {
+                    "allOf": [
+                      {
+                        "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].privateLinkServiceId",
+                        "contains": "[parameters('privateLinkServiceResourceType')]"
+                      },
+                      {
+                        "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].groupIds[*]",
+                        "equals": "[parameters('groupId')]"
+                      }
+                    ]
+                  }
+                },
+                "greaterOrEquals": 1
+              },
+              {
+                "count": {
+                  "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*]",
+                  "where": {
+                    "allOf": [
+                      {
+                        "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*].privateLinkServiceId",
+                        "contains": "[parameters('privateLinkServiceResourceType')]"
+                      },
+                      {
+                        "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*].groupIds[*]",
+                        "equals": "[parameters('groupId')]"
+                      }
+                    ]
+                  }
+                },
+                "greaterOrEquals": 1
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+          "evaluationDelay": "[parameters('evaluationDelay')]",
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+          ],
+          "existenceCondition": {
+            "count": {
+              "field": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups/privateDnsZoneConfigs[*]"
+            },
+            "equals": "[length(parameters('privateDnsZoneIds'))]"
+          },
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "privateDnsZoneIds": {
+                    "type": "array"
+                  },
+                  "privateEndpointName": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  }
+                },
+                "variables": {
+                  "copy": [
+                    {
+                      "name": "privateDnsZoneConfigs",
+                      "count": "[length(parameters('privateDnsZoneIds'))]",
+                      "input": {
+                        "name": "[replace(last(split(parameters('privateDnsZoneIds')[copyIndex('privateDnsZoneConfigs')], '/')), '.', '-')]",
+                        "properties": {
+                          "privateDnsZoneId": "[parameters('privateDnsZoneIds')[copyIndex('privateDnsZoneConfigs')]]"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "resources": [
+                  {
+                    "name": "[concat(parameters('privateEndpointName'), '/deployedByPolicy')]",
+                    "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+                    "apiVersion": "2023-04-01",
+                    "location": "[parameters('location')]",
+                    "properties": {
+                      "privateDnsZoneConfigs": "[variables('privateDnsZoneConfigs')]"
+                    }
+                  }
+                ],
+                "outputs": {}
+              },
+              "parameters": {
+                "privateDnsZoneIds": {
+                  "value": "[parameters('privateDnsZoneIds')]"
+                },
+                "privateEndpointName": {
+                  "value": "[field('name')]"
+                },
+                "location": {
+                  "value": "[field('location')]"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
