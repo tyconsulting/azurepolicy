@@ -1,10 +1,10 @@
 {
   "name": "polset-deploy-pe-dns-records",
   "properties": {
-    "displayName": "Create DNS Records for Private Endpoints",
+    "displayName": "TYANG-Create DNS Records for Private Endpoints",
     "description": "This policy Initiative creates required DNS records for private endpoints.",
     "metadata": {
-      "category": "Network Security",
+      "category": "TYANG - Network Security",
       "version": "1.0.0",
       "preview": false,
       "depreciated": false
@@ -130,6 +130,18 @@
         ],
         "defaultValue": "DeployIfNotExists"
       },
+      "acrEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Azure Container Registry Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
       "amplsEffect": {
         "type": "string",
         "metadata": {
@@ -146,6 +158,18 @@
         "type": "string",
         "metadata": {
           "displayName": "Health Data Services Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "containerAppMgEnvEffect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Container App Managed Environment Effect",
           "description": "Enable or disable the execution of the policy"
         },
         "allowedValues": [
@@ -448,6 +472,30 @@
         ]
       },
       {
+        "policyDefinitionReferenceId": "acr-aue",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-all-locations",
+        "parameters": {
+          "Effect": {
+            "value": "[parameters('acrEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "registry"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.azurecr.io')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.ContainerRegistry/registries"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
         "policyDefinitionReferenceId": "healthcare",
         "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-multiple-dns-zones-all-locations",
         "parameters": {
@@ -465,6 +513,33 @@
           },
           "privateLinkServiceResourceType": {
             "value": "Microsoft.HealthcareApis/workspaces"
+          }
+        },
+        "groupNames": [
+          "ISO27001-2013_A.13.1.3"
+        ]
+      },
+      {
+        "policyDefinitionReferenceId": "containerAppMgEnv",
+        "policyDefinitionId": "{policyLocationResourceId}/providers/Microsoft.Authorization/policyDefinitions/pol-deploy-pe-dns-records-single-dns-zone-single-location",
+        "parameters": {
+          "effect": {
+            "value": "[parameters('containerAppMgEnvEffect')]"
+          },
+          "evaluationDelay": {
+            "value": "[parameters('evaluationDelay')]"
+          },
+          "groupId": {
+            "value": "managedEnvironments"
+          },
+          "resourceLocation": {
+            "value": "australiaeast"
+          },
+          "privateDnsZoneId": {
+            "value": "[concat(parameters('privateDnsZoneResourceGroup'), '/providers/Microsoft.Network/privateDnsZones/', 'privatelink.australiaeast.azurecontainerapps.io')]"
+          },
+          "privateLinkServiceResourceType": {
+            "value": "Microsoft.App/managedEnvironments"
           }
         },
         "groupNames": [
