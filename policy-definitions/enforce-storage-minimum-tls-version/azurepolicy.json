@@ -48,9 +48,9 @@
           },
           {
             "anyOf": [
-              {
-                "value": "[split(field('Microsoft.Storage/storageAccounts/minimumTlsVersion'),'_')[1]]",
-                "less": "[split(parameters('minimumTlsVersion'),'_')[1]]"
+{
+                "value": "[replace(replace(field('Microsoft.Storage/storageAccounts/minimumTlsVersion'),'TLS', ''),'_', '.')]",
+                "less": "[replace(replace(parameters('minimumTlsVersion'),'TLS',''),'_','.')]"
               },
               {
                 "field": "Microsoft.Storage/storageAccounts/minimumTlsVersion",
