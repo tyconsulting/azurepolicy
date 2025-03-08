@@ -1,0 +1,68 @@
+{
+  "name": "pol-ag-deny-unauthorized-azure-automation-actions",
+  "properties": {
+    "displayName": "Restrict Azure Monitor Action Group Trigger Actions to Cross-Subscription Azure Automation or not on the Allowed List",
+    "description": "Deny Azure Monitor Action Groups that trigger actions to Azure Automation Runbooks located in other subscriptions or not on the allowed list.",
+    "metadata": {
+      "category": "Monitoring",
+      "version": "1.0.0",
+      "preview": false,
+      "depreciated": false
+    },
+    "mode": "Indexed",
+    "parameters": {
+      "effect": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "'Audit' allows a non-compliant resource to be created, but flags it as non-compliant. 'Deny' blocks the resource creation. 'Disable' turns off the policy."
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "allowedAutomationAccounts": {
+        "type": "array",
+        "metadata": {
+          "displayName": "Allowed Automation Accounts",
+          "description": "List of resource IDs of allowed Automation Accounts."
+        },
+        "defaultValue": []
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Insights/actiongroups"
+          },
+          {
+            "count": {
+              "field": "Microsoft.Insights/actiongroups/automationRunbookReceivers[*]",
+              "where": {
+                "allOf": [
+                  {
+                    "field": "Microsoft.Insights/actiongroups/automationRunbookReceivers[*].automationAccountId",
+                    "notIn": "[parameters('allowedAutomationAccounts')]"
+                  },
+                  {
+                    "field": "Microsoft.Insights/actiongroups/automationRunbookReceivers[*].automationAccountId",
+                    "notLike": "[concat('/subscriptions/', subscription().subscriptionId, '*')]"
+                  }
+                ]
+              }
+            },
+            "greater": 0
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  }
+}
